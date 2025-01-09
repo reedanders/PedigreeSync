@@ -1,13 +1,12 @@
 'use client'
 
-import Link from 'next/link'
-import { login } from './actions'
+import { signup } from './actions'
 
 export default function LoginPage() {
   return (
     <main className="flex flex-col gap-8 sm:gap-16">
       <section className="flex flex-col gap-4">
-        <h1>Login</h1>
+        <h1>Sign Up</h1>
         <form className="flex flex-col gap-4 max-w-md">
           <div className="flex flex-col gap-2">
             <label htmlFor="email" className="text-sm">
@@ -36,18 +35,12 @@ export default function LoginPage() {
           </div>
 
           <div className="flex gap-4 mt-4">
-            <button 
-              formAction={login}
-              className="btn-primary flex-1"
+            <button
+                formAction={signup}
+                className="btn-primary flex-1"
             >
-              Log in
+                Sign up
             </button>
-            <Link
-              href="/signup"
-              className="flex-1 px-4 py-2 text-blue-600 bg-transparent font-medium hover:bg-blue-50 hover:text-blue-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors text-center inline-flex items-center justify-center"
-            >
-              Sign up
-            </Link>
           </div>
         </form>
       </section>
