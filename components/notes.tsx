@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '../utils';
+import { createClient } from '../utils/supabase/client';
 
 interface Note {
   id: string;
@@ -14,6 +14,7 @@ export function Notes() {
 
   useEffect(() => {
     const fetchData = async () => {
+      const supabase = createClient();
       const { data, error } = await supabase.from('notes').select('*');
       if (error) console.error(error);
       else setData(data || []);

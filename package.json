@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@sentry/nextjs": "^8.47.0",
+    "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.10",
     "autoprefixer": "^10.4.20",
     "next": "15.1.0",
