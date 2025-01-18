@@ -3,19 +3,18 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
     content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+    darkMode: "class",
     theme: {
         extend: {
-            backgroundImage: {
-                'grid-pattern': "linear-gradient(to bottom, theme('colors.neutral.950 / 0%'), theme('colors.neutral.950 / 100%')), url('/images/noise.png')"
-            },
-            colors: {
-                neutral: colors.neutral
-            },
-            fontFamily: {
-                sans: ['Inter', ...defaultTheme.fontFamily.sans]
-            }
-        }
-    },
+          colors: {
+            trueGray: colors.neutral,
+          },
+        },
+        fontFamily: {
+          sans: ["Inter", ...defaultTheme.fontFamily.serif],
+          stock: [defaultTheme.fontFamily.serif],
+        },
+      },
     daisyui: {
         themes: [
             {

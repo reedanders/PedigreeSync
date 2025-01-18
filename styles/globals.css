@@ -1,46 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-    :not(pre) > code {
-        @apply px-1 py-0.5 font-mono rounded bg-neutral-900 text-yellow-200;
-        font-size: 0.9em;
+    html,
+    body {
+      @apply dark:bg-trueGray-900;
     }
-
-    h1 {
-        @apply mb-6 text-4xl font-bold tracking-tight md:text-5xl;
-    }
-}
-
-a {
-    @apply underline
-}
-
-.markdown {
-    @apply mb-1;
-}
-
-.alert .markdown {
-    @apply mb-0;
-}
-
-.markdown p {
-    @apply mb-3;
-}
-
-.btn:disabled {
-    @apply text-neutral-400 bg-neutral-700;
-}
-
-@layer components {
-  .btn-primary {
-    @apply px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors;
   }
-  
-  .btn-secondary {
-    @apply px-4 py-2 text-blue-600 bg-transparent font-medium hover:bg-blue-50 hover:text-blue-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors;
-  }
-}
