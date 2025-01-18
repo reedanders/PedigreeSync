@@ -15,14 +15,5 @@ module.exports = {
           stock: [defaultTheme.fontFamily.serif],
         },
       },
-    daisyui: {
-        themes: [
-            {
-                garden: {
-                    ...require('daisyui/src/theming/themes')['gardenlofi'],
-                }
-            }
-        ]
-    },
     plugins: [require('daisyui')]
 };

@@ -41,14 +41,16 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" data-theme="garden">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.svg" sizes="any" />
       </head>
       <body className={inter.className}>
+        <ThemeProvider attribute="class">
           <Navbar />
           <div>{children}</div>
           <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
