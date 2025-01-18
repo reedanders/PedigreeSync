@@ -1,5 +1,6 @@
 import { Container } from "@/components/Container";
 import { Hero } from "@/components/Hero";
+import { DemoDashboard } from '@/components/DemoDashboard';
 // import { SectionTitle } from "@/components/SectionTitle";
 // import { Benefits } from "@/components/Benefits";
 // import { Video } from "@/components/Video";
@@ -12,6 +13,7 @@ export default function Home() {
   return (
     <Container>
       <Hero />
+      <DemoDashboard DemoDashboardId="1" />
       {/* <SectionTitle
         preTitle="Nextly Benefits"
         title=" Why should you use this landing page"
