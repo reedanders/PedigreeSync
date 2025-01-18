@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 
-import { Footer } from '../components/footer';
+import { Footer } from '../components/Footer';
 import { Navbar } from '../components/Navbar';
 
 export const viewport = {
