@@ -16,19 +16,19 @@ export function DemoDashboard() {
   if (!mounted) {
     return (
       <Container>
-        <div className="relative w-full h-[600px] max-w-6xl mx-auto overflow-hidden lg:mb-20 rounded-2xl animate-pulse bg-gray-200 dark:bg-gray-700" />
+        <div className="relative w-full h-[300px] md:h-[600px] max-w-6xl mx-auto overflow-hidden mb-4 lg:mb-20 rounded-2xl animate-pulse bg-gray-200 dark:bg-gray-700" />
       </Container>
     );
   }
 
   return (
     <Container>
-      <div className="relative w-full h-[600px] max-w-6xl mx-auto overflow-hidden lg:mb-20 rounded-2xl">
+      <div className="relative w-full h-[300px] md:h-[600px] max-w-6xl mx-auto overflow-hidden mb-4 lg:mb-20 rounded-2xl">
         <Image
           src={theme === 'dark' ? darkDashboard : lightDashboard}
           alt="PedigreeSync Dashboard"
           fill
-          className="object-contain"
+          className="object-cover md:object-contain object-left-top md:object-center"
           priority
           placeholder="blur"
         />
