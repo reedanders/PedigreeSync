@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <Container>
       <Hero />
-      <DemoDashboard DemoDashboardId="1" />
+      <DemoDashboard />
       {/* <SectionTitle
         preTitle="Nextly Benefits"
         title=" Why should you use this landing page"

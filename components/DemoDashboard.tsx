@@ -1,19 +1,37 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
+import Image from "next/image";
 import { Container } from "@/components/Container";
 
-interface DemoDashboardProps {
-  DemoDashboardId: string;
-}
+import darkDashboard from "../public/images/dashboard_dark.png";
+import lightDashboard from "../public/images/dashboard_light.png";
 
-export function DemoDashboard({ DemoDashboardId }: Readonly<DemoDashboardProps>) {
+export function DemoDashboard() {
+  const [mounted, setMounted] = useState(false);
+  const { theme } = useTheme();
 
-  if (!DemoDashboardId) return null;
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    return (
+      <Container>
+        <div className="relative w-full h-[600px] max-w-6xl mx-auto overflow-hidden lg:mb-20 rounded-2xl animate-pulse bg-gray-200 dark:bg-gray-700" />
+      </Container>
+    );
+  }
 
   return (
     <Container>
-      <div className="relative w-full h-[500px] max-w-4xl mx-auto overflow-hidden lg:mb-20 rounded-2xl bg-indigo-300 cursor-pointer bg-gradient-to-tr from-purple-400 to-indigo-700">
-        
+      <div className="relative w-full h-[600px] max-w-6xl mx-auto overflow-hidden lg:mb-20 rounded-2xl">
+        <Image
+          src={theme === 'dark' ? darkDashboard : lightDashboard}
+          alt="PedigreeSync Dashboard"
+          fill
+          className="object-contain"
+          priority
+          placeholder="blur"
+        />
       </div>
     </Container>
   );
