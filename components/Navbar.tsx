@@ -24,7 +24,7 @@ export const Navbar = () => {
                 <Image
                   src={placeholderLogo}
                   width="32"
-                  alt="N"
+                  alt="placeholder logo"
                   height="32"
                   className="w-8"
                 />

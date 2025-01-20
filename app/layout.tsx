@@ -1,11 +1,11 @@
-import '../styles/globals.css';
+import '@/styles/globals.css';
 
 import { ReactNode } from 'react';
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 
-import { Footer } from '../components/Footer';
-import { Navbar } from '../components/Navbar';
+import { Footer } from '@/components/Footer';
+import { Navbar } from '@/components/Navbar';
 
 export const viewport = {
     width: 'device-width',

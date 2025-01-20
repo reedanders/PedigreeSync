@@ -4,8 +4,8 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import { Container } from "@/components/Container";
 
-import darkDashboard from "../public/images/dashboard_dark.png";
-import lightDashboard from "../public/images/dashboard_light.png";
+import darkDashboard from "@/public/images/dashboard_dark.png";
+import lightDashboard from "@/public/images/dashboard_light.png";
 
 export function DemoDashboard() {
   const [mounted, setMounted] = useState(false);

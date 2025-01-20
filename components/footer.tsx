@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { Container } from "@/components/Container";
 
-import placeholderLogo from '../public/placeholder-logo.svg';
+import placeholderLogo from '@/public/placeholder-logo.svg';
 
 export function Footer() {
   const navigation = ["Features", "Getting Started", "Documentation", "Support"];

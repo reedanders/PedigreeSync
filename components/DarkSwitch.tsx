@@ -6,19 +6,24 @@ const ThemeChanger = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
-  // When mounted on client, now we can show the UI
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) return null;
+  // Return placeholder with same dimensions
+  if (!mounted) {
+    return (
+      <div className="flex items-center order-last w-5 h-5" aria-hidden="true">
+        <div className="w-5 h-5 bg-transparent" />
+      </div>
+    );
+  }
 
   return (
-    <div className="flex items-center order-last ">
+    <div className="flex items-center order-last">
       {theme === "dark" ? (
         <button
           onClick={() => setTheme("light")}
-          className="text-gray-300 rounded-full outline-none focus:outline-none ">
+          className="text-gray-300 rounded-full outline-none focus:outline-none">
           <span className="sr-only">Light Mode</span>
-
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5"
@@ -34,8 +39,7 @@ const ThemeChanger = () => {
           <span className="sr-only">Dark Mode</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            className="w-5 h-5"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
