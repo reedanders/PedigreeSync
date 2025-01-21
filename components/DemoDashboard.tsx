@@ -13,7 +13,7 @@ export function DemoDashboard() {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) {
+  if (!mounted || !theme) {
     return (
       <Container>
         <div className="relative w-full h-[300px] md:h-[600px] max-w-6xl mx-auto overflow-hidden mb-4 lg:mb-20 rounded-2xl animate-pulse bg-gray-200 dark:bg-gray-700" />
