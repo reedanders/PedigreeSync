@@ -1,8 +1,16 @@
 import { test, expect } from '@playwright/test';
 
-const BASE_URL = process.env.DEPLOY_URL || 'https://pedigreesync.netlify.app/';
+const baseUrl = process.env.BRANCH_URL || 'https://pedigreesync.netlify.app/';
 
-test('test', async ({ page }) => {
-  await page.goto(BASE_URL);
-  await page.getByRole('heading', { name: 'Notes Data' }).click();
+test('NavBar brand logo is present', async ({ page }) => {
+  await page.goto(baseUrl);
+  await page.getByRole('link', { name: 'placeholder logo PedigreeSync' }).click(); 
 });
+
+test('Toggle dark mode', async ({ page }) => {
+  await page.goto(baseUrl);
+  await page.getByText('PedigreeSyncDark ModeGet').click();
+  await page.getByRole('button', { name: 'Dark Mode' }).click();
+  await page.getByText('PedigreeSyncLight ModeGet').click();
+});
+
