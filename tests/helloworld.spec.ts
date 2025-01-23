@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 
-const baseUrl = process.env.DEPLOY_URL || 'https://pedigreesync.netlify.app/';
+const baseUrl = 'http://localhost:8888/';
 
 test('NavBar brand logo is present', async ({ page }) => {
   await page.goto(baseUrl);
-  await page.getByRole('link', { name: /PedigreeSync/i }).click();
+  await page.getByRole('link', { name: 'placeholder logo PedigreeSync' }).click(); 
 });
 
 test('Toggle dark mode', async ({ page }) => {
