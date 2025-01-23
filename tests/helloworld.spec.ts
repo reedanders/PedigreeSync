@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const baseUrl = 'http://localhost:8888/';
+const baseUrl = process.env.DEPLOY_URL || 'https://pedigreesync.netlify.app/';
 
 test('NavBar brand logo is present', async ({ page }) => {
   await page.goto(baseUrl);
