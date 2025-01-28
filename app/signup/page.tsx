@@ -4,12 +4,12 @@ import { signup } from './actions'
 
 export default function SignupPage() {
   return (
-    <main className="flex flex-col gap-8 sm:gap-16">
-      <section className="flex flex-col p-4 sm:p-6 lg:p-8">
-        <h1 className="text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">
+    <main className="flex items-center justify-center p-4 sm:p-6 lg:p-8">
+      <section className="flex flex-col w-full max-w-2xl">
+        <h1 className="text-xl font-bold leading-snug tracking-tight text-gray-800 lg:text-2qxl lg:leading-tight xl:text-4xl xl:leading-tight dark:text-white">
           Sign Up
         </h1>
-        <form className="flex flex-col gap-4 max-w-2xl py-5">
+        <form className="flex flex-col gap-4 py-5">
           <div className="flex flex-col gap-2">
             <label htmlFor="email" className="text-sm text-gray-500 dark:text-gray-300">
               Email:
