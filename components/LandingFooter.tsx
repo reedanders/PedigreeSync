@@ -5,6 +5,8 @@ import { Container } from "@/components/Container";
 
 import placeholderLogo from '@/public/placeholder-logo.svg';
 
+const placeholderLink = "https://github.com/reedanders/PedigreeSync#pedigreesync-unofficial-pedigreemaster-web-app"
+
 export function LandingFooter() {
   const navigation = ["Features", "Getting Started", "Documentation", "Support"];
   const legal = ["Terms", "Privacy", "Legal"];
@@ -41,7 +43,7 @@ export function LandingFooter() {
               {navigation.map((item, index) => (
                 <Link
                   key={index}
-                  href="/"
+                  href={placeholderLink}
                   className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700"
                 >
                   {item}
@@ -54,7 +56,7 @@ export function LandingFooter() {
               {legal.map((item, index) => (
                 <Link
                   key={index}
-                  href="/"
+                  href={placeholderLink}
                   className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700"
                 >
                   {item}

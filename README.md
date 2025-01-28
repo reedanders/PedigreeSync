@@ -1,4 +1,4 @@
-# PedigreeSync: Unofficial PedigreeMaster Web Application
+# PedigreeSync: Unofficial PedigreeMaster Web App
 
 This project is an **unofficial implementation of PedigreeMaster**, a widely used Windows-based software in the National Sheep Improvement Program (NSIP). This application aims to modernize and simplify data recording and analysis for livestock breeders by offering a phased implementation of core functionalities.
 
