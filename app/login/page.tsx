@@ -5,12 +5,14 @@ import { login } from './actions'
 
 export default function LoginPage() {
   return (
-    <main className="flex flex-col gap-8 sm:gap-16">
-      <section className="flex flex-col gap-4">
-        <h1>Login</h1>
-        <form className="flex flex-col gap-4 max-w-md">
+    <main className="flex items-center justify-center p-4 sm:p-6 lg:p-8">
+      <section className="flex flex-col w-full max-w-2xl">
+        <h1 className="text-xl font-bold leading-snug tracking-tight text-gray-800 lg:text-2xl lg:leading-tight xl:text-4xl xl:leading-tight dark:text-white">
+          Login
+        </h1>
+        <form className="flex flex-col gap-4 py-5">
           <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="text-sm">
+            <label htmlFor="email" className="text-sm text-gray-500 dark:text-gray-300">
               Email:
             </label>
             <input 
@@ -18,12 +20,12 @@ export default function LoginPage() {
               name="email" 
               type="email" 
               required
-              className="input w-full bg-white/10 text-white" 
+              className="px-4 py-2 bg-white/10 dark:bg-white/5 rounded-md border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500" 
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="password" className="text-sm">
+            <label htmlFor="password" className="text-sm text-gray-500 dark:text-gray-300">
               Password:
             </label>
             <input 
@@ -31,20 +33,20 @@ export default function LoginPage() {
               name="password" 
               type="password" 
               required
-              className="input w-full bg-white/10 text-white"
+              className="px-4 py-2 bg-white/10 dark:bg-white/5 rounded-md border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
           <div className="flex gap-4 mt-4">
-            <button 
+            <button
               formAction={login}
-              className="btn-primary flex-1"
+              className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md hover:bg-indigo-700 transition-colors"
             >
-              Log in
+              Login
             </button>
             <Link
               href="/signup"
-              className="flex-1 px-4 py-2 text-blue-600 bg-transparent font-medium hover:bg-blue-50 hover:text-blue-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors text-center inline-flex items-center justify-center"
+              className="px-8 py-4 text-lg font-medium text-center text-indigo-600 bg-transparent border border-indigo-600 rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-colors"
             >
               Sign up
             </Link>
@@ -52,5 +54,5 @@ export default function LoginPage() {
         </form>
       </section>
     </main>
-  )
+  );
 }
