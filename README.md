@@ -2,6 +2,8 @@
 
 This project is an **unofficial implementation of PedigreeMaster**, a widely used Windows-based software in the National Sheep Improvement Program (NSIP). This application aims to modernize and simplify data recording and analysis for livestock breeders by offering a phased implementation of core functionalities.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/85e6a9e0-d2e6-41a8-8864-3b21de7249e5/deploy-status)](https://app.netlify.com/sites/reedbuilt/deploys)
+
 ## Vision
 
 The goal of this project is to provide a web-based alternative to the Windows-based PedigreeMaster with enhanced usability and accessibility. The application will eventually incorporate all functionalities of PedigreeMaster, with additional modern features to streamline data management for livestock improvement programs.
