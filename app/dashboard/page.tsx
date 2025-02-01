@@ -1,10 +1,40 @@
 'use client'
 
+import React, { createContext, useContext, useState } from 'react';
+
+interface FormDataType {
+  animalIdentification: string;
+  conception: string;
+  gridInput: any[]; // Consider defining a more specific type
+}
+
+interface FormContextType {
+  formData: FormDataType;
+  setFormData: React.Dispatch<React.SetStateAction<FormDataType>>;
+}
+
+const FormContext = createContext<FormContextType | undefined>(undefined);
+
+function useFormContext() {
+  const context = useContext(FormContext);
+  if (context === undefined) {
+    throw new Error('useFormContext must be used within a FormProvider');
+  }
+  return context;
+}
+
 export default function DashboardPage() {
+  const [formData, setFormData] = useState<FormDataType>({
+    animalIdentification: '',
+    conception: '',
+    gridInput: [],
+  });
+
   return (
-    <main className="p-4 bg-gray-50 dark:bg-gray-900">
-      <section className="h-full">
-        <div className="grid grid-cols-1 gap-4">
+    <FormContext.Provider value={{ formData, setFormData }}>
+      <main className="p-4 bg-gray-50 dark:bg-gray-900">
+        <section className="h-full">
+          <div className="grid grid-cols-1 gap-4">
             {/* Header Section */}
             <div className="bg-blue-300 dark:bg-blue-900 p-4 rounded text-gray-900 dark:text-gray-100">
               Database Filters
@@ -39,8 +69,9 @@ export default function DashboardPage() {
             <div className="order-last bg-purple-300 dark:bg-purple-900 p-4 rounded text-gray-900 dark:text-gray-100">
               Footer
             </div>
-        </div>
-      </section>
-    </main>
+          </div>
+        </section>
+      </main>
+    </FormContext.Provider>
   );
 }
