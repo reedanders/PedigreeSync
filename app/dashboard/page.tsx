@@ -12,26 +12,26 @@ export default function DashboardPage() {
 
             {/* Main Form Section */}
             <div className="bg-white dark:bg-gray-800 p-4 rounded shadow-md dark:shadow-gray-900">
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {/* Left Section */}
-                <div className="bg-green-200 dark:bg-green-900/30 p-4 rounded text-gray-900 dark:text-gray-100">
+                <div className="order-1 lg:order-none bg-green-200 dark:bg-green-900/30 p-4 rounded text-gray-900 dark:text-gray-100">
                   Left Panel
                 </div>
 
                 {/* Center Section */}
-                <div className="bg-yellow-200 dark:bg-yellow-900/30 p-4 rounded col-span-2 text-gray-900 dark:text-gray-100">
+                <div className="order-2 lg:order-none bg-yellow-200 dark:bg-yellow-900/30 p-4 rounded lg:col-span-2 text-gray-900 dark:text-gray-100">
                   Center Panel
                 </div>
               </div>
 
               {/* Lower Section */}
-              <div className="mt-4 bg-red-200 dark:bg-red-900/30 p-4 rounded text-gray-900 dark:text-gray-100">
+              <div className="order-3 lg:order-none mt-4 bg-red-200 dark:bg-red-900/30 p-4 rounded text-gray-900 dark:text-gray-100">
                 Lower Panel
               </div>
             </div>
 
             {/* Footer Section */}
-            <div className="bg-purple-300 dark:bg-purple-900 p-4 rounded text-gray-900 dark:text-gray-100">
+            <div className="order-last bg-purple-300 dark:bg-purple-900 p-4 rounded text-gray-900 dark:text-gray-100">
               Footer
             </div>
         </div>
