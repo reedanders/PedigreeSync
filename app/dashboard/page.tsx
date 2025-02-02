@@ -3,6 +3,7 @@
 import { createContext, useContext, useState } from 'react';
 import type { FormContextType, FormDataType } from '@/types/form';
 import { AnimalIdInputs } from '@/components/AnimalIdInputs';
+import { submitFormData } from './actions';
 
 export const FormContext = createContext<FormContextType | undefined>(undefined);
 
@@ -27,6 +28,18 @@ export default function DashboardPage() {
     conception: '',
     gridInput: [],
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      await submitFormData(formData);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <FormContext.Provider value={{ formData, setFormData }}>
@@ -64,8 +77,14 @@ export default function DashboardPage() {
             </div>
 
             {/* Footer Section */}
-            <div className="order-last bg-purple-300 dark:bg-purple-900 p-4 rounded text-gray-900 dark:text-gray-100">
-              Footer
+            <div className="order-last bg-purple-300 dark:bg-purple-900 p-4 rounded text-gray-900 dark:text-gray-100 flex justify-start">
+              <button
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                {isSubmitting ? 'Saving...' : 'Save Record'}
+              </button>
             </div>
           </div>
         </section>
