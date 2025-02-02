@@ -1,19 +1,10 @@
 'use client'
 
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
+import type { FormContextType, FormDataType } from '@/types/form';
+import { AnimalIdInputs } from '@/components/AnimalIdInputs';
 
-interface FormDataType {
-  animalIdentification: string;
-  conception: string;
-  gridInput: any[]; // Consider defining a more specific type
-}
-
-interface FormContextType {
-  formData: FormDataType;
-  setFormData: React.Dispatch<React.SetStateAction<FormDataType>>;
-}
-
-const FormContext = createContext<FormContextType | undefined>(undefined);
+export const FormContext = createContext<FormContextType | undefined>(undefined);
 
 function useFormContext() {
   const context = useContext(FormContext);
@@ -25,7 +16,14 @@ function useFormContext() {
 
 export default function DashboardPage() {
   const [formData, setFormData] = useState<FormDataType>({
-    animalIdentification: '',
+    animalIdentification: {
+      animalIdent: '',
+      sire: '',
+      dam: '',
+      sex: 0,
+      bt: 0,
+      rt: 0
+    },
     conception: '',
     gridInput: [],
   });
@@ -45,7 +43,7 @@ export default function DashboardPage() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {/* Animal Identification Section */}
                 <div className="order-1 lg:order-none bg-green-200 dark:bg-green-900/30 p-4 rounded lg:col-span-2 text-gray-900 dark:text-gray-100">
-                  Animal Identification 
+                  <AnimalIdInputs />
                 </div>
 
                 {/* Conception, Parturition Section */}
