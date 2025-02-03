@@ -9,16 +9,37 @@ export interface AnimalIdentification {
   rt: number;
 }
 
+export interface GeneralTrait {
+  date: string;
+  weight?: number;
+  cFat?: number;
+  emd?: number;
+  sc?: number;
+  wec?: number;
+  group?: number;
+}
+
+export interface FleeceTrait {
+  fleeceDate: string;
+  gfw?: number;
+  cfw?: number;
+  fd?: number;
+  fdCv?: number;
+  yield?: number;
+  sl?: number;
+  ss?: number;
+  curv?: number;
+}
+
 export interface AnimalTrait {
-  id: number;
-  value: number;
-  name: string;
+  general: GeneralTrait; // Age-related metrics
+  fleece: FleeceTrait; // Wool-related metrics
 }
 
 export interface FormDataType {
   animalIdentification: AnimalIdentification;
   conception: string;
-  animalTraits: AnimalTrait[];
+  animalTraits: AnimalTrait[]; // A list of traits
 }
 
 export interface FormContextType {
