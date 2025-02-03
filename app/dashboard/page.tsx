@@ -3,6 +3,7 @@
 import { createContext, useContext, useState } from 'react';
 import type { FormContextType, FormDataType } from '@/types/form';
 import { AnimalIdInputs } from '@/components/AnimalIdInputs';
+import { AnimalTraitsInputs } from '@/components/AnimalTraitsInputs';
 import { submitFormData } from './actions';
 
 export const FormContext = createContext<FormContextType | undefined>(undefined);
@@ -26,7 +27,7 @@ export default function DashboardPage() {
       rt: 0
     },
     conception: '',
-    gridInput: [],
+    animalTraits: [],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -70,9 +71,9 @@ export default function DashboardPage() {
                 Group, Comments, Status
               </div>
 
-              {/* Grid Input Section */}
+              {/* Animal Traits Section */}
               <div className="order-4 lg:order-none mt-4 bg-purple-200 dark:bg-purple-900/30 p-4 rounded text-gray-900 dark:text-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                Grid Input Section
+                <AnimalTraitsInputs />
               </div>
             </div>
 

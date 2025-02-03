@@ -9,10 +9,16 @@ export interface AnimalIdentification {
   rt: number;
 }
 
+export interface AnimalTrait {
+  id: number;
+  value: number;
+  name: string;
+}
+
 export interface FormDataType {
   animalIdentification: AnimalIdentification;
   conception: string;
-  gridInput: any[]; // Consider defining a more specific type
+  animalTraits: AnimalTrait[];
 }
 
 export interface FormContextType {

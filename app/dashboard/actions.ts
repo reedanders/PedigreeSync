@@ -18,7 +18,7 @@ export async function submitFormData(formData: FormDataType) {
       birth_type: formData.animalIdentification.bt,
       rear_type: formData.animalIdentification.rt,
       conception_data: formData.conception,
-      grid_data: formData.gridInput
+      animal_traits: formData.animalTraits
     })
 
   if (error) {
