@@ -2,7 +2,7 @@
 
 import { useContext } from 'react';
 import { FormContext } from '../app/dashboard/page';
-import type { FormContextType, FormDataType, AnimalIdentification } from '../types/form';
+import type { FormDataType, AnimalTrait } from '../types/form';
 
 export function AnimalTraitsInputs() {
   const context = useContext(FormContext);
@@ -13,7 +13,7 @@ export function AnimalTraitsInputs() {
   
   const { formData, setFormData } = context;
 
-  const updateField = (field: keyof animalTraits, value: string | number) => {
+  const updateField = (field: keyof AnimalTrait, value: string | number) => {
     setFormData((prev: FormDataType) => ({
       ...prev,
       animalTraits: {
