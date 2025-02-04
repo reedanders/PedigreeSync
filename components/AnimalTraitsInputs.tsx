@@ -2,7 +2,7 @@
 
 import React, { useContext } from 'react';
 import { FormContext } from '../app/dashboard/page';
-import type { FormDataType, AnimalTrait } from '../types/form';
+import type { FormDataType, AnimalTrait, RowLabel, ColumnConfig, VisibilityConfig, FieldName } from '../types/form';
 
 export function AnimalTraitsInputs() {
   const context = useContext(FormContext);
@@ -14,7 +14,7 @@ export function AnimalTraitsInputs() {
   const { formData, setFormData } = context;
 
   // The row labels (which also act as placeholders for the first column)
-  const rows = [
+  const rows: RowLabel[] = [
     "Birth",
     "Weaning",
     "EP Weaning",
@@ -29,12 +29,12 @@ export function AnimalTraitsInputs() {
 
   // Configuration for the General Traits Section
   const generalColumns = [
-    { label: 'Date', type: 'date', placeholder: 'Date' },
-    { label: 'Weight', type: 'number', placeholder: 'Weight' },
-    { label: 'cFat', type: 'number', placeholder: 'cFat' },
-    { label: 'EMD', type: 'number', placeholder: 'EMD' },
-    { label: 'SC', type: 'number', placeholder: 'SC' },
-    { label: 'WEC', type: 'number', placeholder: 'WEC' },
+    { label: 'Date', type: 'date' },
+    { label: 'Weight', type: 'number' },
+    { label: 'cFat', type: 'number' },
+    { label: 'EMD', type: 'number'},
+    { label: 'SC', type: 'number' },
+    { label: 'WEC', type: 'number' },
     { label: 'Group', type: 'select', options: ['', 'Group 1', 'Group 2'] },
   ];
 
@@ -51,6 +51,104 @@ export function AnimalTraitsInputs() {
     { label: 'Curv', type: 'number', placeholder: 'Curv' },
   ];
 
+  // Configuration for input visibility by row type
+  const visibilityConfig: VisibilityConfig = {
+    "Birth": {
+      Date: true,
+      Weight: true,
+      cFat: false,
+      EMD: false,
+      SC: false,
+      WEC: false,
+      Group: false
+    },
+    "Weaning": {
+      Date: true,
+      Weight: true,
+      cFat: true,
+      EMD: true,
+      SC: false,
+      WEC: true,
+      Group: true
+    },
+    "EP Weaning": {
+      Date: true,
+      Weight: true,
+      cFat: true,
+      EMD: true,
+      SC: true,
+      WEC: true,
+      Group: true
+    },
+    "P Weaning": {
+      Date: true,
+      Weight: true,
+      cFat: true,
+      EMD: true,
+      SC: true,
+      WEC: true,
+      Group: true
+    },
+    "Yearling": {
+      Date: true,
+      Weight: true,
+      cFat: true,
+      EMD: true,
+      SC: true,
+      WEC: true,
+      Group: true
+    },
+    "Hogget": {
+      Date: true,
+      Weight: true,
+      cFat: true,
+      EMD: true,
+      SC: true,
+      WEC: true,
+      Group: true
+    },
+    "Adult": {
+      Date: true,
+      Weight: true,
+      cFat: true,
+      EMD: true,
+      SC: true,
+      WEC: true,
+      Group: true
+    },
+    "Adult 3": {
+      Date: true,
+      Weight: true,
+      cFat: false,
+      EMD: false,
+      SC: false,
+      WEC: false,
+      Group: false
+    },
+    "Adult 4": {
+      Date: true,
+      Weight: true,
+      cFat: false,
+      EMD: false,
+      SC: false,
+      WEC: false,
+      Group: false
+    },
+    "Adult 5": {
+      Date: true,
+      Weight: true,
+      cFat: false,
+      EMD: false,
+      SC: false,
+      WEC: false,
+      Group: false
+    }
+  } as const;
+
+  const isFieldVisible = (row: RowLabel, columnLabel: FieldName): boolean => {
+    return visibilityConfig[row]?.[columnLabel] ?? false;
+  };
+
   return (
     <div className="p-6 bg-gray-100 space-y-8">
       {/* General Traits Section */}
@@ -66,7 +164,7 @@ export function AnimalTraitsInputs() {
         {/* Data Rows */}
         <div className="mt-2 space-y-2">
           {rows.map((rowLabel, rowIndex) => (
-            <div key={rowIndex} className="grid grid-cols-8 gap-2 items-center p-2 rounded bg-white">
+            <div key={rowIndex} className="grid grid-cols-8 gap-2 items-center">
               {/* Row Label */}
               <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {rowLabel}
@@ -74,24 +172,28 @@ export function AnimalTraitsInputs() {
 
               {/* Column Inputs */}
               {generalColumns.map((col, colIndex) => {
-                if (col.type === 'select') {
+                if (col.type === 'select' && col.options) {
                   return (
                     <select key={colIndex} className="w-full border rounded px-2 py-1">
                       {col.options?.map((option, optIdx) => (
-      
-                                      <option key={optIdx} value={option}>
-                          {option === '' ? 'Select Group' : option}
+                        <option key={optIdx} value={option}>
+                          {option}
                         </option>
                       ))}
                     </select>
                   );
                 } else {
                   return (
-                    <input
-                      key={colIndex}
-                      type={col.type}
-                      className="w-full border rounded px-2 py-1"
-                    />
+                    <div key={colIndex} className="w-full">
+                      {isFieldVisible(rowLabel, col.label) ? (
+                        <input
+                          type={col.type}
+                          className="w-full border rounded px-2 py-1"
+                        />
+                      ) : (
+                        <div className="w-full h-[34px]" /> // Maintain spacing
+                      )}
+                    </div>
                   );
                 }
               })}
@@ -112,7 +214,7 @@ export function AnimalTraitsInputs() {
         {/* Data Rows */}
         <div className="mt-2 space-y-2">
           {rows.map((rowLabel, rowIndex) => (
-            <div key={rowIndex} className="grid grid-cols-9 gap-2 items-center p-2 rounded bg-white">
+            <div key={rowIndex} className="grid grid-cols-9 gap-2 items-center">
               {fleeceColumns.map((col, colIndex) => (
                 <input
                   key={colIndex}

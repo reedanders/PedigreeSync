@@ -46,3 +46,32 @@ export interface FormContextType {
   formData: FormDataType;
   setFormData: Dispatch<SetStateAction<FormDataType>>;
 }
+
+export type FieldName = 
+  | 'Date'
+  | 'Weight'
+  | 'cFat'
+  | 'EMD'
+  | 'SC'
+  | 'WEC'
+  | 'Group';
+
+export type RowLabel = 
+  | 'Birth'
+  | 'Weaning'
+  | 'EP Weaning'
+  | 'P Weaning'
+  | 'Yearling'
+  | 'Hogget'
+  | 'Adult'
+  | 'Adult 3'
+  | 'Adult 4'
+  | 'Adult 5';
+
+export interface VisibilitySettings {
+  [key in FieldName]: boolean;
+}
+
+export type VisibilityConfig = {
+  [key in RowLabel]: VisibilitySettings;
+}
