@@ -9,27 +9,38 @@ interface GeneralTraitsSectionProps {
 
 export function GeneralTraitsSection({ rows, columns, isFieldVisible }: GeneralTraitsSectionProps) {
   return (
-    <div>
-      <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">General Traits</h3>
+    <div className="space-y-4">
+      <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">
+        General Traits
+      </h3>
+      
       {/* Header Row */}
-      <div className="grid grid-cols-8 gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 p-2 rounded">
-        <div></div> {/* Empty cell for row labels */}
+      <div className="grid grid-cols-8 gap-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg shadow-sm">
+        <div className="text-sm font-medium text-gray-500 dark:text-gray-400"></div>
         {columns.map((col, idx) => (
-          <div key={idx}>{col.label}</div>
+          <div key={idx} className="text-sm font-medium text-gray-500 dark:text-gray-400">
+            {col.label}
+          </div>
         ))}
       </div>
+
       {/* Data Rows */}
-      <div className="mt-2 space-y-2">
+      <div className="space-y-2">
         {rows.map((rowLabel, rowIndex) => (
-          <div key={rowIndex} className="grid grid-cols-8 gap-2 items-center p-2 rounded bg-white dark:bg-gray-800">
-            <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <div 
+            key={rowIndex} 
+            className="grid grid-cols-8 gap-4 items-center p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow duration-200"
+          >
+            <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
               {rowLabel}
             </div>
             {columns.map((col, colIndex) => (
               <div key={colIndex} className="w-full">
                 {isFieldVisible(rowLabel, col.label as FieldName) ? (
                   col.type === 'select' ? (
-                    <select className="w-full px-2 py-1 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                    <select 
+                      className="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 sm:text-sm transition-colors duration-200"
+                    >
                       {col.options?.map((opt, optIdx) => (
                         <option key={optIdx} value={opt}>{opt || 'Select...'}</option>
                       ))}
@@ -37,11 +48,11 @@ export function GeneralTraitsSection({ rows, columns, isFieldVisible }: GeneralT
                   ) : (
                     <input
                       type={col.type}
-                      className="w-full px-2 py-1 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                      className="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 sm:text-sm transition-colors duration-200"
                     />
                   )
                 ) : (
-                  <div className="w-full h-[34px]" />
+                  <div className="h-9" /> /* Maintain consistent height */
                 )}
               </div>
             ))}
