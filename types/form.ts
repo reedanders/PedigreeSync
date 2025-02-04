@@ -48,13 +48,29 @@ export interface FormContextType {
 }
 
 export type FieldName = 
-  | 'Date'
-  | 'Weight'
-  | 'cFat'
-  | 'EMD'
-  | 'SC'
-  | 'WEC'
-  | 'Group';
+  | 'Date' 
+  | 'Weight' 
+  | 'cFat' 
+  | 'EMD' 
+  | 'SC' 
+  | 'WEC' 
+  | 'Group'
+  | 'Fleece Date'
+  | 'GFW'
+  | 'CFW'
+  | 'FD'
+  | 'FD Cv'
+  | 'Yield'
+  | 'SL'
+  | 'SS'
+  | 'Curv';
+
+export interface ColumnConfig {
+  label: FieldName;
+  type: 'date' | 'number' | 'select';
+  options?: string[];
+  placeholder?: string;
+}
 
 export type RowLabel = 
   | 'Birth'
@@ -69,7 +85,7 @@ export type RowLabel =
   | 'Adult 5';
 
 export interface VisibilitySettings {
-  [key in FieldName]: boolean;
+  [key: string]: boolean;
 }
 
 export type VisibilityConfig = {
