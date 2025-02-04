@@ -37,7 +37,7 @@ export function AnimalTraitsInputs() {
   };
 
   return (
-    <div className="p-6 bg-gray-100 space-y-8">
+    <div className="p-6 space-y-8">
       <GeneralTraitsSection 
         rows={rows} 
         columns={generalColumns} 
