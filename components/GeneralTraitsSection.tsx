@@ -9,55 +9,57 @@ interface GeneralTraitsSectionProps {
 
 export function GeneralTraitsSection({ rows, columns, isFieldVisible }: GeneralTraitsSectionProps) {
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">
-        General Traits
-      </h3>
-      
-      {/* Header Row */}
-      <div className="grid grid-cols-8 gap-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg shadow-sm">
-        <div className="text-sm font-medium text-gray-500 dark:text-gray-400"></div>
-        {columns.map((col, idx) => (
-          <div key={idx} className="text-sm font-medium text-gray-500 dark:text-gray-400">
-            {col.label}
-          </div>
-        ))}
-      </div>
-
-      {/* Data Rows */}
-      <div className="space-y-2">
-        {rows.map((rowLabel, rowIndex) => (
-          <div 
-            key={rowIndex} 
-            className="grid grid-cols-8 gap-4 items-center p-4 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow duration-200"
-          >
-            <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-              {rowLabel}
-            </div>
-            {columns.map((col, colIndex) => (
-              <div key={colIndex} className="w-full">
-                {isFieldVisible(rowLabel, col.label as FieldName) ? (
-                  col.type === 'select' ? (
-                    <select 
-                      className="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 sm:text-sm transition-colors duration-200"
-                    >
-                      {col.options?.map((opt, optIdx) => (
-                        <option key={optIdx} value={opt}>{opt || 'Select...'}</option>
-                      ))}
-                    </select>
-                  ) : (
-                    <input
-                      type={col.type}
-                      className="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-100 sm:text-sm transition-colors duration-200"
-                    />
-                  )
-                ) : (
-                  <div className="h-9" /> /* Maintain consistent height */
-                )}
-              </div>
-            ))}
-          </div>
-        ))}
+    <div className="card bg-white dark:bg-base-300 shadow-xl">
+      <div className="card-body">
+        <h3 className="card-title text-gray-900 dark:text-base-content">
+          General Traits
+        </h3>
+        
+        <div className="overflow-x-auto">
+          <table className="table w-full border-separate border-spacing-0">
+            <thead>
+              <tr className="bg-gray-50 dark:bg-base-300">
+                <th className="text-gray-900 dark:text-base-content border-b border-gray-200 dark:border-gray-700"></th>
+                {columns.map((col, idx) => (
+                  <th key={idx} className="text-gray-900 dark:text-base-content border-b border-gray-200 dark:border-gray-700">
+                    {col.label}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+              {rows.map((rowLabel, rowIndex) => (
+                <tr key={rowIndex} className="hover:bg-gray-100 dark:hover:bg-base-300">
+                  <td className="font-medium text-gray-900 dark:text-base-content">
+                    {rowLabel}
+                  </td>
+                  {columns.map((col, colIndex) => (
+                    <td key={colIndex}>
+                      {isFieldVisible(rowLabel, col.label as FieldName) ? (
+                        col.type === 'select' ? (
+                          <select className="select select-bordered select-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content">
+                            {col.options?.map((opt, optIdx) => (
+                              <option key={optIdx} value={opt}>
+                                {opt || 'Select...'}
+                              </option>
+                            ))}
+                          </select>
+                        ) : (
+                          <input
+                            type={col.type}
+                            className="input input-bordered input-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
+                          />
+                        )
+                      ) : (
+                        <div className="h-8" />
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
