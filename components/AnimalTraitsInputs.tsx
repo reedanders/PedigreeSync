@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext } from 'react';
-import { FormContext } from '../app/dashboard/page';
+import { FormContext } from '@/contexts/FormContext';
 import { GeneralTraitsSection } from './GeneralTraitsSection';
 import { FleeceTraitsSection } from './FleeceTraitsSection';
 import { generalColumns } from '../config/generalTraits';

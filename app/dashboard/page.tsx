@@ -1,20 +1,11 @@
 'use client'
 
-import { createContext, useContext, useState } from 'react';
-import type { FormContextType, FormDataType } from '@/types/form';
+import { useState } from 'react';
+import { FormContext } from '@/contexts/FormContext';
+import type { FormDataType } from '@/types/form';
 import { AnimalIdInputs } from '@/components/AnimalIdInputs';
 import { AnimalTraitsInputs } from '@/components/AnimalTraitsInputs';
 import { submitFormData } from './actions';
-
-export const FormContext = createContext<FormContextType | undefined>(undefined);
-
-function useFormContext() {
-  const context = useContext(FormContext);
-  if (context === undefined) {
-    throw new Error('useFormContext must be used within a FormProvider');
-  }
-  return context;
-}
 
 export default function DashboardPage() {
   const [formData, setFormData] = useState<FormDataType>({
@@ -35,8 +26,6 @@ export default function DashboardPage() {
     setIsSubmitting(true);
     try {
       await submitFormData(formData);
-    } catch (error) {
-      console.error(error);
     } finally {
       setIsSubmitting(false);
     }
@@ -44,7 +33,7 @@ export default function DashboardPage() {
 
   return (
     <FormContext.Provider value={{ formData, setFormData }}>
-      <main className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+      <main className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <section className="space-y-6">
             {/* Header Section */}

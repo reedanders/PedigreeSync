@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext } from 'react';
-import { FormContext } from '../app/dashboard/page';
+import { FormContext } from '@/contexts/FormContext';
 import type { FormContextType, FormDataType, AnimalIdentification } from '../types/form';
 
 export function AnimalIdInputs() {
