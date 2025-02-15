@@ -37,16 +37,29 @@ export function AnimalTraitsInputs() {
   };
 
   return (
-    <div className="p-6 space-y-8">
-      <GeneralTraitsSection 
-        rows={rows} 
-        columns={generalColumns} 
-        isFieldVisible={isFieldVisible} 
-      />
-      <FleeceTraitsSection 
-        rows={rows} 
-        columns={fleeceColumns} 
-      />
+    <div>
+      <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-700">
+        {/* General Traits Section */}
+        <div className="pb-6">
+          <div className="relative">
+            <GeneralTraitsSection 
+              rows={rows} 
+              columns={generalColumns} 
+              isFieldVisible={isFieldVisible}
+            />
+          </div>
+        </div>
+
+        {/* Fleece Traits Section */}
+        <div className="pt-6">
+          <div className="relative">
+            <FleeceTraitsSection 
+              rows={rows} 
+              columns={fleeceColumns}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
