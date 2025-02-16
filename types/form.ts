@@ -36,10 +36,35 @@ export interface AnimalTrait {
   fleece: FleeceTrait; // Wool-related metrics
 }
 
+export type InputLimitationType = 'None' | 'Age' | 'Stage';
+
+export interface AnimalMetadata {
+  breed: string;
+  flock: string;
+  birthDate: string;
+  managementGroup: string;
+  location: string;
+  autoBuildText: string;
+  editDate1: string;
+  editDate2: string;
+  limitInputs: InputLimitationType;
+  carcassScannerNo: string;
+  showWoolFleece: boolean;
+  functionKey: string;
+}
+
 export interface FormDataType {
-  animalIdentification: AnimalIdentification;
+  animalIdentification: {
+    animalIdent: string;
+    sire: string;
+    dam: string;
+    sex: number;
+    bt: number;
+    rt: number;
+  };
   conception: string;
   animalTraits: AnimalTrait[]; // A list of traits
+  animalMetadata: AnimalMetadata;
 }
 
 export interface FormContextType {

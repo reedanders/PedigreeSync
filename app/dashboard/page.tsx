@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FormContext } from '@/contexts/FormContext';
 import type { FormDataType } from '@/types/form';
+import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
 import { AnimalIdInputs } from '@/components/AnimalIdInputs';
 import { AnimalTraitsInputs } from '@/components/AnimalTraitsInputs';
 import { submitFormData } from './actions';
@@ -19,6 +20,20 @@ export default function DashboardPage() {
     },
     conception: '',
     animalTraits: [],
+    animalMetadata: {
+      breed: '',
+      flock: '',
+      birthDate: '',
+      managementGroup: '',
+      location: '',
+      autoBuildText: '',
+      editDate1: '',
+      editDate2: '',
+      limitInputs: 'None',
+      carcassScannerNo: '',
+      showWoolFleece: false,
+      functionKey: ''
+    }
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -46,7 +61,7 @@ export default function DashboardPage() {
               <div className={`lg:col-span-full ${cardClass}`}>
                 <div className={cardBodyClass}>
                   <h3 className={titleClass}>
-                    Database Filters
+                    <AnimalMetadataInputs />
                   </h3>
                 </div>
               </div>
