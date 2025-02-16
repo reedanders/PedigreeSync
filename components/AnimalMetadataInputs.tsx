@@ -24,83 +24,88 @@ export function AnimalMetadataInputs() {
     };
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 bg-blue-900 text-white rounded-lg">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* AutoBuild Text */}
-            <div>
-                <label className="block text-sm font-medium">Edit AutoBuild Text</label>
-                <input
-                    type="text"
-                    value={formData.animalMetadata.autoBuildText}
-                    onChange={(e) => updateField('autoBuildText', e.target.value)}
-                    className="input input-bordered input-sm w-full text-black"
-                />
+            <div className="space-y-4">
+                <div className="relative">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-base-content">
+                        Edit AutoBuild Text
+                    </label>
+                    <input
+                        type="text"
+                        value={formData.animalMetadata.autoBuildText}
+                        onChange={(e) => updateField('autoBuildText', e.target.value)}
+                        className="input input-bordered input-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
+                    />
+                </div>
             </div>
             
             {/* Edit Dates */}
-            <div>
-                <label className="block text-sm font-medium">Edit Date 1</label>
-                <input
-                    type="date"
-                    value={formData.animalMetadata.editDate1}
-                    onChange={(e) => updateField('editDate1', e.target.value)}
-                    className="input input-bordered input-sm w-full text-black"
-                />
-            </div>
-            <div>
-                <label className="block text-sm font-medium">Edit Date 2</label>
-                <input
-                    type="date"
-                    value={formData.animalMetadata.editDate2}
-                    onChange={(e) => updateField('editDate2', e.target.value)}
-                    className="input input-bordered input-sm w-full text-black"
-                />
-            </div>
-
-            {/* Data Input Limitation */}
-            <div>
-                <label className="block text-sm font-medium">Limit Data Inputs</label>
-                <select
-                    value={formData.animalMetadata.limitInputs}
-                    onChange={(e) => updateField('limitInputs', e.target.value as AnimalMetadata['limitInputs'])}
-                    className="select select-bordered select-sm w-full text-black"
-                >
-                    <option value="None">None</option>
-                    <option value="Age">By Age</option>
-                    <option value="Stage">By Stage</option>
-                </select>
-            </div>
-            
-            {/* Carcass Scanner Number */}
-            <div>
-                <label className="block text-sm font-medium">Carcass Scanner No</label>
-                <input
-                    type="text"
-                    value={formData.animalMetadata.carcassScannerNo}
-                    onChange={(e) => updateField('carcassScannerNo', e.target.value)}
-                    className="input input-bordered input-sm w-full text-black"
-                />
-            </div>
-            
-            {/* Wool and Fleece Data Toggle */}
-            <div className="flex items-center gap-2">
-                <input
-                    type="checkbox"
-                    checked={formData.animalMetadata.showWoolFleece}
-                    onChange={(e) => updateField('showWoolFleece', e.target.checked)}
-                    className="checkbox checkbox-sm"
-                />
-                <label className="text-sm">Show Wool and Fleece Data Entry Fields</label>
+            <div className="space-y-4">
+                <div className="relative">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-base-content">
+                        Edit Date 1
+                    </label>
+                    <input
+                        type="date"
+                        value={formData.animalMetadata.editDate1}
+                        onChange={(e) => updateField('editDate1', e.target.value)}
+                        className="input input-bordered input-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
+                    />
+                </div>
+                <div className="relative">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-base-content">
+                        Edit Date 2
+                    </label>
+                    <input
+                        type="date"
+                        value={formData.animalMetadata.editDate2}
+                        onChange={(e) => updateField('editDate2', e.target.value)}
+                        className="input input-bordered input-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
+                    />
+                </div>
             </div>
 
-            {/* Function Key Assignments */}
-            <div>
-                <label className="block text-sm font-medium">Function Key Assignments</label>
-                <input
-                    type="text"
-                    value={formData.animalMetadata.functionKey}
-                    onChange={(e) => updateField('functionKey', e.target.value)}
-                    className="input input-bordered input-sm w-full text-black"
-                />
+            {/* Data Input Limitation and Scanner */}
+            <div className="space-y-4">
+                <div className="relative">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-base-content">
+                        Limit Data Inputs
+                    </label>
+                    <select
+                        value={formData.animalMetadata.limitInputs}
+                        onChange={(e) => updateField('limitInputs', e.target.value as AnimalMetadata['limitInputs'])}
+                        className="select select-bordered select-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
+                    >
+                        <option value="None">None</option>
+                        <option value="Age">By Age</option>
+                        <option value="Stage">By Stage</option>
+                    </select>
+                </div>
+                
+                <div className="relative">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-base-content">
+                        Carcass Scanner No
+                    </label>
+                    <input
+                        type="text"
+                        value={formData.animalMetadata.carcassScannerNo}
+                        onChange={(e) => updateField('carcassScannerNo', e.target.value)}
+                        className="input input-bordered input-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
+                    />
+                </div>
+
+                <div className="relative">
+                    <label className="block text-sm font-medium text-gray-900 dark:text-base-content">
+                        Show Wool/Fleece Data
+                    </label>
+                    <input
+                        type="checkbox"
+                        checked={formData.animalMetadata.showWoolFleece}
+                        onChange={(e) => updateField('showWoolFleece', e.target.checked)}
+                        className="toggle toggle-primary"
+                    />
+                </div>
             </div>
         </div>
     );
