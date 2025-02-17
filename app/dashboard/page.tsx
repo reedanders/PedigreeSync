@@ -46,25 +46,24 @@ export default function DashboardPage() {
     }
   };
 
-  const cardClass = "card bg-white dark:bg-base-300 shadow-xl";
+  const cardClass = "card bg-white dark:bg-gray-800 shadow-xl border dark:border-gray-700";
   const cardBodyClass = "card-body";
-  const titleClass = "text-base font-medium text-gray-900 dark:text-base-content";
+  const titleClass = "text-base font-medium text-gray-900 dark:text-gray-100";
 
   return (
     <FormContext.Provider value={{ formData, setFormData }}>
       <main className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <section className="space-y-4">
-            {/* Main Form Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               {/* Database Filters */}
               <div className={`lg:col-span-full ${cardClass}`}>
                 <div className={cardBodyClass}>
-                  <h3 className={titleClass}>
-                    <AnimalMetadataInputs />
-                  </h3>
+                  <h3 className={titleClass}>Database Filters</h3>
+                  <AnimalMetadataInputs />
                 </div>
               </div>
+
               {/* Animal Identification */}
               <div className={`lg:col-span-2 ${cardClass}`}>
                 <div className={cardBodyClass}>
