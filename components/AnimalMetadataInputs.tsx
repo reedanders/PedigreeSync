@@ -24,9 +24,10 @@ export function AnimalMetadataInputs() {
     };
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* AutoBuild Text */}
-            <div className="space-y-4">
+        <div className="space-y-6">
+            {/* Row 1 */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* AutoBuild Text */}
                 <div className="relative">
                     <label className="block text-sm font-medium text-gray-900 dark:text-base-content">
                         Edit AutoBuild Text
@@ -38,10 +39,8 @@ export function AnimalMetadataInputs() {
                         className="input input-bordered input-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
                     />
                 </div>
-            </div>
-            
-            {/* Edit Dates */}
-            <div className="space-y-4">
+
+                {/* Edit Date 1 */}
                 <div className="relative">
                     <label className="block text-sm font-medium text-gray-900 dark:text-base-content">
                         Edit Date 1
@@ -53,6 +52,8 @@ export function AnimalMetadataInputs() {
                         className="input input-bordered input-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
                     />
                 </div>
+
+                {/* Edit Date 2 */}
                 <div className="relative">
                     <label className="block text-sm font-medium text-gray-900 dark:text-base-content">
                         Edit Date 2
@@ -66,8 +67,9 @@ export function AnimalMetadataInputs() {
                 </div>
             </div>
 
-            {/* Data Input Limitation and Scanner */}
-            <div className="space-y-4">
+            {/* Row 2 */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Limit Inputs */}
                 <div className="relative">
                     <label className="block text-sm font-medium text-gray-900 dark:text-base-content">
                         Limit Data Inputs
@@ -82,7 +84,8 @@ export function AnimalMetadataInputs() {
                         <option value="Stage">By Stage</option>
                     </select>
                 </div>
-                
+
+                {/* Scanner Number */}
                 <div className="relative">
                     <label className="block text-sm font-medium text-gray-900 dark:text-base-content">
                         Carcass Scanner No
@@ -95,6 +98,7 @@ export function AnimalMetadataInputs() {
                     />
                 </div>
 
+                {/* Show Wool/Fleece Toggle */}
                 <div className="relative">
                     <label className="block text-sm font-medium text-gray-900 dark:text-base-content">
                         Show Wool/Fleece Data
