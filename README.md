@@ -13,18 +13,21 @@ The goal of this project is to provide a web-based alternative to the Windows-ba
 ## Key Features (Planned Development Phases)
 
 1. **Flock Data Recording**:
-   - Allow users to input flock data, including animal IDs, pedigree details, and trait measurements.
-   - Support for data export in formats compatible with PedigreeMaster for further analysis.
+   - Accept any farm record type and format into PedigreeMaster xsl format using ChatGPT.
 
-2. **Data Analysis Import and Display**:
+2. **Edit and Export Records**:
+   - Edit flock data recording in spreadsheet format.
+   - Export data in PedigreeMaster compatible format.
+
+3. **Data Analysis and Display**:
    - Import analyzed data (e.g., Estimated Breeding Values (EBVs)).
    - Provide intuitive data visualizations and detailed reports.
 
-3. **RFID Integration** (Future Phase):
+4. **RFID Integration** (Future Phase):
    - Enable data import from RFID devices for real-time livestock tracking.
    - Streamline integration of electronic records with pedigree data.
 
-4. **Other Advanced Features** (Future Phase):
+5. **Other Advanced Features** (Future Phase):
    - Incorporate functionalities like genetic trend analysis and comprehensive reporting tools.
    - Provide robust backup and data validation options.
 
