@@ -4,22 +4,10 @@ import { useState } from 'react';
 import { FormContext } from '@/contexts/FormContext';
 import type { FormDataType } from '@/types/form';
 import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
-import { AnimalIdInputs } from '@/components/AnimalIdInputs';
-import { AnimalTraitsInputs } from '@/components/AnimalTraitsInputs';
 import { submitFormData } from './actions';
 
 export default function DashboardPage() {
   const [formData, setFormData] = useState<FormDataType>({
-    animalIdentification: {
-      animalIdent: '',
-      sire: '',
-      dam: '',
-      sex: 0,
-      bt: 0,
-      rt: 0
-    },
-    conception: '',
-    animalTraits: [],
     animalMetadata: {
       breed: '',
       flock: '',
@@ -67,16 +55,14 @@ export default function DashboardPage() {
               {/* Animal Identification */}
               <div className={`lg:col-span-2 ${cardClass}`}>
                 <div className={cardBodyClass}>
-                  <AnimalIdInputs />
+                  Animal Id Inputs
                 </div>
               </div>
 
               {/* Conception */}
               <div className={cardClass}>
                 <div className={cardBodyClass}>
-                  <h3 className={titleClass}>
                     Conception, Parturition
-                  </h3>
                 </div>
               </div>
             </div>
@@ -84,16 +70,14 @@ export default function DashboardPage() {
             {/* Group Comments */}
             <div className={cardClass}>
               <div className={cardBodyClass}>
-                <h3 className={titleClass}>
                   Group, Comments, Status
-                </h3>
               </div>
             </div>
 
             {/* Animal Traits */}
             <div className={cardClass}>
               <div className={cardBodyClass}>
-                <AnimalTraitsInputs />
+                Animal Traits Inputs
               </div>
             </div>
 
