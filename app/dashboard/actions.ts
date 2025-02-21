@@ -10,16 +10,7 @@ export async function submitFormData(formData: FormDataType) {
 
   const { error } = await supabase
     .from('animal_records')
-    .insert({
-      animal_id: formData.animalIdentification.animalIdent,
-      sire: formData.animalIdentification.sire,
-      dam: formData.animalIdentification.dam,
-      sex: formData.animalIdentification.sex,
-      birth_type: formData.animalIdentification.bt,
-      rear_type: formData.animalIdentification.rt,
-      conception_data: formData.conception,
-      animal_traits: formData.animalTraits
-    })
+    .insert({})
 
   if (error) {
     console.error(error)
