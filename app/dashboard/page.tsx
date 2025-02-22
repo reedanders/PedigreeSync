@@ -17,6 +17,8 @@ export default function DashboardPage() {
       showWoolFleece: false,
     }
   });
+  const [farmName, setFarmName] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async () => {
@@ -34,14 +36,32 @@ export default function DashboardPage() {
         const { data, error } = await loadFormData();
         if (error) throw error;
         if (data) {
-          console.log(data);
+          console.log(data)
+          setFarmName(data.farmName);
+          setFormData(prev => ({
+            ...prev,
+            animalMetadata: {
+              autoBuildText: data.animalMetadata?.auto_build_text || '',
+              editDate1: data.animalMetadata?.edit_date1 || '',
+              editDate2: data.animalMetadata?.edit_date2 || '',
+              limitInputs: data.animalMetadata?.limit_inputs || 'None',
+              carcassScannerNo: data.animalMetadata?.carcass_scanner_no || '',
+              showWoolFleece: data.animalMetadata?.show_wool_fleece || false,
+            }
+          }));
         }
       } catch (error) {
-        console.log('Failed to load farm:', error);
-      } 
+        console.error('Failed to load farm:', error);
+      } finally {
+        setIsLoading(false);
+      }
     }
     init();
-  }, [])
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   const cardClass = "card bg-white dark:bg-gray-800 shadow-xl border dark:border-gray-700";
   const cardBodyClass = "card-body";
@@ -51,6 +71,9 @@ export default function DashboardPage() {
     <FormContext.Provider value={{ formData, setFormData }}>
       <main className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-2xl font-bold mb-8 text-gray-900 dark:text-gray-100">
+            {farmName}
+          </h1>
           <section className="space-y-4">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               {/* Database Filters */}
