@@ -69,7 +69,6 @@ export async function loadFormData() {
 
   return { 
     data: {
-      farmName: farmData.farm[0].name,
       animalMetadata: animalData.animal_metadata[0]
     }
   }
