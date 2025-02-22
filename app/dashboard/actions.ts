@@ -27,13 +27,12 @@ export async function loadFormData() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Not authenticated' }
 
-  const { data: farmUser, error: farmError } = await supabase
+  // Get farm info
+  const { data: farmData, error: farmError } = await supabase
     .from('farm_users')
     .select(`
-      farm (
-        id,
-        name
-      )
+      farm_id,
+      farm:farm(name)
     `)
     .eq('user_id', user.id)
     .single()
@@ -43,5 +42,35 @@ export async function loadFormData() {
     return { error: 'Failed to load farm data' }
   }
 
-  return { data: farmUser.farm[0].name }
+  // Get latest animal record with metadata
+  const { data: animalData, error: animalError } = await supabase
+    .from('animal_records')
+    .select(`
+      id,
+      created_at,
+      animal_metadata (
+        auto_build_text,
+        edit_date1,
+        edit_date2,
+        limit_inputs,
+        carcass_scanner_no,
+        show_wool_fleece
+      )
+    `)
+    .eq('farm_id', farmData.farm_id)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single()
+
+  if (animalError) {
+    console.error('Error fetching animal:', animalError)
+    return { error: 'Failed to load animal data' }
+  }
+
+  return { 
+    data: {
+      farmName: farmData.farm.name,
+      animalMetadata: animalData.animal_metadata
+    }
+  }
 }
