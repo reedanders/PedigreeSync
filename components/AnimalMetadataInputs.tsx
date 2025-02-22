@@ -49,7 +49,8 @@ export function AnimalMetadataInputs() {
                         type="date"
                         value={formData.animalMetadata.editDate1}
                         onChange={(e) => updateField('editDate1', e.target.value)}
-                        className="input input-bordered input-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
+                        readOnly
+                        className="input input-bordered input-sm w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-base-content cursor-not-allowed"
                     />
                 </div>
 
@@ -62,7 +63,8 @@ export function AnimalMetadataInputs() {
                         type="date"
                         value={formData.animalMetadata.editDate2}
                         onChange={(e) => updateField('editDate2', e.target.value)}
-                        className="input input-bordered input-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
+                        readOnly
+                        className="input input-bordered input-sm w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-base-content cursor-not-allowed"
                     />
                 </div>
             </div>

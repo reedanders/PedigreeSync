@@ -1,26 +1,20 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FormContext } from '@/contexts/FormContext';
 import type { FormDataType } from '@/types/form';
 import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
-import { submitFormData } from './actions';
+import { submitFormData, loadFormData } from './actions';
 
 export default function DashboardPage() {
   const [formData, setFormData] = useState<FormDataType>({
     animalMetadata: {
-      breed: '',
-      flock: '',
-      birthDate: '',
-      managementGroup: '',
-      location: '',
       autoBuildText: '',
       editDate1: '',
       editDate2: '',
       limitInputs: 'None',
       carcassScannerNo: '',
       showWoolFleece: false,
-      functionKey: ''
     }
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,6 +27,21 @@ export default function DashboardPage() {
       setIsSubmitting(false);
     }
   };
+
+  useEffect(() => {
+    async function init() {
+      try {
+        const { data, error } = await loadFormData();
+        if (error) throw error;
+        if (data) {
+          console.log(data);
+        }
+      } catch (error) {
+        console.log('Failed to load farm:', error);
+      } 
+    }
+    init();
+  }, [])
 
   const cardClass = "card bg-white dark:bg-gray-800 shadow-xl border dark:border-gray-700";
   const cardBodyClass = "card-body";
