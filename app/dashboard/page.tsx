@@ -5,6 +5,7 @@ import { FormContext } from '@/contexts/FormContext';
 import type { FormDataType } from '@/types/form';
 import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
 import { submitFormData, loadFormData } from './actions';
+import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 
 export default function DashboardPage() {
   const [formData, setFormData] = useState<FormDataType>({
@@ -60,13 +61,16 @@ export default function DashboardPage() {
     init();
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   const cardClass = "card bg-white dark:bg-gray-800 shadow-xl border dark:border-gray-700";
   const cardBodyClass = "card-body";
   const titleClass = "text-base font-medium text-gray-900 dark:text-gray-100";
+
+  if (isLoading) {
+    return <LoadingSkeleton 
+      cardClass={cardClass} 
+      cardBodyClass={cardBodyClass} 
+    />;
+  }
 
   return (
     <FormContext.Provider value={{ formData, setFormData, farmId, animalId }}>
