@@ -5,39 +5,15 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 import type { FormDataType } from '@/types/form'
 
-export async function submitFormData(formData: FormDataType) {
+export async function submitFormData({ 
+  formData, 
+  animalId 
+}: { 
+  formData: FormDataType; 
+  animalId: string; 
+}) {
   const supabase = await createClient()
 
-  // Get user and farm
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return { error: 'Not authenticated' }
-
-  const { data: farmData, error: farmError } = await supabase
-    .from('farm_users')
-    .select('farm_id')
-    .eq('user_id', user.id)
-    .single()
-
-  if (farmError) {
-    console.error(farmError)
-    return { error: 'Failed to load farm data' }
-  }
-
-  // Get latest animal record
-  const { data: animalRecord, error: animalError } = await supabase
-    .from('animal_records')
-    .select('id')
-    .eq('farm_id', farmData.farm_id)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .single()
-
-  if (animalError) {
-    console.error(animalError)
-    return { error: 'Failed to load animal record' }
-  }
-
-  // Update animal metadata
   const { error: updateError } = await supabase
     .from('animal_metadata')
     .update({
@@ -48,7 +24,7 @@ export async function submitFormData(formData: FormDataType) {
       carcass_scanner_no: formData.animalMetadata.carcassScannerNo,
       show_wool_fleece: formData.animalMetadata.showWoolFleece
     })
-    .eq('animal_id', animalRecord.id)
+    .eq('animal_id', animalId)
 
   if (updateError) {
     console.error(updateError)

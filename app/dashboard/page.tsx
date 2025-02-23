@@ -25,7 +25,7 @@ export default function DashboardPage() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
-      await submitFormData(formData);
+      await submitFormData({ formData, animalId });
     } finally {
       setIsSubmitting(false);
     }
