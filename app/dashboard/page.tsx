@@ -45,6 +45,7 @@ export default function DashboardPage() {
     async function init() {
       try {
         const { data, error } = await loadFormData();
+        console.log(data)
         if (error) throw error;
         if (data) {
           setFarmId(data.farmId);
@@ -58,6 +59,14 @@ export default function DashboardPage() {
               limitInputs: data.animalMetadata?.limit_inputs || 'None',
               carcassScannerNo: data.animalMetadata?.carcass_scanner_no || '',
               showWoolFleece: data.animalMetadata?.show_wool_fleece || false,
+            },
+            animalIdentification: {
+              animalIdent: data.animalIdentification?.animal_ident || '',
+              sire: data.animalIdentification?.sire || '',
+              dam: data.animalIdentification?.dam || '',
+              sex: data.animalIdentification?.sex || 0,
+              bt: data.animalIdentification?.bt || 0,
+              rt: data.animalIdentification?.rt || 0
             }
           }));
         }

@@ -56,7 +56,7 @@ export async function loadFormData() {
     return { error: 'Failed to load farm data' }
   }
 
-  // Get latest animal record with metadata
+  // Get latest animal record 
   const { data: animalData, error: animalError } = await supabase
     .from('animal_records')
     .select(`
@@ -69,6 +69,14 @@ export async function loadFormData() {
         limit_inputs,
         carcass_scanner_no,
         show_wool_fleece
+      ),
+      animal_identification (
+        animal_ident,
+        sire,
+        dam,
+        sex,
+        bt,
+        rt
       )
     `)
     .eq('farm_id', farmData.farm_id)
@@ -80,12 +88,13 @@ export async function loadFormData() {
     console.error('Error fetching animal:', animalError)
     return { error: 'Failed to load animal data' }
   }
-
+  
   return { 
     data: {
       farmId: farmData.farm_id,
       animalId: animalData.id,
-      animalMetadata: animalData.animal_metadata[0]
+      animalMetadata: animalData.animal_metadata[0],
+      animalIdentification: animalData.animal_identification[0]
     }
   }
 }
