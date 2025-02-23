@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { FormContext } from '@/contexts/FormContext';
 import type { FormDataType } from '@/types/form';
 import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
+import { AnimalIdInputs } from '@/components/AnimalIdInputs';
 import { submitFormData, loadFormData } from './actions';
 import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 
@@ -16,6 +17,14 @@ export default function DashboardPage() {
       limitInputs: 'None',
       carcassScannerNo: '',
       showWoolFleece: false,
+    },
+    animalIdentification: {
+      animalIdent: '',
+      sire: '',
+      dam: '',
+      sex: 0,
+      bt: 0,
+      rt: 0
     }
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -36,6 +45,7 @@ export default function DashboardPage() {
     async function init() {
       try {
         const { data, error } = await loadFormData();
+        
         if (error) throw error;
         if (data) {
           setFarmId(data.farmId);
@@ -49,6 +59,14 @@ export default function DashboardPage() {
               limitInputs: data.animalMetadata?.limit_inputs || 'None',
               carcassScannerNo: data.animalMetadata?.carcass_scanner_no || '',
               showWoolFleece: data.animalMetadata?.show_wool_fleece || false,
+            },
+            animalIdentification: {
+              animalIdent: data.animalIdentification?.animal_ident || '',
+              sire: data.animalIdentification?.sire || '',
+              dam: data.animalIdentification?.dam || '',
+              sex: data.animalIdentification?.sex || 0,
+              bt: data.animalIdentification?.bt || 0,
+              rt: data.animalIdentification?.rt || 0
             }
           }));
         }
@@ -89,7 +107,7 @@ export default function DashboardPage() {
               {/* Animal Identification */}
               <div className={`lg:col-span-2 ${cardClass}`}>
                 <div className={cardBodyClass}>
-                  Animal Id Inputs
+                  <AnimalIdInputs />
                 </div>
               </div>
 

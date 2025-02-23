@@ -14,7 +14,7 @@ export async function submitFormData({
 }) {
   const supabase = await createClient()
 
-  const { error: updateError } = await supabase
+  const { error: metadataError } = await supabase
     .from('animal_metadata')
     .update({
       auto_build_text: formData.animalMetadata.autoBuildText,
@@ -26,9 +26,27 @@ export async function submitFormData({
     })
     .eq('animal_id', animalId)
 
-  if (updateError) {
-    console.error(updateError)
+  if (metadataError) {
+    console.error(metadataError)
     return { error: 'Failed to update metadata' }
+  }
+
+  // Update animal identification
+  const { error: identificationError } = await supabase
+    .from('animal_identification')
+    .update({
+      animal_ident: formData.animalIdentification.animalIdent,
+      sire: formData.animalIdentification.sire,
+      dam: formData.animalIdentification.dam,
+      sex: formData.animalIdentification.sex,
+      bt: formData.animalIdentification.bt,
+      rt: formData.animalIdentification.rt
+    })
+    .eq('animal_id', animalId)
+
+  if (identificationError) {
+    console.error(identificationError)
+    return { error: 'Failed to update identification' }
   }
 
   revalidatePath('/dashboard')
@@ -56,7 +74,7 @@ export async function loadFormData() {
     return { error: 'Failed to load farm data' }
   }
 
-  // Get latest animal record with metadata
+  // Get latest animal record 
   const { data: animalData, error: animalError } = await supabase
     .from('animal_records')
     .select(`
@@ -69,6 +87,14 @@ export async function loadFormData() {
         limit_inputs,
         carcass_scanner_no,
         show_wool_fleece
+      ),
+      animal_identification (
+        animal_ident,
+        sire,
+        dam,
+        sex,
+        bt,
+        rt
       )
     `)
     .eq('farm_id', farmData.farm_id)
@@ -80,12 +106,13 @@ export async function loadFormData() {
     console.error('Error fetching animal:', animalError)
     return { error: 'Failed to load animal data' }
   }
-
+  
   return { 
     data: {
       farmId: farmData.farm_id,
       animalId: animalData.id,
-      animalMetadata: animalData.animal_metadata[0]
+      animalMetadata: animalData.animal_metadata[0],
+      animalIdentification: animalData.animal_identification[0]
     }
   }
 }
