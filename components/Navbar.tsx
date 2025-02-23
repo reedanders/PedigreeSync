@@ -6,11 +6,7 @@ import Image from "next/image"
 import placeholderLogo from '../public/placeholder-logo.svg';
 
 export const Navbar = () => {
-  const navigation = [
-    "Product",
-    "Features",
-    "About",
-  ];
+  const navigation: any[] = [];
 
   return (
     <div className="w-full">
