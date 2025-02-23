@@ -14,7 +14,7 @@ export async function submitFormData({
 }) {
   const supabase = await createClient()
 
-  const { error: updateError } = await supabase
+  const { error: metadataError } = await supabase
     .from('animal_metadata')
     .update({
       auto_build_text: formData.animalMetadata.autoBuildText,
@@ -26,9 +26,27 @@ export async function submitFormData({
     })
     .eq('animal_id', animalId)
 
-  if (updateError) {
-    console.error(updateError)
+  if (metadataError) {
+    console.error(metadataError)
     return { error: 'Failed to update metadata' }
+  }
+
+  // Update animal identification
+  const { error: identificationError } = await supabase
+    .from('animal_identification')
+    .update({
+      animal_ident: formData.animalIdentification.animalIdent,
+      sire: formData.animalIdentification.sire,
+      dam: formData.animalIdentification.dam,
+      sex: formData.animalIdentification.sex,
+      bt: formData.animalIdentification.bt,
+      rt: formData.animalIdentification.rt
+    })
+    .eq('animal_id', animalId)
+
+  if (identificationError) {
+    console.error(identificationError)
+    return { error: 'Failed to update identification' }
   }
 
   revalidatePath('/dashboard')
