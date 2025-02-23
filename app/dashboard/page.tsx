@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { FormContext } from '@/contexts/FormContext';
 import type { FormDataType } from '@/types/form';
 import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
+import { AnimalIdInputs } from '@/components/AnimalIdInputs';
 import { submitFormData, loadFormData } from './actions';
 import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 
@@ -16,6 +17,14 @@ export default function DashboardPage() {
       limitInputs: 'None',
       carcassScannerNo: '',
       showWoolFleece: false,
+    },
+    animalIdentification: {
+      animalIdent: '',
+      sire: '',
+      dam: '',
+      sex: 0,
+      bt: 0,
+      rt: 0
     }
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -89,7 +98,7 @@ export default function DashboardPage() {
               {/* Animal Identification */}
               <div className={`lg:col-span-2 ${cardClass}`}>
                 <div className={cardBodyClass}>
-                  Animal Id Inputs
+                  <AnimalIdInputs />
                 </div>
               </div>
 
