@@ -107,6 +107,8 @@ export async function loadFormData() {
 
   return { 
     data: {
+      farmId: farmData.farm_id,
+      animalId: animalData.id,
       animalMetadata: animalData.animal_metadata[0]
     }
   }

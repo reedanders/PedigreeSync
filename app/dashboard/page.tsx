@@ -19,6 +19,8 @@ export default function DashboardPage() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [farmId, setFarmId] = useState<string>('');
+  const [animalId, setAnimalId] = useState<string>('');
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -35,7 +37,8 @@ export default function DashboardPage() {
         const { data, error } = await loadFormData();
         if (error) throw error;
         if (data) {
-          console.log(data)
+          setFarmId(data.farmId);
+          setAnimalId(data.animalId);
           setFormData(prev => ({
             ...prev,
             animalMetadata: {
@@ -66,7 +69,7 @@ export default function DashboardPage() {
   const titleClass = "text-base font-medium text-gray-900 dark:text-gray-100";
 
   return (
-    <FormContext.Provider value={{ formData, setFormData }}>
+    <FormContext.Provider value={{ formData, setFormData, farmId, animalId }}>
       <main className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <section className="space-y-4">
