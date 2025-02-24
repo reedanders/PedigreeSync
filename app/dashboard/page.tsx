@@ -74,6 +74,12 @@ export default function DashboardPage() {
               sex: data.animalIdentification?.sex || 0,
               bt: data.animalIdentification?.bt || 0,
               rt: data.animalIdentification?.rt || 0
+            },
+            animalConception: {
+              method: data.animalConception?.method || 0,
+              date: data.animalConception?.date || '',
+              lambEase: data.animalConception?.lamb_ease || 0,
+              nickname: data.animalConception?.nickname || ''
             }
           }));
         }
@@ -114,7 +120,6 @@ export default function DashboardPage() {
               {/* Animal Identification */}
               <div className={`lg:col-span-2 ${cardClass}`}>
                 <div className={cardBodyClass}>
-                  <h3 className={titleClass}>Animal Identification</h3>
                   <AnimalIdInputs />
                 </div>
               </div>
@@ -122,9 +127,35 @@ export default function DashboardPage() {
               {/* Conception */}
               <div className={cardClass}>
                 <div className={cardBodyClass}>
-                  <h3 className={titleClass}>Conception & Birth</h3>
-                  <AnimalConceptionInputs />
+                    <AnimalConceptionInputs />
                 </div>
+              </div>
+            </div>
+
+            {/* Group Comments */}
+            <div className={cardClass}>
+              <div className={cardBodyClass}>
+                  Group, Comments, Status
+              </div>
+            </div>
+
+            {/* Animal Traits */}
+            <div className={cardClass}>
+              <div className={cardBodyClass}>
+                Animal Traits Inputs
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className={cardClass}>
+              <div className={`${cardBodyClass} flex justify-end`}>
+                <button
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                  className="btn btn-primary"
+                >
+                  {isSubmitting ? 'Saving...' : 'Save Record'}
+                </button>
               </div>
             </div>
           </section>
