@@ -5,6 +5,7 @@ import { FormContext } from '@/contexts/FormContext';
 import type { FormDataType } from '@/types/form';
 import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
 import { AnimalIdInputs } from '@/components/AnimalIdInputs';
+import { AnimalConceptionInputs } from '@/components/AnimalConceptionInputs';
 import { submitFormData, loadFormData } from './actions';
 import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 
@@ -25,6 +26,12 @@ export default function DashboardPage() {
       sex: 0,
       bt: 0,
       rt: 0
+    },
+    animalConception: {
+      method: 0,
+      date: '',
+      lambEase: 0,
+      nickname: ''
     }
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -107,6 +114,7 @@ export default function DashboardPage() {
               {/* Animal Identification */}
               <div className={`lg:col-span-2 ${cardClass}`}>
                 <div className={cardBodyClass}>
+                  <h3 className={titleClass}>Animal Identification</h3>
                   <AnimalIdInputs />
                 </div>
               </div>
@@ -114,35 +122,9 @@ export default function DashboardPage() {
               {/* Conception */}
               <div className={cardClass}>
                 <div className={cardBodyClass}>
-                    Conception, Parturition
+                  <h3 className={titleClass}>Conception & Birth</h3>
+                  <AnimalConceptionInputs />
                 </div>
-              </div>
-            </div>
-
-            {/* Group Comments */}
-            <div className={cardClass}>
-              <div className={cardBodyClass}>
-                  Group, Comments, Status
-              </div>
-            </div>
-
-            {/* Animal Traits */}
-            <div className={cardClass}>
-              <div className={cardBodyClass}>
-                Animal Traits Inputs
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className={cardClass}>
-              <div className={`${cardBodyClass} flex justify-end`}>
-                <button
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  className="btn btn-primary"
-                >
-                  {isSubmitting ? 'Saving...' : 'Save Record'}
-                </button>
               </div>
             </div>
           </section>
