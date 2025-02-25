@@ -3,12 +3,13 @@
 import { useContext } from 'react';
 import { FormContext } from '@/contexts/FormContext';
 import type { FormContextType, FormDataType, AnimalConception } from '../types/form';
+import { formatDateForInput } from '@/utils/date';
 
 export function AnimalConceptionInputs() {
   const context = useContext(FormContext);
   
   if (!context) {
-    throw new Error('ConceptionInputs must be used within a FormProvider');
+    throw new Error('AnimalConceptionInputs must be used within a FormProvider');
   }
   
   const { formData, setFormData } = context;
@@ -60,7 +61,7 @@ export function AnimalConceptionInputs() {
         <input
           id="conceptionDate"
           type="date"
-          value={formData.animalConception.date}
+          value={formatDateForInput(formData.animalConception.date)}
           onChange={(e) => updateField('date', e.target.value)}
           className="input input-bordered input-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
         />
