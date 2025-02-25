@@ -7,6 +7,7 @@ import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
 import { AnimalIdInputs } from '@/components/AnimalIdInputs';
 import { AnimalConceptionInputs } from '@/components/AnimalConceptionInputs';
 import { AnimalNotesInputs } from '@/components/AnimalNotesInputs';
+import { GeneralTraitsInputs } from '@/components/GeneralTraitsInputs';
 import { submitFormData, loadFormData } from './actions';
 import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 
@@ -153,7 +154,7 @@ export default function DashboardPage() {
             {/* Animal Traits */}
             <div className={cardClass}>
               <div className={cardBodyClass}>
-                Animal Traits Inputs
+                <GeneralTraitsInputs />
               </div>
             </div>
 
