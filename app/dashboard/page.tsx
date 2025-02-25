@@ -5,6 +5,7 @@ import { FormContext } from '@/contexts/FormContext';
 import type { FormDataType } from '@/types/form';
 import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
 import { AnimalIdInputs } from '@/components/AnimalIdInputs';
+import { AnimalConceptionInputs } from '@/components/AnimalConceptionInputs';
 import { submitFormData, loadFormData } from './actions';
 import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 
@@ -25,6 +26,12 @@ export default function DashboardPage() {
       sex: 0,
       bt: 0,
       rt: 0
+    },
+    animalConception: {
+      method: 0,
+      date: '',
+      lambEase: 0,
+      nickname: ''
     }
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -45,7 +52,7 @@ export default function DashboardPage() {
     async function init() {
       try {
         const { data, error } = await loadFormData();
-        
+        console.log(data)
         if (error) throw error;
         if (data) {
           setFarmId(data.farmId);
@@ -67,6 +74,12 @@ export default function DashboardPage() {
               sex: data.animalIdentification?.sex || 0,
               bt: data.animalIdentification?.bt || 0,
               rt: data.animalIdentification?.rt || 0
+            },
+            animalConception: {
+              method: data.animalConception?.method || 0,
+              date: data.animalConception?.date || '',
+              lambEase: data.animalConception?.lamb_ease || 0,
+              nickname: data.animalConception?.nickname || ''
             }
           }));
         }
@@ -114,7 +127,7 @@ export default function DashboardPage() {
               {/* Conception */}
               <div className={cardClass}>
                 <div className={cardBodyClass}>
-                    Conception, Parturition
+                    <AnimalConceptionInputs />
                 </div>
               </div>
             </div>

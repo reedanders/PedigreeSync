@@ -3,6 +3,7 @@
 import { useContext } from 'react';
 import { FormContext } from '@/contexts/FormContext';
 import type { FormDataType, AnimalMetadata } from '@/types/form';
+import { formatDateForInput } from '@/utils/date';
 
 export function AnimalMetadataInputs() {
     const context = useContext(FormContext);
@@ -12,11 +13,6 @@ export function AnimalMetadataInputs() {
     }
     
     const { formData, setFormData } = context;
-
-    const formatDateForInput = (dateString: string | null) => {
-        if (!dateString) return '';
-        return new Date(dateString).toISOString().split('T')[0];
-    };
 
     const updateField = (field: keyof AnimalMetadata, value: string | number | boolean) => {
         setFormData((prev: FormDataType) => ({

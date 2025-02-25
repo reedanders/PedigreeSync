@@ -49,6 +49,22 @@ export async function submitFormData({
     return { error: 'Failed to update identification' }
   }
 
+  // Update animal conception
+  const { error: conceptionError } = await supabase
+    .from('animal_conception')
+    .update({
+      method: formData.animalConception.method,
+      date: formData.animalConception.date,
+      lamb_ease: formData.animalConception.lambEase,
+      nickname: formData.animalConception.nickname
+    })
+    .eq('animal_id', animalId)
+
+  if (conceptionError) {
+    console.error(conceptionError)
+    return { error: 'Failed to update conception data' }
+  }
+
   revalidatePath('/dashboard')
   return { success: true }
 }
@@ -95,6 +111,12 @@ export async function loadFormData() {
         sex,
         bt,
         rt
+      ),
+      animal_conception (
+        method,
+        date,
+        lamb_ease,
+        nickname
       )
     `)
     .eq('farm_id', farmData.farm_id)
@@ -112,7 +134,8 @@ export async function loadFormData() {
       farmId: farmData.farm_id,
       animalId: animalData.id,
       animalMetadata: animalData.animal_metadata[0],
-      animalIdentification: animalData.animal_identification[0]
+      animalIdentification: animalData.animal_identification[0],
+      animalConception: animalData.animal_conception[0]
     }
   }
 }
