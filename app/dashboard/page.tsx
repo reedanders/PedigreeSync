@@ -88,9 +88,9 @@ export default function DashboardPage() {
               nickname: data.animalConception?.nickname || ''
             },
             animalNotes: {
-              group: data.animalNotes?.group || 0,
-              comment: data.animalNotes?.comment || '',
-              status: data.animalNotes?.status || 'Current'
+              group: data.animalConception?.group || 0,
+              comment: data.animalIdentification?.comment || '',
+              status: data.animalIdentification?.status || 'Current'
             }
           }));
         }

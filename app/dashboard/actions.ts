@@ -14,6 +14,7 @@ export async function submitFormData({
 }) {
   const supabase = await createClient()
 
+  // Update animal_metadata
   const { error: metadataError } = await supabase
     .from('animal_metadata')
     .update({
@@ -31,7 +32,7 @@ export async function submitFormData({
     return { error: 'Failed to update metadata' }
   }
 
-  // Update animal identification
+  // Update animal_identification
   const { error: identificationError } = await supabase
     .from('animal_identification')
     .update({
@@ -40,7 +41,9 @@ export async function submitFormData({
       dam: formData.animalIdentification.dam,
       sex: formData.animalIdentification.sex,
       bt: formData.animalIdentification.bt,
-      rt: formData.animalIdentification.rt
+      rt: formData.animalIdentification.rt,
+      comment: formData.animalNotes.comment,
+      status: formData.animalNotes.status
     })
     .eq('animal_id', animalId)
 
@@ -49,14 +52,15 @@ export async function submitFormData({
     return { error: 'Failed to update identification' }
   }
 
-  // Update animal conception
+  // Update animal_conception
   const { error: conceptionError } = await supabase
     .from('animal_conception')
     .update({
       method: formData.animalConception.method,
       date: formData.animalConception.date,
       lamb_ease: formData.animalConception.lambEase,
-      nickname: formData.animalConception.nickname
+      nickname: formData.animalConception.nickname,
+      group: formData.animalNotes.group
     })
     .eq('animal_id', animalId)
 
@@ -110,13 +114,16 @@ export async function loadFormData() {
         dam,
         sex,
         bt,
-        rt
+        rt,
+        comment,
+        status
       ),
       animal_conception (
         method,
         date,
         lamb_ease,
-        nickname
+        nickname,
+        group
       )
     `)
     .eq('farm_id', farmData.farm_id)
