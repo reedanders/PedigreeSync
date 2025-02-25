@@ -29,6 +29,23 @@ export type LambEase =
   | 4  // Abnormal Presentation
   | 5; // Other
 
+export type AnimalGroupType = 
+  | 0  // Unknown Group
+  | 1  // Stud Drop
+  | 2  // Stud Late
+  | 3  // Stud Out of Season
+  | 4  // Stud Early
+  | 5  // Stud AI Group
+  | 6; // Study ET Group
+
+export type AnimalStatusType = 
+  | 0  // Current
+  | 1  // Culled
+  | 2  // Dead
+  | 3  // Missing
+  | 4  // Reference
+  | 5; // Sold
+
 export interface AnimalMetadata {
   autoBuildText: string;
   editDate1: string;
@@ -54,10 +71,17 @@ export interface AnimalConception {
   nickname: string;
 }
 
+export interface AnimalNotes {
+  group: AnimalGroupType;
+  comment: string;
+  status: AnimalStatusType;
+}
+
 export interface FormDataType {
   animalMetadata: AnimalMetadata;
   animalIdentification: AnimalIdentification;
   animalConception: AnimalConception;
+  animalNotes: AnimalNotes;
 }
 
 export interface FormContextType {
