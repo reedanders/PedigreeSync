@@ -39,6 +39,18 @@ export default function DashboardPage() {
       group: 0,
       comment: '',
       status: 0
+    },
+    generalTraits: {
+      Birth: {},
+      Weaning: {},
+      "EP Weaning": {},
+      "P Weaning": {},
+      Yearling: {},
+      Hogget: {},
+      Adult: {},
+      "Adult 3": {},
+      "Adult 4": {},
+      "Adult 5": {}
     }
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -54,6 +66,8 @@ export default function DashboardPage() {
       setIsSubmitting(false);
     }
   };
+
+  useEffect(() => {console.log(formData)}, [formData]);
 
   useEffect(() => {
     async function init() {
@@ -92,6 +106,18 @@ export default function DashboardPage() {
               group: data.animalConception?.group || 0,
               comment: data.animalIdentification?.comment || '',
               status: data.animalIdentification?.status || 'Current'
+            },
+            generalTraits: data.generalTraits || {
+              Birth: {},
+              Weaning: {},
+              "EP Weaning": {},
+              "P Weaning": {},
+              Yearling: {},
+              Hogget: {},
+              Adult: {},
+              "Adult 3": {},
+              "Adult 4": {},
+              "Adult 5": {}
             }
           }));
         }

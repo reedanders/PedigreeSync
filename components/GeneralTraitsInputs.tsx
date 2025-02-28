@@ -1,20 +1,13 @@
+import { useContext } from 'react';
+import { FormContext } from '@/contexts/FormContext';
 import type { FieldConfig } from '../types/fields';
-import type { RowLabel, FieldName } from '../types/form';
-
+import type { RowLabel, FieldName, FormContextType } from '../types/form';
 import { generalColumns } from '../config/generalTraits';
 import { visibilityConfig } from '../config/visibilityConfig';
 
 const rows: RowLabel[] = [
-  "Birth",
-  "Weaning",
-  "EP Weaning",
-  "P Weaning",
-  "Yearling",
-  "Hogget",
-  "Adult",
-  "Adult 3",
-  "Adult 4",
-  "Adult 5"
+  "Birth", "Weaning", "EP Weaning", "P Weaning",
+  "Yearling", "Hogget", "Adult", "Adult 3", "Adult 4", "Adult 5"
 ];
 
 const columns = generalColumns;
@@ -24,8 +17,28 @@ const isFieldVisible = (row: RowLabel, field: FieldName): boolean => {
   return visibilityConfig[row][field] ?? false;
 };
 
-
 export function GeneralTraitsInputs() {
+  const context = useContext(FormContext);
+  
+  if (!context) {
+    throw new Error('GeneralTraitsInputs must be used within a FormProvider');
+  }
+
+  const { formData, setFormData } = context;
+
+  const handleInputChange = (row: RowLabel, field: FieldName, value: string | number) => {
+    setFormData(prev => ({
+      ...prev,
+      generalTraits: {
+        ...prev.generalTraits,
+        [row]: {
+          ...prev.generalTraits?.[row],
+          [field]: value
+        }
+      }
+    }));
+  };
+
   return (
     <div>
       <div className="grid grid-cols-1 gap-6">
@@ -68,6 +81,8 @@ export function GeneralTraitsInputs() {
                               <input
                                 type={col.type}
                                 className="input input-bordered input-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
+                                value={formData.generalTraits?.[rowLabel]?.[col.label] || ''}
+                                onChange={(e) => handleInputChange(rowLabel, col.label as FieldName, e.target.value)}
                               />
                             )
                           ) : (

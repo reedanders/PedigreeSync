@@ -77,11 +77,24 @@ export interface AnimalNotes {
   status: AnimalStatusType;
 }
 
+export interface GeneralTrait {
+  Date?: string;
+  Weight?: number;
+  cFat?: number;
+  EMD?: number;
+  SC?: number;
+  WEC?: number;
+  Group?: number;
+}
+
 export interface FormDataType {
   animalMetadata: AnimalMetadata;
   animalIdentification: AnimalIdentification;
   animalConception: AnimalConception;
   animalNotes: AnimalNotes;
+  generalTraits: {
+    [key: string]: GeneralTrait;
+  };
 }
 
 export interface FormContextType {
