@@ -1,20 +1,22 @@
 import { useContext } from 'react';
 import { FormContext } from '@/contexts/FormContext';
 import type { FieldConfig } from '../types/fields';
-import type { RowLabel, FieldName, FormContextType } from '../types/form';
+import { 
+  TraitStage, 
+  TraitField, 
+  TRAIT_STAGE_LABELS, 
+  TRAIT_FIELD_LABELS 
+} from '../types/form';
 import { generalColumns } from '../config/generalTraits';
 import { visibilityConfig } from '../config/visibilityConfig';
 
-const rows: RowLabel[] = [
-  "Birth", "Weaning", "EPWeaning", "PWeaning",
-  "Yearling", "Hogget", "Adult", "Adult2", "Adult3", "Adult4", "Adult5"
-];
-
+// Use enum values for rows
+const rows = Object.values(TraitStage);
 const columns = generalColumns;
 
-const isFieldVisible = (row: RowLabel, field: FieldName): boolean => {
-  if (!(row in visibilityConfig)) return false;
-  return visibilityConfig[row][field] ?? false;
+const isFieldVisible = (stage: TraitStage, field: TraitField): boolean => {
+  if (!(stage in visibilityConfig)) return false;
+  return visibilityConfig[stage][field] ?? false;
 };
 
 export function GeneralTraitsInputs() {
@@ -26,13 +28,13 @@ export function GeneralTraitsInputs() {
 
   const { formData, setFormData } = context;
 
-  const handleInputChange = (row: RowLabel, field: FieldName, value: string | number) => {
+  const handleInputChange = (stage: TraitStage, field: TraitField, value: string | number) => {
     setFormData(prev => ({
       ...prev,
       generalTraits: {
         ...prev.generalTraits,
-        [row]: {
-          ...prev.generalTraits?.[row],
+        [stage]: {
+          ...prev.generalTraits?.[stage],
           [field]: value
         }
       }
@@ -55,24 +57,24 @@ export function GeneralTraitsInputs() {
                     <th className="text-gray-900 dark:text-base-content border-b border-gray-200 dark:border-gray-700"></th>
                     {columns.map((col, idx) => (
                       <th key={idx} className="text-gray-900 dark:text-base-content border-b border-gray-200 dark:border-gray-700">
-                        {col.label}
+                        {TRAIT_FIELD_LABELS[col.label as TraitField]}
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {rows.map((rowLabel, rowIndex) => (
+                  {rows.map((stage, rowIndex) => (
                     <tr key={rowIndex} className="hover:bg-gray-100 dark:hover:bg-base-300">
                       <td className="font-medium text-gray-900 dark:text-base-content">
-                        {rowLabel}
+                        {TRAIT_STAGE_LABELS[stage]}
                       </td>
                       {columns.map((col, colIndex) => (
                         <td key={colIndex}>
-                          {isFieldVisible(rowLabel, col.label as FieldName) ? (
+                          {isFieldVisible(stage, col.label as TraitField) ? (
                             col.type === 'select' ? (
                               <select
-                                value={formData.generalTraits?.[rowLabel]?.[col.label] || ''}
-                                onChange={(e) => handleInputChange(rowLabel, col.label as FieldName, e.target.value)}
+                                value={formData.generalTraits?.[stage]?.[col.label as TraitField] || ''}
+                                onChange={(e) => handleInputChange(stage, col.label as TraitField, e.target.value)}
                                 className="select select-bordered select-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
                               >
                                 {col.options?.map((opt, optIdx) => (
@@ -85,8 +87,8 @@ export function GeneralTraitsInputs() {
                               <input
                                 type={col.type}
                                 className="input input-bordered input-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
-                                value={formData.generalTraits?.[rowLabel]?.[col.label] || ''}
-                                onChange={(e) => handleInputChange(rowLabel, col.label as FieldName, e.target.value)}
+                                value={formData.generalTraits?.[stage]?.[col.label as TraitField] || ''}
+                                onChange={(e) => handleInputChange(stage, col.label as TraitField, e.target.value)}
                               />
                             )
                           ) : (

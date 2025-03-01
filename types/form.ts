@@ -77,14 +77,69 @@ export interface AnimalNotes {
   status: AnimalStatusType;
 }
 
+// Trait stages matching database column prefixes
+export enum TraitStage {
+  Birth = 'birth',
+  Weaning = 'weaning',
+  EPWeaning = 'ep_weaning',
+  PWeaning = 'p_weaning',
+  Yearling = 'yearling', 
+  Hogget = 'hogget',
+  Adult = 'adult',
+  Adult2 = 'adult2',
+  Adult3 = 'adult3',
+  Adult4 = 'adult4',
+  Adult5 = 'adult5'
+}
+
+// Display labels for trait stages
+export const TRAIT_STAGE_LABELS: Record<TraitStage, string> = {
+  [TraitStage.Birth]: 'Birth',
+  [TraitStage.Weaning]: 'Weaning',
+  [TraitStage.EPWeaning]: 'EP Weaning',
+  [TraitStage.PWeaning]: 'P Weaning',
+  [TraitStage.Yearling]: 'Yearling',
+  [TraitStage.Hogget]: 'Hogget',
+  [TraitStage.Adult]: 'Adult',
+  [TraitStage.Adult2]: 'Adult 2',
+  [TraitStage.Adult3]: 'Adult 3',
+  [TraitStage.Adult4]: 'Adult 4',
+  [TraitStage.Adult5]: 'Adult 5'
+};
+
+// Trait fields matching database column suffixes
+export enum TraitField {
+  Date = 'date',
+  Weight = 'weight',
+  CFat = 'c_fat',
+  EMD = 'emd',
+  SC = 'sc',
+  WEC = 'wec',
+  Group = 'group'
+}
+
+// Display labels for trait fields
+export const TRAIT_FIELD_LABELS: Record<TraitField, string> = {
+  [TraitField.Date]: 'Date',
+  [TraitField.Weight]: 'Weight',
+  [TraitField.CFat]: 'cFat',
+  [TraitField.EMD]: 'EMD',
+  [TraitField.SC]: 'SC',
+  [TraitField.WEC]: 'WEC',
+  [TraitField.Group]: 'Group'
+};
+
+export type RowLabel = keyof typeof TRAIT_STAGE_LABELS;
+export type FieldName = keyof typeof TRAIT_FIELD_LABELS;
+
 export interface GeneralTrait {
-  Date?: string;
-  Weight?: number;
-  cFat?: number;
-  EMD?: number;
-  SC?: number;
-  WEC?: number;
-  Group?: number;
+  [TraitField.Date]?: string;
+  [TraitField.Weight]?: number;
+  [TraitField.CFat]?: number;
+  [TraitField.EMD]?: number;
+  [TraitField.SC]?: number;
+  [TraitField.WEC]?: number;
+  [TraitField.Group]?: number;
 }
 
 export interface FormDataType {
@@ -93,7 +148,7 @@ export interface FormDataType {
   animalConception: AnimalConception;
   animalNotes: AnimalNotes;
   generalTraits: {
-    [key: string]: GeneralTrait;
+    [key in TraitStage]?: GeneralTrait;
   };
 }
 
