@@ -6,8 +6,8 @@ import { generalColumns } from '../config/generalTraits';
 import { visibilityConfig } from '../config/visibilityConfig';
 
 const rows: RowLabel[] = [
-  "Birth", "Weaning", "EP Weaning", "P Weaning",
-  "Yearling", "Hogget", "Adult", "Adult 3", "Adult 4", "Adult 5"
+  "Birth", "Weaning", "EPWeaning", "PWeaning",
+  "Yearling", "Hogget", "Adult", "Adult2", "Adult3", "Adult4", "Adult5"
 ];
 
 const columns = generalColumns;
@@ -70,7 +70,11 @@ export function GeneralTraitsInputs() {
                         <td key={colIndex}>
                           {isFieldVisible(rowLabel, col.label as FieldName) ? (
                             col.type === 'select' ? (
-                              <select className="select select-bordered select-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content">
+                              <select
+                                value={formData.generalTraits?.[rowLabel]?.[col.label] || ''}
+                                onChange={(e) => handleInputChange(rowLabel, col.label as FieldName, e.target.value)}
+                                className="select select-bordered select-sm w-full bg-white dark:bg-base-300 text-gray-900 dark:text-base-content"
+                              >
                                 {col.options?.map((opt, optIdx) => (
                                   <option key={optIdx} value={opt}>
                                     {opt || 'Select...'}

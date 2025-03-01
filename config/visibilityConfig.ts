@@ -19,7 +19,7 @@ export const visibilityConfig: VisibilityConfig = {
       WEC: true,
       Group: true
     },
-    "EP Weaning": {
+    "EPWeaning": {
       Date: true,
       Weight: true,
       cFat: true,
@@ -28,7 +28,7 @@ export const visibilityConfig: VisibilityConfig = {
       WEC: true,
       Group: true
     },
-    "P Weaning": {
+    "PWeaning": {
       Date: true,
       Weight: true,
       cFat: true,
@@ -64,7 +64,7 @@ export const visibilityConfig: VisibilityConfig = {
       WEC: true,
       Group: true
     },
-    "Adult 3": {
+    "Adult2": {
       Date: true,
       Weight: true,
       cFat: false,
@@ -73,7 +73,7 @@ export const visibilityConfig: VisibilityConfig = {
       WEC: false,
       Group: false
     },
-    "Adult 4": {
+    "Adult3": {
       Date: true,
       Weight: true,
       cFat: false,
@@ -82,7 +82,16 @@ export const visibilityConfig: VisibilityConfig = {
       WEC: false,
       Group: false
     },
-    "Adult 5": {
+    "Adult4": {
+      Date: true,
+      Weight: true,
+      cFat: false,
+      EMD: false,
+      SC: false,
+      WEC: false,
+      Group: false
+    },
+    "Adult5": {
       Date: true,
       Weight: true,
       cFat: false,

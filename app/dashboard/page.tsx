@@ -43,14 +43,15 @@ export default function DashboardPage() {
     generalTraits: {
       Birth: {},
       Weaning: {},
-      "EP Weaning": {},
-      "P Weaning": {},
+      EPWeaning: {},
+      PWeaning: {},
       Yearling: {},
       Hogget: {},
       Adult: {},
-      "Adult 3": {},
-      "Adult 4": {},
-      "Adult 5": {}
+      Adult2: {},
+      Adult3: {},
+      Adult4: {},
+      Adult5: {}
     }
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -110,14 +111,15 @@ export default function DashboardPage() {
             generalTraits: data.generalTraits || {
               Birth: {},
               Weaning: {},
-              "EP Weaning": {},
-              "P Weaning": {},
+              EPWeaning: {},
+              PWeaning: {},
               Yearling: {},
               Hogget: {},
               Adult: {},
-              "Adult 3": {},
-              "Adult 4": {},
-              "Adult 5": {}
+              Adult2: {},
+              Adult3: {},
+              Adult4: {},
+              Adult5: {}
             }
           }));
         }
