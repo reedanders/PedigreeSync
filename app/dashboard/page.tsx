@@ -41,17 +41,17 @@ export default function DashboardPage() {
       status: 0
     },
     generalTraits: {
-      Birth: {},
-      Weaning: {},
-      EPWeaning: {},
-      PWeaning: {},
-      Yearling: {},
-      Hogget: {},
-      Adult: {},
-      Adult2: {},
-      Adult3: {},
-      Adult4: {},
-      Adult5: {}
+      birth: {},
+      weaning: {},
+      epWeaning: {},
+      pWeaning: {},
+      yearling: {},
+      hogget: {},
+      adult: {},
+      adult2: {},
+      adult3: {},
+      adult4: {},
+      adult5: {}
     }
   });
   const [isLoading, setIsLoading] = useState(true);

@@ -266,18 +266,10 @@ export interface GeneralTraitsDbRecord {
   adult5_sc?: number | null;
   adult5_wec?: number | null;
   adult5_group?: number | null;
-  
-  // Metadata fields
-  id?: string;
-  animal_id?: string;
-  created_at?: string | null;
-  updated_at?: string | null;
 }
 
 // Update FormDataType to use new generalTraits type
 export interface FormDataType {
-  farmId: string;
-  animalId: string;
   animalMetadata: AnimalMetadata;
   animalIdentification: AnimalIdentification;
   animalConception: AnimalConception;

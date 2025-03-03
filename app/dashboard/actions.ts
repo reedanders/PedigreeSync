@@ -245,9 +245,9 @@ export async function loadFormData() {
       data: {
         farmId: animalData.farm_id,
         animalId: animalData.id,
-        animalMetadata: animalData.animal_metadata,
-        animalIdentification: animalData.animal_identification,
-        animalConception: animalData.animal_conception,
+        animalMetadata: animalData.animal_metadata[0],
+        animalIdentification: animalData.animal_identification[0],
+        animalConception: animalData.animal_conception[0],
         generalTraits
       }
     };
