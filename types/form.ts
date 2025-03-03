@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import { StageKey, FieldKey } from '../config/traitsConfig';
 
 export type InputLimitationType = 'None' | 'Age' | 'Stage';
 export type SexType = 
@@ -74,91 +75,19 @@ export interface AnimalConception {
 export interface AnimalNotes {
   group: AnimalGroupType;
   comment: string;
-  status: AnimalStatusType;
+  status: AnimalStatusType | string;
 }
 
-// Trait stages matching database column prefixes
-export enum TraitStage {
-  Birth = 'birth',
-  Weaning = 'weaning',
-  EPWeaning = 'epWeaning',
-  PWeaning = 'pWeaning',
-  Yearling = 'yearling', 
-  Hogget = 'hogget',
-  Adult = 'adult',
-  Adult2 = 'adult2',
-  Adult3 = 'adult3',
-  Adult4 = 'adult4',
-  Adult5 = 'adult5'
-}
-
-// Display labels for trait stages
-export const TRAIT_STAGE_LABELS: Record<TraitStage, string> = {
-  [TraitStage.Birth]: 'Birth',
-  [TraitStage.Weaning]: 'Weaning',
-  [TraitStage.EPWeaning]: 'EP Weaning',
-  [TraitStage.PWeaning]: 'P Weaning',
-  [TraitStage.Yearling]: 'Yearling',
-  [TraitStage.Hogget]: 'Hogget',
-  [TraitStage.Adult]: 'Adult',
-  [TraitStage.Adult2]: 'Adult 2',
-  [TraitStage.Adult3]: 'Adult 3',
-  [TraitStage.Adult4]: 'Adult 4',
-  [TraitStage.Adult5]: 'Adult 5'
+// Simplified trait type based on config keys
+export type GeneralTraitRecord = {
+  [key in FieldKey]?: string | number | null;
 };
 
-// Trait fields for the frontend state (matches GeneralTraitRecord keys)
-export enum TraitField {
-  Date = 'date',
-  Weight = 'weight',
-  CFat = 'cFat',  // camelCase for frontend
-  EMD = 'emd',
-  SC = 'sc',
-  WEC = 'wec',
-  Group = 'group'
-}
-
-// Display labels for trait fields
-export const TRAIT_FIELD_LABELS: Record<TraitField, string> = {
-  [TraitField.Date]: 'Date',
-  [TraitField.Weight]: 'Weight',
-  [TraitField.CFat]: 'cFat',
-  [TraitField.EMD]: 'EMD',
-  [TraitField.SC]: 'SC',
-  [TraitField.WEC]: 'WEC',
-  [TraitField.Group]: 'Group'
+export type GeneralTraitsState = {
+  [key in StageKey]?: GeneralTraitRecord;
 };
 
-export type RowLabel = keyof typeof TRAIT_STAGE_LABELS;
-export type FieldName = keyof typeof TRAIT_FIELD_LABELS;
-
-// Single unified interface for trait records
-export interface GeneralTraitRecord {
-  [TraitField.Date]?: string | null;
-  [TraitField.Weight]?: number | null;
-  [TraitField.CFat]?: number | null;
-  [TraitField.EMD]?: number | null;
-  [TraitField.SC]?: number | null;
-  [TraitField.WEC]?: number | null;
-  [TraitField.Group]?: number | null;
-}
-
-// State structure matching TraitStage enum
-export interface GeneralTraitsState {
-  [TraitStage.Birth]?: GeneralTraitRecord;
-  [TraitStage.Weaning]?: GeneralTraitRecord;
-  [TraitStage.EPWeaning]?: GeneralTraitRecord;
-  [TraitStage.PWeaning]?: GeneralTraitRecord;
-  [TraitStage.Yearling]?: GeneralTraitRecord;
-  [TraitStage.Hogget]?: GeneralTraitRecord;
-  [TraitStage.Adult]?: GeneralTraitRecord;
-  [TraitStage.Adult2]?: GeneralTraitRecord;
-  [TraitStage.Adult3]?: GeneralTraitRecord;
-  [TraitStage.Adult4]?: GeneralTraitRecord;
-  [TraitStage.Adult5]?: GeneralTraitRecord;
-}
-
-// Keep your GeneralTraitsDbRecord definition
+// Keep database record type for API transformations
 export interface GeneralTraitsDbRecord {
   // Birth traits
   birth_date?: string | null;
@@ -260,16 +189,12 @@ export interface GeneralTraitsDbRecord {
   adult5_group?: number | null;
 }
 
-// Update FormDataType to use new generalTraits type
+// Update FormDataType to include farmId and animalId
 export interface FormDataType {
   animalMetadata: AnimalMetadata;
   animalIdentification: AnimalIdentification;
   animalConception: AnimalConception;
-  animalNotes: {
-    group: number;
-    comment: string;
-    status: string | number;
-  };
+  animalNotes: AnimalNotes;
   generalTraits: GeneralTraitsState;
 }
 
