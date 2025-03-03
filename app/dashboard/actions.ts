@@ -74,75 +74,80 @@ export async function submitFormData({
 }
 
 export async function loadFormData() {
-  const supabase = await createClient()
-
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return { error: 'Not authenticated' }
-
-  // Get farm info
-  const { data: farmData, error: farmError } = await supabase
-    .from('farm_users')
-    .select(`
-      farm_id,
-      farm:farm(name)
-    `)
-    .eq('user_id', user.id)
-    .single()
-
-  if (farmError) {
-    console.error('Error fetching farm:', farmError)
-    return { error: 'Failed to load farm data' }
-  }
-
-  // Get latest animal record 
-  const { data: animalData, error: animalError } = await supabase
-    .from('animal_records')
-    .select(`
-      id,
-      created_at,
-      animal_metadata (
-        auto_build_text,
-        edit_date1,
-        edit_date2,
-        limit_inputs,
-        carcass_scanner_no,
-        show_wool_fleece
-      ),
-      animal_identification (
-        animal_ident,
-        sire,
-        dam,
-        sex,
-        bt,
-        rt,
-        comment,
-        status
-      ),
-      animal_conception (
-        method,
-        date,
-        lamb_ease,
-        nickname,
-        group
-      )
-    `)
-    .eq('farm_id', farmData.farm_id)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .single()
-
-  if (animalError) {
-    console.error('Error fetching animal:', animalError)
-    return { error: 'Failed to load animal data' }
-  }
-  
-  return { 
-    data: {
-      farmId: farmData.farm_id,
-      animalId: animalData.id,
-      animalMetadata: animalData.animal_metadata[0],
-      animalIdentification: animalData.animal_identification[0],
-      animalConception: animalData.animal_conception[0]
+  try {
+    const supabase = await createClient()
+    const { data: { user }} = await supabase.auth.getUser();
+    if (!user) {
+      return { error: 'User not authenticated' };
     }
+
+    // Fetch animal records with all related tables in a single query
+    const { data: animalData, error: animalError } = await supabase
+      .from('animal_records')
+      .select(`
+        id,
+        farm_id,
+        created_at,
+        animal_metadata (
+          auto_build_text,
+          edit_date1,
+          edit_date2,
+          limit_inputs,
+          carcass_scanner_no,
+          show_wool_fleece
+        ),
+        animal_identification (
+          animal_ident,
+          sire,
+          dam,
+          sex,
+          bt,
+          rt,
+          comment,
+          status
+        ),
+        animal_conception (
+          method,
+          date,
+          lamb_ease,
+          nickname,
+          group
+        ),
+        general_traits (
+          birth_date, birth_weight, birth_c_fat, birth_emd, birth_sc, birth_wec, birth_group,
+          weaning_date, weaning_weight, weaning_c_fat, weaning_emd, weaning_sc, weaning_wec, weaning_group,
+          ep_weaning_date, ep_weaning_weight, ep_weaning_c_fat, ep_weaning_emd, ep_weaning_sc, ep_weaning_wec, ep_weaning_group,
+          p_weaning_date, p_weaning_weight, p_weaning_c_fat, p_weaning_emd, p_weaning_sc, p_weaning_wec, p_weaning_group,
+          yearling_date, yearling_weight, yearling_c_fat, yearling_emd, yearling_sc, yearling_wec, yearling_group,
+          hogget_date, hogget_weight, hogget_c_fat, hogget_emd, hogget_sc, hogget_wec, hogget_group,
+          adult_date, adult_weight, adult_c_fat, adult_emd, adult_sc, adult_wec, adult_group,
+          adult2_date, adult2_weight, adult2_c_fat, adult2_emd, adult2_sc, adult2_wec, adult2_group,
+          adult3_date, adult3_weight, adult3_c_fat, adult3_emd, adult3_sc, adult3_wec, adult3_group,
+          adult4_date, adult4_weight, adult4_c_fat, adult4_emd, adult4_sc, adult4_wec, adult4_group,
+          adult5_date, adult5_weight, adult5_c_fat, adult5_emd, adult5_sc, adult5_wec, adult5_group
+        )
+      `)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single();
+
+    if (animalError) {
+      console.error('Error fetching animal:', animalError);
+      return { error: animalError.message };
+    }
+
+    return {
+      data: {
+        farmId: animalData.farm_id,
+        animalId: animalData.id,
+        animalMetadata: animalData.animal_metadata,
+        animalIdentification: animalData.animal_identification,
+        animalConception: animalData.animal_conception,
+        generalTraits: animalData.general_traits
+      }
+    };
+  } catch (error) {
+    console.error('Error in loadFormData:', error);
+    return { error: 'Failed to load animal data' };
   }
 }
