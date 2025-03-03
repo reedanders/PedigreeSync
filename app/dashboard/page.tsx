@@ -109,17 +109,17 @@ export default function DashboardPage() {
               status: data.animalIdentification?.status || 'Current'
             },
             generalTraits: data.generalTraits || {
-              Birth: {},
-              Weaning: {},
-              EPWeaning: {},
-              PWeaning: {},
-              Yearling: {},
-              Hogget: {},
-              Adult: {},
-              Adult2: {},
-              Adult3: {},
-              Adult4: {},
-              Adult5: {}
+              birth: {},
+              weaning: {},
+              epWeaning: {},
+              pWeaning: {},
+              yearling: {},
+              hogget: {},
+              adult: {},
+              adult2: {},
+              adult3: {},
+              adult4: {},
+              adult5: {}
             }
           }));
         }

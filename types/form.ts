@@ -107,11 +107,11 @@ export const TRAIT_STAGE_LABELS: Record<TraitStage, string> = {
   [TraitStage.Adult5]: 'Adult 5'
 };
 
-// Trait fields matching database column suffixes
+// Trait fields for the frontend state (matches GeneralTraitRecord keys)
 export enum TraitField {
   Date = 'date',
   Weight = 'weight',
-  CFat = 'c_fat',
+  CFat = 'cFat',  // camelCase for frontend
   EMD = 'emd',
   SC = 'sc',
   WEC = 'wec',
@@ -132,41 +132,33 @@ export const TRAIT_FIELD_LABELS: Record<TraitField, string> = {
 export type RowLabel = keyof typeof TRAIT_STAGE_LABELS;
 export type FieldName = keyof typeof TRAIT_FIELD_LABELS;
 
-export interface GeneralTrait {
-  [TraitField.Date]?: string;
-  [TraitField.Weight]?: number;
-  [TraitField.CFat]?: number;
-  [TraitField.EMD]?: number;
-  [TraitField.SC]?: number;
-  [TraitField.WEC]?: number;
-  [TraitField.Group]?: number;
-}
-
-// Add these new interfaces for general traits
+// Single unified interface for trait records
 export interface GeneralTraitRecord {
-  date?: string | null;
-  weight?: number | null;
-  cFat?: number | null;
-  emd?: number | null;
-  sc?: number | null;
-  wec?: number | null;
-  group?: number | null;
+  [TraitField.Date]?: string | null;
+  [TraitField.Weight]?: number | null;
+  [TraitField.CFat]?: number | null;
+  [TraitField.EMD]?: number | null;
+  [TraitField.SC]?: number | null;
+  [TraitField.WEC]?: number | null;
+  [TraitField.Group]?: number | null;
 }
 
+// State structure matching TraitStage enum
 export interface GeneralTraitsState {
-  birth?: GeneralTraitRecord;
-  weaning?: GeneralTraitRecord;
-  epWeaning?: GeneralTraitRecord;
-  pWeaning?: GeneralTraitRecord;
-  yearling?: GeneralTraitRecord;
-  hogget?: GeneralTraitRecord;
-  adult?: GeneralTraitRecord;
-  adult2?: GeneralTraitRecord;
-  adult3?: GeneralTraitRecord;
-  adult4?: GeneralTraitRecord;
-  adult5?: GeneralTraitRecord;
+  [TraitStage.Birth]?: GeneralTraitRecord;
+  [TraitStage.Weaning]?: GeneralTraitRecord;
+  [TraitStage.EPWeaning]?: GeneralTraitRecord;
+  [TraitStage.PWeaning]?: GeneralTraitRecord;
+  [TraitStage.Yearling]?: GeneralTraitRecord;
+  [TraitStage.Hogget]?: GeneralTraitRecord;
+  [TraitStage.Adult]?: GeneralTraitRecord;
+  [TraitStage.Adult2]?: GeneralTraitRecord;
+  [TraitStage.Adult3]?: GeneralTraitRecord;
+  [TraitStage.Adult4]?: GeneralTraitRecord;
+  [TraitStage.Adult5]?: GeneralTraitRecord;
 }
 
+// Keep your GeneralTraitsDbRecord definition
 export interface GeneralTraitsDbRecord {
   // Birth traits
   birth_date?: string | null;
