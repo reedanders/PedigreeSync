@@ -136,6 +136,110 @@ export async function loadFormData() {
       return { error: animalError.message };
     }
 
+    // Transform general_traits data into a better nested structure
+    const traits = animalData.general_traits;
+    const generalTraits = traits ? {
+      birth: {
+        date: traits.birth_date || null,
+        weight: traits.birth_weight || null,
+        cFat: traits.birth_c_fat || null,
+        emd: traits.birth_emd || null,
+        sc: traits.birth_sc || null,
+        wec: traits.birth_wec || null,
+        group: traits.birth_group || null
+      },
+      weaning: {
+        date: traits.weaning_date || null,
+        weight: traits.weaning_weight || null,
+        cFat: traits.weaning_c_fat || null,
+        emd: traits.weaning_emd || null,
+        sc: traits.weaning_sc || null,
+        wec: traits.weaning_wec || null,
+        group: traits.weaning_group || null
+      },
+      epWeaning: {
+        date: traits.ep_weaning_date || null,
+        weight: traits.ep_weaning_weight || null,
+        cFat: traits.ep_weaning_c_fat || null,
+        emd: traits.ep_weaning_emd || null,
+        sc: traits.ep_weaning_sc || null,
+        wec: traits.ep_weaning_wec || null,
+        group: traits.ep_weaning_group || null
+      },
+      pWeaning: {
+        date: traits.p_weaning_date || null,
+        weight: traits.p_weaning_weight || null,
+        cFat: traits.p_weaning_c_fat || null,
+        emd: traits.p_weaning_emd || null,
+        sc: traits.p_weaning_sc || null,
+        wec: traits.p_weaning_wec || null,
+        group: traits.p_weaning_group || null
+      },
+      yearling: {
+        date: traits.yearling_date || null,
+        weight: traits.yearling_weight || null,
+        cFat: traits.yearling_c_fat || null,
+        emd: traits.yearling_emd || null,
+        sc: traits.yearling_sc || null,
+        wec: traits.yearling_wec || null,
+        group: traits.yearling_group || null
+      },
+      hogget: {
+        date: traits.hogget_date || null,
+        weight: traits.hogget_weight || null,
+        cFat: traits.hogget_c_fat || null,
+        emd: traits.hogget_emd || null,
+        sc: traits.hogget_sc || null,
+        wec: traits.hogget_wec || null,
+        group: traits.hogget_group || null
+      },
+      adult: {
+        date: traits.adult_date || null,
+        weight: traits.adult_weight || null,
+        cFat: traits.adult_c_fat || null,
+        emd: traits.adult_emd || null,
+        sc: traits.adult_sc || null,
+        wec: traits.adult_wec || null,
+        group: traits.adult_group || null
+      },
+      adult2: {
+        date: traits.adult2_date || null,
+        weight: traits.adult2_weight || null,
+        cFat: traits.adult2_c_fat || null,
+        emd: traits.adult2_emd || null,
+        sc: traits.adult2_sc || null,
+        wec: traits.adult2_wec || null,
+        group: traits.adult2_group || null
+      },
+      adult3: {
+        date: traits.adult3_date || null,
+        weight: traits.adult3_weight || null,
+        cFat: traits.adult3_c_fat || null,
+        emd: traits.adult3_emd || null,
+        sc: traits.adult3_sc || null,
+        wec: traits.adult3_wec || null,
+        group: traits.adult3_group || null
+      },
+      adult4: {
+        date: traits.adult4_date || null,
+        weight: traits.adult4_weight || null,
+        cFat: traits.adult4_c_fat || null,
+        emd: traits.adult4_emd || null,
+        sc: traits.adult4_sc || null,
+        wec: traits.adult4_wec || null,
+        group: traits.adult4_group || null
+      },
+      adult5: {
+        date: traits.adult5_date || null,
+        weight: traits.adult5_weight || null,
+        cFat: traits.adult5_c_fat || null,
+        emd: traits.adult5_emd || null,
+        sc: traits.adult5_sc || null,
+        wec: traits.adult5_wec || null,
+        group: traits.adult5_group || null
+      }
+    } : {};
+
     return {
       data: {
         farmId: animalData.farm_id,
@@ -143,7 +247,7 @@ export async function loadFormData() {
         animalMetadata: animalData.animal_metadata,
         animalIdentification: animalData.animal_identification,
         animalConception: animalData.animal_conception,
-        generalTraits: animalData.general_traits
+        generalTraits
       }
     };
   } catch (error) {
