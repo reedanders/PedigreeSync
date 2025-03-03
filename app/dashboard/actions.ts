@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 import type { FormDataType } from '@/types/form'
+import { GeneralTraitsDbRecord, GeneralTraitsState } from '../../types/form';
 
 export async function submitFormData({ 
   formData, 
@@ -137,8 +138,8 @@ export async function loadFormData() {
     }
 
     // Transform general_traits data into a better nested structure
-    const traits = animalData.general_traits;
-    const generalTraits = traits ? {
+    const traits = animalData.general_traits as GeneralTraitsDbRecord;
+    const generalTraits: GeneralTraitsState = traits ? {
       birth: {
         date: traits.birth_date || null,
         weight: traits.birth_weight || null,
