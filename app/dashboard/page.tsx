@@ -106,7 +106,7 @@ export default function DashboardPage() {
             animalNotes: {
               group: data.animalConception?.group || 0,
               comment: data.animalIdentification?.comment || '',
-              status: data.animalIdentification?.status || 'Current'
+              status: data.animalIdentification?.status || 0
             },
             generalTraits: data.generalTraits || {
               birth: {},
