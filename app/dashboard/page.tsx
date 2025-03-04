@@ -7,6 +7,7 @@ import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
 import { AnimalIdInputs } from '@/components/AnimalIdInputs';
 import { AnimalConceptionInputs } from '@/components/AnimalConceptionInputs';
 import { AnimalNotesInputs } from '@/components/AnimalNotesInputs';
+import { GeneralTraitsInputs } from '@/components/GeneralTraitsInputs';
 import { submitFormData, loadFormData } from './actions';
 import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 
@@ -38,6 +39,19 @@ export default function DashboardPage() {
       group: 0,
       comment: '',
       status: 0
+    },
+    generalTraits: {
+      birth: {},
+      weaning: {},
+      epWeaning: {},
+      pWeaning: {},
+      yearling: {},
+      hogget: {},
+      adult: {},
+      adult2: {},
+      adult3: {},
+      adult4: {},
+      adult5: {}
     }
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -54,11 +68,13 @@ export default function DashboardPage() {
     }
   };
 
+  useEffect(() => {console.log(formData)}, [formData]);
+
   useEffect(() => {
     async function init() {
       try {
         const { data, error } = await loadFormData();
-        
+        console.log(data)
         if (error) throw error;
         if (data) {
           setFarmId(data.farmId);
@@ -90,7 +106,20 @@ export default function DashboardPage() {
             animalNotes: {
               group: data.animalConception?.group || 0,
               comment: data.animalIdentification?.comment || '',
-              status: data.animalIdentification?.status || 'Current'
+              status: data.animalIdentification?.status || 0
+            },
+            generalTraits: data.generalTraits || {
+              birth: {},
+              weaning: {},
+              epWeaning: {},
+              pWeaning: {},
+              yearling: {},
+              hogget: {},
+              adult: {},
+              adult2: {},
+              adult3: {},
+              adult4: {},
+              adult5: {}
             }
           }));
         }
@@ -153,7 +182,7 @@ export default function DashboardPage() {
             {/* Animal Traits */}
             <div className={cardClass}>
               <div className={cardBodyClass}>
-                Animal Traits Inputs
+                <GeneralTraitsInputs />
               </div>
             </div>
 
