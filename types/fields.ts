@@ -2,6 +2,7 @@ export type BaseFieldType = {
   label: string;
   type: 'date' | 'number' | 'select';
   required?: boolean;
+  visible?: boolean;
 };
 
 export type DateField = BaseFieldType & {

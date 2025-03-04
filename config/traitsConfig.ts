@@ -1,3 +1,5 @@
+import { FieldConfig } from '../types/fields';
+
 export const TRAITS_CONFIG = {
   stages: {
     birth: {
@@ -8,159 +10,159 @@ export const TRAITS_CONFIG = {
           type: 'date', 
           label: 'Date',
           required: true 
-        },
+        } as FieldConfig,
         weight: { 
           visible: true, 
           type: 'number', 
           label: 'Weight',
           required: true 
-        },
+        } as FieldConfig,
         cFat: { 
           visible: false, 
           type: 'number', 
           label: 'cFat' 
-        },
+        } as FieldConfig,
         emd: { 
           visible: false, 
           type: 'number', 
           label: 'EMD' 
-        },
+        } as FieldConfig,
         sc: { 
           visible: false, 
           type: 'number', 
           label: 'SC' 
-        },
+        } as FieldConfig,
         wec: { 
           visible: false, 
           type: 'number', 
           label: 'WEC' 
-        },
+        } as FieldConfig,
         group: { 
           visible: false, 
           type: 'select', 
           label: 'Group',
           options: ['', 'Group 1', 'Group 2'] 
-        }
+        } as FieldConfig
       }
     },
     weaning: {
       label: 'Weaning',
       fields: {
-        date: { visible: true, type: 'date', label: 'Date', required: true },
-        weight: { visible: true, type: 'number', label: 'Weight', required: true },
-        cFat: { visible: true, type: 'number', label: 'cFat' },
-        emd: { visible: true, type: 'number', label: 'EMD' },
-        sc: { visible: false, type: 'number', label: 'SC' },
-        wec: { visible: true, type: 'number', label: 'WEC' },
-        group: { visible: true, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] }
+        date: { visible: true, type: 'date', label: 'Date', required: true } as FieldConfig,
+        weight: { visible: true, type: 'number', label: 'Weight', required: true } as FieldConfig,
+        cFat: { visible: true, type: 'number', label: 'cFat' } as FieldConfig,
+        emd: { visible: true, type: 'number', label: 'EMD' } as FieldConfig,
+        sc: { visible: false, type: 'number', label: 'SC' } as FieldConfig,
+        wec: { visible: true, type: 'number', label: 'WEC' } as FieldConfig,
+        group: { visible: true, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] } as FieldConfig
       }
     },
     epWeaning: {
       label: 'EP Weaning',
       fields: {
-        date: { visible: true, type: 'date', label: 'Date', required: true },
-        weight: { visible: true, type: 'number', label: 'Weight', required: true },
-        cFat: { visible: true, type: 'number', label: 'cFat' },
-        emd: { visible: true, type: 'number', label: 'EMD' },
-        sc: { visible: true, type: 'number', label: 'SC' },
-        wec: { visible: true, type: 'number', label: 'WEC' },
-        group: { visible: true, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] }
+        date: { visible: true, type: 'date', label: 'Date', required: true } as FieldConfig,
+        weight: { visible: true, type: 'number', label: 'Weight', required: true } as FieldConfig,
+        cFat: { visible: true, type: 'number', label: 'cFat' } as FieldConfig,
+        emd: { visible: true, type: 'number', label: 'EMD' } as FieldConfig,
+        sc: { visible: true, type: 'number', label: 'SC' } as FieldConfig,
+        wec: { visible: true, type: 'number', label: 'WEC' } as FieldConfig,
+        group: { visible: true, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] } as FieldConfig
       }
     },
     pWeaning: {
       label: 'P Weaning',
       fields: {
-        date: { visible: true, type: 'date', label: 'Date', required: true },
-        weight: { visible: true, type: 'number', label: 'Weight', required: true },
-        cFat: { visible: true, type: 'number', label: 'cFat' },
-        emd: { visible: true, type: 'number', label: 'EMD' },
-        sc: { visible: true, type: 'number', label: 'SC' },
-        wec: { visible: true, type: 'number', label: 'WEC' },
-        group: { visible: true, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] }
+        date: { visible: true, type: 'date', label: 'Date', required: true } as FieldConfig,
+        weight: { visible: true, type: 'number', label: 'Weight', required: true } as FieldConfig,
+        cFat: { visible: true, type: 'number', label: 'cFat' } as FieldConfig,
+        emd: { visible: true, type: 'number', label: 'EMD' } as FieldConfig,
+        sc: { visible: true, type: 'number', label: 'SC' } as FieldConfig,
+        wec: { visible: true, type: 'number', label: 'WEC' } as FieldConfig,
+        group: { visible: true, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] } as FieldConfig
       }
     },
     yearling: {
       label: 'Yearling',
       fields: {
-        date: { visible: true, type: 'date', label: 'Date', required: true },
-        weight: { visible: true, type: 'number', label: 'Weight', required: true },
-        cFat: { visible: true, type: 'number', label: 'cFat' },
-        emd: { visible: true, type: 'number', label: 'EMD' },
-        sc: { visible: true, type: 'number', label: 'SC' },
-        wec: { visible: true, type: 'number', label: 'WEC' },
-        group: { visible: true, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] }
+        date: { visible: true, type: 'date', label: 'Date', required: true } as FieldConfig,
+        weight: { visible: true, type: 'number', label: 'Weight', required: true } as FieldConfig,
+        cFat: { visible: true, type: 'number', label: 'cFat' } as FieldConfig,
+        emd: { visible: true, type: 'number', label: 'EMD' } as FieldConfig,
+        sc: { visible: true, type: 'number', label: 'SC' } as FieldConfig,
+        wec: { visible: true, type: 'number', label: 'WEC' } as FieldConfig,
+        group: { visible: true, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] } as FieldConfig
       }
     },
     hogget: {
       label: 'Hogget',
       fields: {
-        date: { visible: true, type: 'date', label: 'Date', required: true },
-        weight: { visible: true, type: 'number', label: 'Weight', required: true },
-        cFat: { visible: true, type: 'number', label: 'cFat' },
-        emd: { visible: true, type: 'number', label: 'EMD' },
-        sc: { visible: true, type: 'number', label: 'SC' },
-        wec: { visible: true, type: 'number', label: 'WEC' },
-        group: { visible: true, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] }
+        date: { visible: true, type: 'date', label: 'Date', required: true } as FieldConfig,
+        weight: { visible: true, type: 'number', label: 'Weight', required: true } as FieldConfig,
+        cFat: { visible: true, type: 'number', label: 'cFat' } as FieldConfig,
+        emd: { visible: true, type: 'number', label: 'EMD' } as FieldConfig,
+        sc: { visible: true, type: 'number', label: 'SC' } as FieldConfig,
+        wec: { visible: true, type: 'number', label: 'WEC' } as FieldConfig,
+        group: { visible: true, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] } as FieldConfig
       }
     },
     adult: {
       label: 'Adult',
       fields: {
-        date: { visible: true, type: 'date', label: 'Date', required: true },
-        weight: { visible: true, type: 'number', label: 'Weight', required: true },
-        cFat: { visible: true, type: 'number', label: 'cFat' },
-        emd: { visible: true, type: 'number', label: 'EMD' },
-        sc: { visible: true, type: 'number', label: 'SC' },
-        wec: { visible: true, type: 'number', label: 'WEC' },
-        group: { visible: true, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] }
+        date: { visible: true, type: 'date', label: 'Date', required: true } as FieldConfig,
+        weight: { visible: true, type: 'number', label: 'Weight', required: true } as FieldConfig,
+        cFat: { visible: true, type: 'number', label: 'cFat' } as FieldConfig,
+        emd: { visible: true, type: 'number', label: 'EMD' } as FieldConfig,
+        sc: { visible: true, type: 'number', label: 'SC' } as FieldConfig,
+        wec: { visible: true, type: 'number', label: 'WEC' } as FieldConfig,
+        group: { visible: true, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] } as FieldConfig
       }
     },
     adult2: {
       label: 'Adult 2',
       fields: {
-        date: { visible: true, type: 'date', label: 'Date', required: true },
-        weight: { visible: true, type: 'number', label: 'Weight', required: true },
-        cFat: { visible: false, type: 'number', label: 'cFat' },
-        emd: { visible: false, type: 'number', label: 'EMD' },
-        sc: { visible: false, type: 'number', label: 'SC' },
-        wec: { visible: false, type: 'number', label: 'WEC' },
-        group: { visible: false, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] }
+        date: { visible: true, type: 'date', label: 'Date', required: true } as FieldConfig,
+        weight: { visible: true, type: 'number', label: 'Weight', required: true } as FieldConfig,
+        cFat: { visible: false, type: 'number', label: 'cFat' } as FieldConfig,
+        emd: { visible: false, type: 'number', label: 'EMD' } as FieldConfig,
+        sc: { visible: false, type: 'number', label: 'SC' } as FieldConfig,
+        wec: { visible: false, type: 'number', label: 'WEC' } as FieldConfig,
+        group: { visible: false, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] } as FieldConfig
       }
     },
     adult3: {
       label: 'Adult 3',
       fields: {
-        date: { visible: true, type: 'date', label: 'Date', required: true },
-        weight: { visible: true, type: 'number', label: 'Weight', required: true },
-        cFat: { visible: false, type: 'number', label: 'cFat' },
-        emd: { visible: false, type: 'number', label: 'EMD' },
-        sc: { visible: false, type: 'number', label: 'SC' },
-        wec: { visible: false, type: 'number', label: 'WEC' },
-        group: { visible: false, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] }
+        date: { visible: true, type: 'date', label: 'Date', required: true } as FieldConfig,
+        weight: { visible: true, type: 'number', label: 'Weight', required: true } as FieldConfig,
+        cFat: { visible: false, type: 'number', label: 'cFat' } as FieldConfig,
+        emd: { visible: false, type: 'number', label: 'EMD' } as FieldConfig,
+        sc: { visible: false, type: 'number', label: 'SC' } as FieldConfig,
+        wec: { visible: false, type: 'number', label: 'WEC' } as FieldConfig,
+        group: { visible: false, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] } as FieldConfig
       }
     },
     adult4: {
       label: 'Adult 4',
       fields: {
-        date: { visible: true, type: 'date', label: 'Date', required: true },
-        weight: { visible: true, type: 'number', label: 'Weight', required: true },
-        cFat: { visible: false, type: 'number', label: 'cFat' },
-        emd: { visible: false, type: 'number', label: 'EMD' },
-        sc: { visible: false, type: 'number', label: 'SC' },
-        wec: { visible: false, type: 'number', label: 'WEC' },
-        group: { visible: false, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] }
+        date: { visible: true, type: 'date', label: 'Date', required: true } as FieldConfig,
+        weight: { visible: true, type: 'number', label: 'Weight', required: true } as FieldConfig,
+        cFat: { visible: false, type: 'number', label: 'cFat' } as FieldConfig,
+        emd: { visible: false, type: 'number', label: 'EMD' } as FieldConfig,
+        sc: { visible: false, type: 'number', label: 'SC' } as FieldConfig,
+        wec: { visible: false, type: 'number', label: 'WEC' } as FieldConfig,
+        group: { visible: false, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] } as FieldConfig
       }
     },
     adult5: {
       label: 'Adult 5',
       fields: {
-        date: { visible: true, type: 'date', label: 'Date', required: true },
-        weight: { visible: true, type: 'number', label: 'Weight', required: true },
-        cFat: { visible: false, type: 'number', label: 'cFat' },
-        emd: { visible: false, type: 'number', label: 'EMD' },
-        sc: { visible: false, type: 'number', label: 'SC' },
-        wec: { visible: false, type: 'number', label: 'WEC' },
-        group: { visible: false, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] }
+        date: { visible: true, type: 'date', label: 'Date', required: true } as FieldConfig,
+        weight: { visible: true, type: 'number', label: 'Weight', required: true } as FieldConfig,
+        cFat: { visible: false, type: 'number', label: 'cFat' } as FieldConfig,
+        emd: { visible: false, type: 'number', label: 'EMD' } as FieldConfig,
+        sc: { visible: false, type: 'number', label: 'SC' } as FieldConfig,
+        wec: { visible: false, type: 'number', label: 'WEC' } as FieldConfig,
+        group: { visible: false, type: 'select', label: 'Group', options: ['', 'Group 1', 'Group 2'] } as FieldConfig
       }
     }
   },
@@ -175,11 +177,3 @@ export const TRAITS_CONFIG = {
 // Type exports for TypeScript
 export type StageKey = keyof typeof TRAITS_CONFIG['stages'];
 export type FieldKey = keyof typeof TRAITS_CONFIG['stages']['birth']['fields'];
-
-export type FieldConfig = {
-  visible: boolean;
-  type: string;
-  label: string;
-  required?: boolean;
-  options?: string[];
-};
