@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { FormContext } from '@/contexts/FormContext';
+import { FormContext } from '@/lib/contexts/FormContext';
 import type { FormDataType } from '@/lib/types/form';
 import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
 import { AnimalIdInputs } from '@/components/AnimalIdInputs';

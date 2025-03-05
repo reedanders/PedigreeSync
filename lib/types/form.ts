@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { StageKey, FieldKey } from '../config/traitsConfig';
+import { StageKey, FieldKey } from '@/lib/config/traitsConfig';
 
 export type InputLimitationType = 'None' | 'Age' | 'Stage';
 export type SexType = 

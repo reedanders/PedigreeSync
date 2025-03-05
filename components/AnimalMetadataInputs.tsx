@@ -3,7 +3,7 @@
 import { useContext } from 'react';
 import { FormContext } from '@/lib/contexts/FormContext';
 import type { FormDataType, AnimalMetadata } from '@/lib/types/form';
-import { formatDateForInput } from '@/utils/date';
+import { formatDateForInput } from '@/lib/utils/date';
 
 export function AnimalMetadataInputs() {
     const context = useContext(FormContext);

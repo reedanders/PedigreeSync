@@ -1,7 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '@/lib/utils/supabase/server'
 import type { FormDataType } from '@/lib/types/form'
 import { GeneralTraitsDbRecord, GeneralTraitsState } from '@/lib/types/form';
 
