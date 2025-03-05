@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import { Container } from "@/components/Container";
+import { Container } from "@/components/layout/Container";
 
 import darkDashboard from "@/public/images/dashboard_dark.png";
 import lightDashboard from "@/public/images/dashboard_light.png";
