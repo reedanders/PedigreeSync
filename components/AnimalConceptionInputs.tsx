@@ -2,7 +2,7 @@
 
 import { useContext } from 'react';
 import { FormContext } from '@/contexts/FormContext';
-import type { FormContextType, FormDataType, AnimalConception } from '../types/form';
+import type { FormContextType, FormDataType, AnimalConception } from '@/lib/types/form';
 import { formatDateForInput } from '@/utils/date';
 
 export function AnimalConceptionInputs() {

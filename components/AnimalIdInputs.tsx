@@ -2,7 +2,7 @@
 
 import { useContext } from 'react';
 import { FormContext } from '@/contexts/FormContext';
-import type { FormContextType, FormDataType, AnimalIdentification } from '../types/form';
+import type { FormContextType, FormDataType, AnimalIdentification } from '@/lib/types/form';
 
 export function AnimalIdInputs() {
   const context = useContext(FormContext);

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { FormContext } from '@/contexts/FormContext';
-import type { FormDataType } from '@/types/form';
+import type { FormDataType } from '@/lib/types/form';
 import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
 import { AnimalIdInputs } from '@/components/AnimalIdInputs';
 import { AnimalConceptionInputs } from '@/components/AnimalConceptionInputs';

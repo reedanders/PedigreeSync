@@ -2,7 +2,7 @@
 
 import { useContext } from 'react';
 import { FormContext } from '@/contexts/FormContext';
-import type { FormDataType, AnimalNotes } from '@/types/form';
+import type { FormDataType, AnimalNotes } from '@/lib/types/form';
 
 export function AnimalNotesInputs() {
   const context = useContext(FormContext);
