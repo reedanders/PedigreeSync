@@ -3,13 +3,13 @@
 import { useState, useEffect } from 'react';
 import { FormContext } from '@/lib/contexts/FormContext';
 import type { FormDataType } from '@/lib/types/form';
-import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
-import { AnimalIdInputs } from '@/components/AnimalIdInputs';
-import { AnimalConceptionInputs } from '@/components/AnimalConceptionInputs';
-import { AnimalNotesInputs } from '@/components/AnimalNotesInputs';
-import { GeneralTraitsInputs } from '@/components/GeneralTraitsInputs';
+import { AnimalMetadataInputs } from '@/components/animals/AnimalInputs/AnimalMetadataInputs';
+import { AnimalIdInputs } from '@/components/animals/AnimalInputs/AnimalIdInputs';
+import { AnimalConceptionInputs } from '@/components/animals/AnimalInputs/AnimalConceptionInputs';
+import { AnimalNotesInputs } from '@/components/animals/AnimalInputs/AnimalNotesInputs';
+import { GeneralTraitsInputs } from '@/components/animals/AnimalInputs/GeneralTraitsInputs';
 import { submitFormData, loadFormData } from '@/lib/actions/animals';
-import { LoadingSkeleton } from '@/components/LoadingSkeleton';
+import { LoadingSkeleton } from '@/components/ui/LoadingSkeleton';
 
 export default function DashboardPage() {
   const [formData, setFormData] = useState<FormDataType>({
