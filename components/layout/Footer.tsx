@@ -1,13 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import React from "react";
-import { Container } from "@/components/Container";
+import { Container } from "@/components/layout/Container";
 
 import placeholderLogo from '@/public/placeholder-logo.svg';
 
 const placeholderLink = "https://github.com/reedanders/PedigreeSync#pedigreesync-unofficial-pedigreemaster-web-app"
 
-export function LandingFooter() {
+export function Footer() {
   const navigation = ["Features", "Getting Started", "Documentation", "Support"];
   const legal = ["Terms", "Privacy", "Legal"];
   return (

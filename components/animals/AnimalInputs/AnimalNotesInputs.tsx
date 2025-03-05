@@ -1,8 +1,8 @@
 'use client';
 
 import { useContext } from 'react';
-import { FormContext } from '@/contexts/FormContext';
-import type { FormDataType, AnimalNotes } from '@/types/form';
+import { FormContext } from '@/lib/contexts/FormContext';
+import type { FormDataType, AnimalNotes } from '@/lib/types/form';
 
 export function AnimalNotesInputs() {
   const context = useContext(FormContext);

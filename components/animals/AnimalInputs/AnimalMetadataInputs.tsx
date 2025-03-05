@@ -1,9 +1,9 @@
 'use client';
 
 import { useContext } from 'react';
-import { FormContext } from '@/contexts/FormContext';
-import type { FormDataType, AnimalMetadata } from '@/types/form';
-import { formatDateForInput } from '@/utils/date';
+import { FormContext } from '@/lib/contexts/FormContext';
+import type { FormDataType, AnimalMetadata } from '@/lib/types/form';
+import { formatDateForInput } from '@/lib/utils/date';
 
 export function AnimalMetadataInputs() {
     const context = useContext(FormContext);

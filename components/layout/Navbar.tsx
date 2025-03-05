@@ -1,9 +1,9 @@
 "use client";
 import Link from "next/link";
-import ThemeChanger from "./DarkSwitch";
+import ThemeChanger from "@/components/ui/Button/DarkSwitch";
 import Image from "next/image"
 
-import placeholderLogo from '../public/placeholder-logo.svg';
+import placeholderLogo from '@/public/placeholder-logo.svg';
 
 export const Navbar = () => {
   const navigation: any[] = [];

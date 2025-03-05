@@ -1,15 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { FormContext } from '@/contexts/FormContext';
-import type { FormDataType } from '@/types/form';
-import { AnimalMetadataInputs } from '@/components/AnimalMetadataInputs';
-import { AnimalIdInputs } from '@/components/AnimalIdInputs';
-import { AnimalConceptionInputs } from '@/components/AnimalConceptionInputs';
-import { AnimalNotesInputs } from '@/components/AnimalNotesInputs';
-import { GeneralTraitsInputs } from '@/components/GeneralTraitsInputs';
-import { submitFormData, loadFormData } from './actions';
-import { LoadingSkeleton } from '@/components/LoadingSkeleton';
+import { FormContext } from '@/lib/contexts/FormContext';
+import type { FormDataType } from '@/lib/types/form';
+import { AnimalMetadataInputs } from '@/components/animals/AnimalInputs/AnimalMetadataInputs';
+import { AnimalIdInputs } from '@/components/animals/AnimalInputs/AnimalIdInputs';
+import { AnimalConceptionInputs } from '@/components/animals/AnimalInputs/AnimalConceptionInputs';
+import { AnimalNotesInputs } from '@/components/animals/AnimalInputs/AnimalNotesInputs';
+import { GeneralTraitsInputs } from '@/components/animals/AnimalInputs/GeneralTraitsInputs';
+import { submitFormData, loadFormData } from '@/lib/actions/animals';
+import { LoadingSkeleton } from '@/components/ui/LoadingSkeleton';
 
 export default function DashboardPage() {
   const [formData, setFormData] = useState<FormDataType>({
@@ -74,7 +74,7 @@ export default function DashboardPage() {
     async function init() {
       try {
         const { data, error } = await loadFormData();
-        console.log(data)
+        
         if (error) throw error;
         if (data) {
           setFarmId(data.farmId);

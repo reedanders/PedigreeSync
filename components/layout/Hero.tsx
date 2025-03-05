@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Container } from "@/components/Container";
+import { Container } from "@/components/layout/Container";
 import heroImg from "@/public/images/tanner-yould-nbklTnbXZ68-unsplash.jpg";
 
 export const Hero = () => {

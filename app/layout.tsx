@@ -4,8 +4,8 @@ import { ReactNode } from 'react';
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 
-import { LandingFooter } from '@/components/LandingFooter';
-import { Navbar } from '@/components/Navbar';
+import { Footer } from '@/components/layout/Footer';
+import { Navbar } from '@/components/layout/Navbar';
 
 export const viewport = {
     width: 'device-width',
@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ThemeProvider attribute="class">
           <Navbar />
           <div>{children}</div>
-          <LandingFooter />
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
