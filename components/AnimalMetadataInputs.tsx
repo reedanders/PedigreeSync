@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext } from 'react';
-import { FormContext } from '@/contexts/FormContext';
+import { FormContext } from '@/lib/contexts/FormContext';
 import type { FormDataType, AnimalMetadata } from '@/lib/types/form';
 import { formatDateForInput } from '@/utils/date';
 

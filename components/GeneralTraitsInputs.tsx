@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { FormContext } from '@/contexts/FormContext';
-import { TRAITS_CONFIG, StageKey, FieldKey } from '../config/traitsConfig';
+import { FormContext } from '@/lib/contexts/FormContext';
+import { TRAITS_CONFIG, StageKey, FieldKey } from '@/lib/config/traitsConfig';
 
 export function GeneralTraitsInputs() {
   const context = useContext(FormContext);

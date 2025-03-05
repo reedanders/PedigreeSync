@@ -1,4 +1,4 @@
-import { FieldConfig } from '../types/fields';
+import { FieldConfig } from '@/lib/types/fields';
 
 export const TRAITS_CONFIG = {
   stages: {
