@@ -74,7 +74,7 @@ export default function DashboardPage() {
     async function init() {
       try {
         const { data, error } = await loadFormData();
-        console.log(data)
+        
         if (error) throw error;
         if (data) {
           setFarmId(data.farmId);
