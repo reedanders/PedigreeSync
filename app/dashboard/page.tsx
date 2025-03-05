@@ -8,7 +8,7 @@ import { AnimalIdInputs } from '@/components/AnimalIdInputs';
 import { AnimalConceptionInputs } from '@/components/AnimalConceptionInputs';
 import { AnimalNotesInputs } from '@/components/AnimalNotesInputs';
 import { GeneralTraitsInputs } from '@/components/GeneralTraitsInputs';
-import { submitFormData, loadFormData } from './actions';
+import { submitFormData, loadFormData } from '@/lib/actions/animals';
 import { LoadingSkeleton } from '@/components/LoadingSkeleton';
 
 export default function DashboardPage() {

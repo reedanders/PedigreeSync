@@ -1,6 +1,6 @@
 'use client'
 
-import { signup } from './actions'
+import { signup } from '@/lib/actions/signup'
 
 export default function SignupPage() {
   return (

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { login } from './actions'
+import { login } from '@/lib/actions/login'
 
 export default function LoginPage() {
   return (
