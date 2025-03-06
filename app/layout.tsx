@@ -46,11 +46,29 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="icon" href="/favicon.svg" sizes="any" />
       </head>
       <body className={inter.className}>
-        <ThemeProvider attribute="class">
-          <Navbar />
-          <div>{children}</div>
-          <Footer />
-        </ThemeProvider>
+        {/* Background with gradient - now using z-index: 0 */}
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            backgroundImage: 'radial-gradient(circle at 70% 10%, rgba(59, 130, 246, 0.3), rgba(168, 85, 247, 0.2) 25%, transparent 50%)',
+            zIndex: 0,
+            pointerEvents: 'none',
+          }}
+          aria-hidden="true"
+        />
+        
+        {/* Content wrapper with higher z-index */}
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <ThemeProvider attribute="class">
+            <Navbar />
+            <div>{children}</div>
+            <Footer />
+          </ThemeProvider>
+        </div>
       </body>
     </html>
   );
