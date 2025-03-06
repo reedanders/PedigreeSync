@@ -1,9 +1,8 @@
 "use client";
 import Link from "next/link";
 import ThemeChanger from "@/components/ui/Button/DarkSwitch";
-import Image from "next/image"
 
-import placeholderLogo from '@/public/placeholder-logo.svg';
+import { LambIcon } from "@/components/ui/Icon/LambIcon";
 
 export const Navbar = () => {
   const navigation: any[] = [];
@@ -15,13 +14,7 @@ export const Navbar = () => {
         <Link href="/">
           <span className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
               <span>
-                <Image
-                  src={placeholderLogo}
-                  width="32"
-                  alt="placeholder logo"
-                  height="32"
-                  className="w-8"
-                />
+                <LambIcon />
               </span>
             <span>PedigreeSync</span>
           </span>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 
-import placeholderLogo from '@/public/placeholder-logo.svg';
+import placeholderLogo from '@/public/lamb-icon-light.svg';
 
 const placeholderLink = "https://github.com/reedanders/PedigreeSync#pedigreesync-unofficial-pedigreemaster-web-app"
 

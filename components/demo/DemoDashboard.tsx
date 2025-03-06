@@ -16,21 +16,28 @@ export function DemoDashboard() {
   if (!mounted || !theme) {
     return (
       <Container>
-        <div className="relative w-full h-[300px] md:h-[600px] max-w-6xl mx-auto overflow-hidden mb-4 lg:mb-20 rounded-2xl animate-pulse bg-gray-200 dark:bg-gray-700" />
+        <div className="relative w-full max-w-6xl mx-auto overflow-hidden mb-4 lg:mb-20 rounded-2xl animate-pulse bg-gray-200 dark:bg-gray-700" />
       </Container>
     );
   }
 
   return (
     <Container>
-      <div className="relative w-full h-[300px] md:h-[600px] max-w-6xl mx-auto overflow-hidden mb-4 lg:mb-20 rounded-2xl">
+      <div className="relative w-full max-w-6xl mx-auto overflow-hidden mb-4 lg:mb-20 rounded-2xl">
+        {/* The image itself */}
         <Image
           src={theme === 'dark' ? darkDashboard : lightDashboard}
           alt="PedigreeSync Dashboard"
-          fill
-          className="object-cover md:object-contain object-left-top md:object-center"
+          className="w-full h-auto rounded-2xl"
           priority
           placeholder="blur"
+          height={1200}
+        />
+        
+        {/* Gradient overlay that fades toward bottom */}
+        <div 
+          className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-white dark:from-gray-900 to-transparent rounded-b-2xl"
+          aria-hidden="true"
         />
       </div>
     </Container>
