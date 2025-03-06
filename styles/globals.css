@@ -7,4 +7,21 @@
     body {
       @apply bg-white dark:bg-trueGray-900;
     }
-  }
+}
+
+@layer components {
+    .background-gradient {
+      @apply fixed inset-0 pointer-events-none;
+      z-index: 0;
+      background-image: radial-gradient(circle at 70% 10%, rgba(59, 130, 246, 0.3), rgba(168, 85, 247, 0.2) 25%, transparent 50%);
+    }
+    
+    .dark .background-gradient {
+      background-image: radial-gradient(circle at 70% 10%, rgba(59, 130, 246, 0.25), rgba(168, 85, 247, 0.15) 25%, transparent 50%);
+    }
+    
+    .content-wrapper {
+      @apply relative;
+      z-index: 1;
+    }
+}
