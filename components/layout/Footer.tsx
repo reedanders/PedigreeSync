@@ -1,8 +1,10 @@
+"use client"
+
 import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 
-import placeholderLogo from '@/public/placeholder-logo.svg';
+import { LambIcon } from '@/components/ui/Icon/LambIcon';
 
 const placeholderLink = "https://github.com/reedanders/PedigreeSync#pedigreesync-unofficial-pedigreemaster-web-app"
 
@@ -17,15 +19,9 @@ export function Footer() {
             <div>
               <Link
                 href="/"
-                className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100"
+                className="flex items-center space-x-2 text-2xl font-medium text-[#4E4E4E] dark:text-gray-100"
               >
-                <Image
-                  src={placeholderLogo}
-                  alt="PS"
-                  width="32"
-                  height="32"
-                  className="w-8"
-                />
+                <LambIcon />
                 <span>PedigreeSync</span>
               </Link>
             </div>
@@ -43,7 +39,7 @@ export function Footer() {
                 <Link
                   key={index}
                   href={placeholderLink}
-                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700"
+                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-primary-500 focus:text-primary-500 focus:bg-primary-50 focus:outline-none dark:focus:bg-trueGray-700"
                 >
                   {item}
                 </Link>
@@ -56,7 +52,7 @@ export function Footer() {
                 <Link
                   key={index}
                   href={placeholderLink}
-                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700"
+                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-primary-500 focus:text-primary-500 focus:bg-primary-50 focus:outline-none dark:focus:bg-trueGray-700"
                 >
                   {item}
                 </Link>

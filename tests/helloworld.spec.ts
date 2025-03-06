@@ -4,7 +4,7 @@ const baseUrl = process.env.BRANCH_URL || 'https://pedigreesync.netlify.app/';
 
 test('NavBar brand logo is present', async ({ page }) => {
   await page.goto(baseUrl);
-  await page.getByRole('link', { name: 'placeholder logo PedigreeSync' }).click(); 
+  await page.getByRole('navigation').getByRole('link', { name: 'Lamb icon PedigreeSync' }).click();
 });
 
 test('Toggle dark mode', async ({ page }) => {

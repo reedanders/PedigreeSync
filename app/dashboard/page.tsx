@@ -68,8 +68,6 @@ export default function DashboardPage() {
     }
   };
 
-  useEffect(() => {console.log(formData)}, [formData]);
-
   useEffect(() => {
     async function init() {
       try {
@@ -152,7 +150,6 @@ export default function DashboardPage() {
               {/* Database Filters */}
               <div className={`lg:col-span-full ${cardClass}`}>
                 <div className={cardBodyClass}>
-                  <h3 className={titleClass}>Database Filters</h3>
                   <AnimalMetadataInputs />
                 </div>
               </div>
