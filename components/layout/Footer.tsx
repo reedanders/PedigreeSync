@@ -19,7 +19,7 @@ export function Footer() {
             <div>
               <Link
                 href="/"
-                className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100"
+                className="flex items-center space-x-2 text-2xl font-medium text-[#4E4E4E] dark:text-gray-100"
               >
                 <LambIcon />
                 <span>PedigreeSync</span>
@@ -39,7 +39,7 @@ export function Footer() {
                 <Link
                   key={index}
                   href={placeholderLink}
-                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700"
+                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-primary-500 focus:text-primary-500 focus:bg-primary-50 focus:outline-none dark:focus:bg-trueGray-700"
                 >
                   {item}
                 </Link>
@@ -52,7 +52,7 @@ export function Footer() {
                 <Link
                   key={index}
                   href={placeholderLink}
-                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none dark:focus:bg-trueGray-700"
+                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-primary-500 focus:text-primary-500 focus:bg-primary-50 focus:outline-none dark:focus:bg-trueGray-700"
                 >
                   {item}
                 </Link>

@@ -3,25 +3,45 @@
 @tailwind utilities;
 
 @layer base {
-    html,
-    body {
-      @apply bg-white dark:bg-trueGray-900;
-    }
+  html,
+  body {
+    @apply bg-white dark:bg-gray-950;
+  }
 }
 
 @layer components {
-    .background-gradient {
-      @apply fixed inset-0 pointer-events-none;
-      z-index: 0;
-      background-image: radial-gradient(circle at 70% 10%, rgba(59, 130, 246, 0.3), rgba(168, 85, 247, 0.2) 25%, transparent 50%);
-    }
-    
-    .dark .background-gradient {
-      background-image: radial-gradient(circle at 70% 10%, rgba(59, 130, 246, 0.25), rgba(168, 85, 247, 0.15) 25%, transparent 50%);
-    }
-    
-    .content-wrapper {
-      @apply relative;
-      z-index: 1;
-    }
+  .background-gradient {
+    @apply fixed inset-0 pointer-events-none;
+    z-index: 0;
+    /* Spring pasture green gradient */
+    background-image: radial-gradient(
+      circle at 70% 10%, 
+      rgba(74, 222, 128, 0.3), /* green-400 */
+      rgba(163, 230, 53, 0.2) 25%, /* lime-400 */
+      transparent 50%
+    );
+  }
+  
+  .dark .background-gradient {
+    background-image: radial-gradient(
+      circle at 70% 10%, 
+      rgba(34, 197, 94, 0.25), /* green-500 */
+      rgba(132, 204, 22, 0.15) 25%, /* lime-500 */
+      transparent 50%
+    );
+  }
+  
+  .content-wrapper {
+    @apply relative;
+    z-index: 1;
+  }
+
+  /* Button styles - update any existing button styles */
+  .btn-primary {
+    @apply bg-primary-500 hover:bg-primary-600 text-white;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary-500 hover:bg-secondary-600 text-white;
+  }
 }
