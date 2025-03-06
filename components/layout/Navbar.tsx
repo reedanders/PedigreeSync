@@ -5,7 +5,7 @@ import ThemeChanger from "@/components/ui/Button/DarkSwitch";
 import { LambIcon } from "@/components/ui/Icon/LambIcon";
 
 export const Navbar = () => {
-  const navigation: any[] = [];
+  const navigation: any[] = ['Roadmap'];
 
   return (
     <div className="w-full">

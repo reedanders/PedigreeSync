@@ -110,7 +110,7 @@ export function AnimalMetadataInputs() {
                         type="checkbox"
                         checked={formData.animalMetadata.showWoolFleece}
                         onChange={(e) => updateField('showWoolFleece', e.target.checked)}
-                        className="toggle toggle-primary"
+                        className="toggle"
                     />
                 </div>
             </div>
