@@ -44,7 +44,7 @@ export default function RoadmapPage() {
             <div className="ml-8 relative">
               <div className="absolute -left-10 top-2 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-700 border-4 border-white dark:border-gray-900"></div>
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
-                Phase 2: Edit and Export Records <span className="text-gray-500 text-sm font-normal">(Coming Q2 2024)</span>
+                Phase 2: Edit and Export Records <span className="text-gray-500 text-sm font-normal">(Coming Q2 2025)</span>
               </h2>
               <div className="prose dark:prose-invert">
                 <ul className="space-y-3 text-gray-600 dark:text-gray-300">
@@ -64,7 +64,7 @@ export default function RoadmapPage() {
             <div className="ml-8 relative">
               <div className="absolute -left-10 top-2 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-700 border-4 border-white dark:border-gray-900"></div>
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
-                Phase 3: Data Analysis and Visualization <span className="text-gray-500 text-sm font-normal">(Coming Q4 2024)</span>
+                Phase 3: Data Analysis and Visualization <span className="text-gray-500 text-sm font-normal">(Coming Q4 2025)</span>
               </h2>
               <div className="prose dark:prose-invert">
                 <ul className="space-y-3 text-gray-600 dark:text-gray-300">
@@ -84,7 +84,7 @@ export default function RoadmapPage() {
             <div className="ml-8 relative">
               <div className="absolute -left-10 top-2 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-700 border-4 border-white dark:border-gray-900"></div>
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
-                Future Vision <span className="text-gray-500 text-sm font-normal">(2025 and beyond)</span>
+                Future Vision <span className="text-gray-500 text-sm font-normal">(2026 and beyond)</span>
               </h2>
               <div className="prose dark:prose-invert">
                 <ul className="space-y-3 text-gray-600 dark:text-gray-300">
