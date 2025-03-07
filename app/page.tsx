@@ -4,7 +4,7 @@ import { DemoDashboard } from '@/components/demo/DemoDashboard';
 
 export default function Home() {
   return (
-    <Container>
+    <Container className="py-0 md:py-4">
       <Hero />
       <DemoDashboard />
     </Container>
