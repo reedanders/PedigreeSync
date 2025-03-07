@@ -96,7 +96,7 @@ export default function AboutEBVsPage() {
           </p>
           
           <ul className="list-disc pl-6 mb-6 space-y-2 text-gray-600 dark:text-gray-300">
-            <li>The animal's own performance records</li>
+            <li>The animal&apos;s own performance records</li>
             <li>Records from all known relatives</li>
             <li>The heritability of each trait</li>
             <li>Genetic correlations between traits</li>
@@ -197,7 +197,7 @@ export default function AboutEBVsPage() {
               <div className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-sm border-l-4 border-primary-500">
                 <h4 className="font-medium mb-2 text-gray-800 dark:text-gray-200">Cloud-Based Storage</h4>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Never worry about losing your data with automatic backups and secure cloud storage that's 
+                  Never worry about losing your data with automatic backups and secure cloud storage that&apos;s 
                   accessible from anywhere.
                 </p>
               </div>
