@@ -5,14 +5,14 @@ import heroImg from "@/public/images/tanner-yould-nbklTnbXZ68-unsplash.jpg";
 export const Hero = () => {
   return (
     <>
-      <Container className="flex flex-wrap">
-        <div className="flex items-center w-full lg:w-1/2 p-4 sm:p-6 lg:p-8">
-          <div className="max-w-2xl mb-8 space-y-4">
+      <Container className="flex flex-wrap px-0 sm:px-4 md:px-6">
+        <div className="flex items-center w-full lg:w-1/2 p-2 sm:p-4 lg:p-6">
+          <div className="w-full mb-6 space-y-4">
             <h1 className="text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">
               Fast, Convenient Sheep Pedigree Tracking
             </h1>
-            <p className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300">
-              PedigreeSync is an unofficial web implementation PedigreeMaster, 
+            <p className="py-3 sm:py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300">
+              PedigreeSync is an unofficial web implementation of PedigreeMaster, 
               designed to simplify data recording for the National 
               Sheep Improvement Program (NSIP).
             </p>
@@ -20,7 +20,7 @@ export const Hero = () => {
             <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
               <a
                 href="/login"
-                className="px-8 py-4 text-lg font-medium text-center text-white bg-primary-600 rounded-md hover:bg-primary-700">
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-lg font-medium text-center text-white bg-primary-600 rounded-md hover:bg-primary-700">
                 Get Started
               </a>
               <a
@@ -45,13 +45,13 @@ export const Hero = () => {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-center w-full lg:w-1/2">
-          <div className="relative">
+        <div className="flex items-center justify-center w-full lg:w-1/2 px-2 sm:px-0">
+          <div className="relative w-full">
             <Image
               src={heroImg}
-              width="616"
-              height="617"
-              className="object-cover rounded-xl"
+              width={616}
+              height={617}
+              className="w-full object-cover rounded-xl"
               alt="Sheep in a pasture"
               priority
             />

@@ -15,15 +15,15 @@ export function DemoDashboard() {
 
   if (!mounted || !theme) {
     return (
-      <Container>
-        <div className="relative w-full max-w-6xl mx-auto overflow-hidden mb-4 lg:mb-20 rounded-2xl animate-pulse bg-gray-200 dark:bg-gray-700" />
+      <Container className="px-0 sm:px-4 md:px-6">
+        <div className="relative w-full max-w-5xl mx-auto overflow-hidden mb-4 lg:mb-20 rounded-2xl animate-pulse bg-gray-200 dark:bg-gray-700" />
       </Container>
     );
   }
 
   return (
-    <Container>
-      <div className="relative w-full max-w-6xl mx-auto overflow-hidden mb-4 lg:mb-20 rounded-2xl">
+    <Container className="px-0 sm:px-4 md:px-6">
+      <div className="relative w-full max-w-5xl mx-auto overflow-hidden mb-4 lg:mb-20 rounded-2xl">
         {/* The image itself */}
         <Image
           src={theme === 'dark' ? darkDashboard : lightDashboard}
