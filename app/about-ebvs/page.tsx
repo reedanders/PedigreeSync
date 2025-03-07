@@ -24,7 +24,7 @@ export default function AboutEBVsPage() {
           <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">What Are Estimated Breeding Values?</h2>
           
           <p className="mb-4 text-gray-600 dark:text-gray-300">
-            An Estimated Breeding Value (EBV) is a prediction of an animal's genetic merit for a specific trait. 
+            An Estimated Breeding Value (EBV) is a prediction of an animal&apos;s genetic merit for a specific trait. 
             Unlike raw measurements, EBVs:
           </p>
           
@@ -32,7 +32,7 @@ export default function AboutEBVsPage() {
             <li>Separate genetic factors from environmental influences</li>
             <li>Account for differences in management and feeding</li>
             <li>Allow meaningful comparisons between animals raised in different environments</li>
-            <li>Predict the expected performance of an animal's offspring</li>
+            <li>Predict the expected performance of an animal&apos;s offspring</li>
             <li>Are expressed as deviations from a breed average</li>
           </ul>
           
