@@ -43,6 +43,7 @@ export async function updateSession(request: NextRequest) {
     !request.nextUrl.pathname.startsWith('/signup') &&
     !request.nextUrl.pathname.startsWith('/about-ebvs') &&
     !request.nextUrl.pathname.startsWith('/roadmap') &&
+    !request.nextUrl.pathname.startsWith('/import') &&
     // Do not redirect if on the homepage
     request.nextUrl.pathname !== '/'
   ) {

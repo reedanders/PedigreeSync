@@ -13,7 +13,7 @@ export function Footer() {
   const navigation = [
     { label: "About EBVs", href: "/about-ebvs" },
     { label: "Roadmap", href: "/roadmap" },
-    { label: "Getting Started", href: "/login" },
+    { label: "Getting Started", href: "/import" },
   ];
   
   // Legal pages (could be implemented later)
