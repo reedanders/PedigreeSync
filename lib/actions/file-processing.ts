@@ -9,6 +9,8 @@ const openai = new OpenAI({
 });
 
 export async function processFileWithAI(formData: FormData) {
+  // COMMENTED OUT FOR DEVELOPMENT - TO BE IMPLEMENTED
+  /*
   try {
     // 1. Get the file from the form data
     const file = formData.get('file') as File;
@@ -35,11 +37,13 @@ export async function processFileWithAI(formData: FormData) {
     });
     
     // 4. Parse the response
-    const structuredData = JSON.parse(response.choices[0].message.content);
+    // Fix: Add null check for content
+    const content = response.choices[0].message.content || '{}';
+    const structuredData = JSON.parse(content);
     
     // 5. Store in database
     const supabase = await createClient();
-    const { data, error } = await supabase
+    const { data: _, error } = await supabase
       .from('animals')
       .insert(structuredData.animals);
       
@@ -51,4 +55,12 @@ export async function processFileWithAI(formData: FormData) {
     console.error('File processing error:', error);
     return { success: false, error: error.message };
   }
+  */
+  
+  // Stub implementation that returns a mock result
+  console.log('File upload requested but feature is not yet implemented');
+  return { 
+    success: false, 
+    error: "This feature is coming soon. Please check back later."
+  };
 }
