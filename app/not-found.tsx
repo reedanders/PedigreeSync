@@ -1,20 +1,29 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Container } from '@/components/layout/Container';
 
 export default function NotFound() {
   // GitHub repository URL to redirect to
   const githubUrl = 'https://github.com/reedanders/PedigreeSync/issues';
+  const [secondsLeft, setSecondsLeft] = useState(3);
   
   useEffect(() => {
-    // Set a short timeout before redirecting to give users a moment to see the message
-    const redirectTimer = setTimeout(() => {
-      window.location.href = githubUrl;
-    }, 3000);
+    // Set up countdown timer
+    const countdownInterval = setInterval(() => {
+      setSecondsLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(countdownInterval);
+          // Navigate when countdown ends
+          window.location.href = githubUrl;
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
     
-    // Cleanup timer if component unmounts
-    return () => clearTimeout(redirectTimer);
+    // Clean up interval on unmount
+    return () => clearInterval(countdownInterval);
   }, []);
 
   return (
@@ -33,7 +42,7 @@ export default function NotFound() {
           
           <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-md">
             <p className="text-blue-800 dark:text-blue-200">
-              Redirecting you to our GitHub issue page in 3 seconds...
+              Redirecting you to our GitHub issue page in <span className="font-bold">{secondsLeft}</span> second{secondsLeft !== 1 ? 's' : ''}...
             </p>
           </div>
           
