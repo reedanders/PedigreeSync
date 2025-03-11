@@ -44,6 +44,7 @@ export async function updateSession(request: NextRequest) {
     !request.nextUrl.pathname.startsWith('/about-ebvs') &&
     !request.nextUrl.pathname.startsWith('/roadmap') &&
     !request.nextUrl.pathname.startsWith('/import') &&
+    !request.nextUrl.pathname.startsWith('/not-found') &&
     // Do not redirect if on the homepage
     request.nextUrl.pathname !== '/'
   ) {
