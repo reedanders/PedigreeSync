@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 
 export default function NotFound() {
@@ -37,7 +38,7 @@ export default function NotFound() {
           </svg>
           
           <p className="text-lg mb-6 text-gray-700 dark:text-gray-300">
-            We couldn't find the page you're looking for.
+            We couldn&apos;t find the page you&apos;re looking for.
           </p>
           
           <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-md">
@@ -47,12 +48,12 @@ export default function NotFound() {
           </div>
           
           <div className="flex flex-wrap justify-center gap-4">
-            <a 
+            <Link 
               href="/"
               className="px-6 py-3 text-primary-600 border border-primary-600 rounded-md hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
             >
               Return Home
-            </a>
+            </Link>
             <a 
               href={githubUrl} 
               target="_blank"
