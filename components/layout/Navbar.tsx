@@ -1,48 +1,13 @@
-"use client";
+'use client';
+
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useAuth } from '@/lib/contexts/AuthContext';
 import ThemeChanger from "@/components/ui/Button/DarkSwitch";
 import { LambIcon } from "@/components/ui/Icon/LambIcon";
-import { createClient } from "@/lib/utils/supabase/client";
 
 export const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
-  const supabase = createClient();
-  
-  useEffect(() => {
-    async function checkUser() {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        setIsLoggedIn(!!session);
-      } catch (error) {
-        console.error("Error checking authentication:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    
-    checkUser();
-    
-    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
-      setIsLoggedIn(event === 'SIGNED_IN');
-    });
-    
-    return () => {
-      authListener?.subscription.unsubscribe();
-    };
-  }, []);
-
-  const handleLogout = async () => {
-    try {
-      await supabase.auth.signOut();
-      router.push('/');
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
-  };
+  const { user, isLoading, signOut } = useAuth();
+  const isLoggedIn = !!user;
   
   const navigation = [
     { label: "About EBVs", href: "/about-ebvs" },
@@ -79,7 +44,7 @@ export const Navbar = () => {
         <div className="flex items-center gap-3 nav__item mr-2 lg:order-2">
           <ThemeChanger />
           
-          {!loading && (
+          {!isLoading && (
             isLoggedIn ? (
               <div className="flex items-center gap-4">
                 <Link 
@@ -89,7 +54,7 @@ export const Navbar = () => {
                   Dashboard
                 </Link>
                 <button
-                  onClick={handleLogout}
+                  onClick={signOut}
                   className="px-4 py-2 text-lg font-normal text-white bg-primary-600 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 >
                   Log out
