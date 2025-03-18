@@ -25,7 +25,8 @@ export async function createFarm(formData: FormData) {
     const { data: farm, error: farmError } = await supabase
       .from('farm')
       .insert({
-        name: farmName.trim()
+        name: farmName.trim(),
+        created_by: user.id
       })
       .select('id')
       .single();
