@@ -19,7 +19,7 @@ export default function VerificationMessage({ email }: VerificationMessageProps)
           Verification Email Sent
         </h2>
         <p className="text-gray-600 dark:text-gray-300">
-          We've sent a verification link to <span className="font-medium">{decodeURIComponent(email)}</span>
+          We&apos;ve sent a verification link to <span className="font-medium">{decodeURIComponent(email)}</span>
         </p>
       </div>
       
@@ -33,7 +33,7 @@ export default function VerificationMessage({ email }: VerificationMessageProps)
         
         <div className="pt-4 border-t border-gray-200 dark:border-gray-700 mt-4">
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-            Didn't receive an email? Check your spam folder or try again.
+            Didn&apos;t receive an email? Check your spam folder or try again.
           </p>
           <div className="flex justify-center">
             <Link
