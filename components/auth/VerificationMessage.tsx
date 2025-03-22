@@ -2,11 +2,7 @@
 
 import Link from 'next/link'
 
-interface VerificationMessageProps {
-  email: string;
-}
-
-export default function VerificationMessage({ email }: VerificationMessageProps) {
+export default function VerificationMessage() {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6">
       <div className="text-center mb-6">
@@ -19,7 +15,8 @@ export default function VerificationMessage({ email }: VerificationMessageProps)
           Verification Email Sent
         </h2>
         <p className="text-gray-600 dark:text-gray-300">
-          We&apos;ve sent a verification link to <span className="font-medium">{decodeURIComponent(email)}</span>
+          We&apos;ve sent a verification link to your email address.
+          Please check your inbox to verify your account.
         </p>
       </div>
       

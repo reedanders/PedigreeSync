@@ -23,7 +23,6 @@ export async function signup(formData: FormData) {
 
   revalidatePath('/', 'layout')
   
-  // Redirect back to signup page with success message
-  const email = encodeURIComponent(data.email)
-  redirect(`/signup?success=true&email=${email}`)
+  // Redirect to signup success without passing email
+  redirect('/signup?success=true')
 }

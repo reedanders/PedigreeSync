@@ -7,8 +7,7 @@ import VerificationMessage from '@/components/auth/VerificationMessage'
 
 export default function SignupPage() {
   const searchParams = useSearchParams()
-  const success = searchParams.get('success')
-  const email = searchParams.get('email')
+  const success = searchParams.get('success') === 'true'
   const error = searchParams.get('error')
   
   return (
@@ -19,7 +18,7 @@ export default function SignupPage() {
         </h1>
         
         {success ? (
-          <VerificationMessage email={email || ''} />
+          <VerificationMessage />
         ) : (
           <>
             <SignupForm error={error || ''} />
