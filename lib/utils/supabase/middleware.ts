@@ -27,44 +27,48 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  // Do not run code between createServerClient and
-  // supabase.auth.getUser(). A simple mistake could make it very hard to debug
-  // issues with users being randomly logged out.
-
   // IMPORTANT: DO NOT REMOVE auth.getUser()
-
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
+  // List of public routes that don't require authentication
+  const publicRoutes = [
+    '/login',
+    '/signup',
+    '/about-ebvs',
+    '/roadmap',
+    '/import',
+    '/verification-required',
+    '/'
+  ]
+
+  const isPublicRoute = publicRoutes.some(route => 
+    request.nextUrl.pathname.startsWith(route) || request.nextUrl.pathname === route
+  )
+
+  // Check if user exists but email is not verified
+  if (
+    user && 
+    !user.email_confirmed_at && 
+    !request.nextUrl.pathname.startsWith('/verification-required')
+  ) {
+    // Redirect to verification required page
+    const url = request.nextUrl.clone()
+    url.pathname = '/verification-required'
+    return NextResponse.redirect(url)
+  }
+
+  // Check if user is not logged in and trying to access protected route
   if (
     !user &&
-    !request.nextUrl.pathname.startsWith('/login') &&
-    !request.nextUrl.pathname.startsWith('/signup') &&
-    !request.nextUrl.pathname.startsWith('/about-ebvs') &&
-    !request.nextUrl.pathname.startsWith('/roadmap') &&
-    !request.nextUrl.pathname.startsWith('/import') &&
-    // Do not redirect if on the homepage
-    request.nextUrl.pathname !== '/'
+    !isPublicRoute
   ) {
-    // no user, potentially respond by redirecting the user to the login page
+    // No user, redirect to login page
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)
   }
-
-  // IMPORTANT: You *must* return the supabaseResponse object as it is.
-  // If you're creating a new response object with NextResponse.next() make sure to:
-  // 1. Pass the request in it, like so:
-  //    const myNewResponse = NextResponse.next({ request })
-  // 2. Copy over the cookies, like so:
-  //    myNewResponse.cookies.setAll(supabaseResponse.cookies.getAll())
-  // 3. Change the myNewResponse object to fit your needs, but avoid changing
-  //    the cookies!
-  // 4. Finally:
-  //    return myNewResponse
-  // If this is not done, you may be causing the browser and server to go out
-  // of sync and terminate the user's session prematurely!
 
   return supabaseResponse
 }

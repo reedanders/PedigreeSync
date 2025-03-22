@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 
 import { Footer } from '@/components/layout/Footer';
 import { Navbar } from '@/components/layout/Navbar';
+import { AuthProvider } from '@/lib/contexts/AuthContext';
 
 export const viewport = {
     width: 'device-width',
@@ -52,9 +53,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {/* Content wrapper with higher z-index */}
         <div className="content-wrapper">
           <ThemeProvider attribute="class">
-            <Navbar />
-            <div>{children}</div>
-            <Footer />
+            <AuthProvider>
+              <Navbar />
+              <div>{children}</div>
+              <Footer />
+            </AuthProvider>
           </ThemeProvider>
         </div>
       </body>
