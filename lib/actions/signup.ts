@@ -2,14 +2,12 @@
 
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-
 import { createClient } from '@/lib/utils/supabase/server'
 
+// Updated to return errors instead of using URL parameters
 export async function signup(formData: FormData) {
   const supabase = await createClient()
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
   const data = {
     email: formData.get('email') as string,
     password: formData.get('password') as string,
@@ -17,12 +15,13 @@ export async function signup(formData: FormData) {
 
   const { error } = await supabase.auth.signUp(data)
 
+  // Return error instead of redirecting with URL parameters
   if (error) {
-    redirect('/signup?error=' + encodeURIComponent(error.message))
+    return { error: error.message }
   }
 
   revalidatePath('/', 'layout')
   
-  // Redirect to signup success without passing email
-  redirect('/signup?success=true')
+  // Redirect to verification page on success
+  redirect('/verification-required')
 }
