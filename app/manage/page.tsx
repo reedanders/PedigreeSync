@@ -56,13 +56,68 @@ export default function ManageDashboard() {
     },
   ];
 
+  // Function to render different content based on active tab
+  const renderContent = () => {
+    switch(activeTab) {
+      case 'Dashboard':
+        return (
+          <div className="p-6">
+            <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+            <p>Welcome to your dashboard overview.</p>
+          </div>
+        );
+      case 'Team':
+        return (
+          <div className="p-6">
+            <h1 className="text-2xl font-bold mb-4">Team Management</h1>
+            <p>Manage your team members here.</p>
+          </div>
+        );
+      case 'Projects':
+        return (
+          <div className="p-6">
+            <h1 className="text-2xl font-bold mb-4">Projects</h1>
+            <p>View and manage your projects.</p>
+          </div>
+        );
+      case 'Calendar':
+        return (
+          <div className="p-6">
+            <h1 className="text-2xl font-bold mb-4">Calendar</h1>
+            <p>Schedule and manage your events.</p>
+          </div>
+        );
+      case 'Documents':
+        return (
+          <div className="p-6">
+            <h1 className="text-2xl font-bold mb-4">Documents</h1>
+            <p>Access and manage your documents.</p>
+          </div>
+        );
+      case 'Reports':
+        return (
+          <div className="p-6">
+            <h1 className="text-2xl font-bold mb-4">Reports</h1>
+            <p>View and generate reports.</p>
+          </div>
+        );
+      default:
+        return (
+          <div className="p-6">
+            <h1 className="text-2xl font-bold mb-4">Select a tab</h1>
+            <p>Choose a section from the sidebar.</p>
+          </div>
+        );
+    }
+  };
+
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
       <aside className="w-64 bg-white shadow-md p-4 flex flex-col justify-between">
         <div>
-          {/* Logo */}
-          <div className="text-blue-600 text-2xl font-bold p-2">🔱</div>
+          {/* Farm name */}
+          <div className="text-blue-600 text-2xl font-bold p-2">Farm Name</div>
 
           {/* Navigation */}
           <nav className="mt-6">
@@ -93,20 +148,9 @@ export default function ManageDashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col">
-        {/* Top bar */}
-        <header className="flex items-center justify-between bg-white shadow p-4">
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-700">Tom Cook</span>
-            </div>
-          </div>
-        </header>
-
-        {/* Content Area */}
-        <div className="flex-1 flex items-center justify-center bg-gray-200 border-dashed border-2 border-gray-300 m-4 rounded-lg">
-          <span className="text-gray-400">Dashboard Content</span>
-        </div>
+      <main className="flex-1 overflow-auto">
+        {/* Display the content based on active tab */}
+        {renderContent()}
       </main>
     </div>
   );
