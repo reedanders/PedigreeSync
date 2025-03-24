@@ -154,11 +154,6 @@ export default function ManageDashboard() {
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
             {activeTab}
           </h1>
-          {activeTab !== 'Dashboard' && (
-            <button className="mt-4 sm:mt-0 px-6 py-3 text-white bg-primary-600 hover:bg-primary-700 rounded-md font-medium transition-colors">
-              New {activeTab.slice(0, -1)}
-            </button>
-          )}
         </div>
         
         {/* Dashboard content */}
