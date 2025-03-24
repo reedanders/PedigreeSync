@@ -50,31 +50,15 @@ export default function ManageDashboard() {
       ) 
     },
     { 
-      name: 'Team', 
+      name: 'Animals', 
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
         </svg>
       ) 
     },
     { 
-      name: 'Projects', 
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-        </svg>
-      ) 
-    },
-    { 
-      name: 'Calendar', 
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      ) 
-    },
-    { 
-      name: 'Documents', 
+      name: 'Records', 
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -82,12 +66,21 @@ export default function ManageDashboard() {
       ) 
     },
     { 
-      name: 'Reports', 
+      name: 'Import/Export', 
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+        </svg>
+      ) ,
+    },
+    { 
+      name: 'Analysis', 
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
         </svg>
-      ) 
+      ),
+      beta: true
     },
   ];
 
@@ -108,39 +101,32 @@ export default function ManageDashboard() {
             </div>
           </div>
         );
-      case 'Team':
+      case 'Animals':
         return (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full">
-            <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Team Management</h1>
-            <p className="text-gray-600 dark:text-gray-300">Manage your team members here.</p>
+            <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Animals</h1>
+            <p className="text-gray-600 dark:text-gray-300">Manage your flock and animal records.</p>
           </div>
         );
-      case 'Projects':
+      case 'Records':
         return (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full">
-            <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Projects</h1>
-            <p className="text-gray-600 dark:text-gray-300">View and manage your projects.</p>
+            <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Records</h1>
+            <p className="text-gray-600 dark:text-gray-300">View and manage your measurement records.</p>
           </div>
         );
-      case 'Calendar':
+      case 'Import/Export':
         return (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full">
-            <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Calendar</h1>
-            <p className="text-gray-600 dark:text-gray-300">Schedule and manage your events.</p>
+            <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Import/Export</h1>
+            <p className="text-gray-600 dark:text-gray-300">Transfer data to and from NSIP.</p>
           </div>
         );
-      case 'Documents':
+      case 'Analysis':
         return (
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full">
-            <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Documents</h1>
-            <p className="text-gray-600 dark:text-gray-300">Access and manage your documents.</p>
-          </div>
-        );
-      case 'Reports':
-        return (
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full">
-            <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Reports</h1>
-            <p className="text-gray-600 dark:text-gray-300">View and generate reports.</p>
+            <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Analysis</h1>
+            <p className="text-gray-600 dark:text-gray-300">View reports and analyze your flock data.</p>
           </div>
         );
       default:
@@ -180,7 +166,14 @@ export default function ManageDashboard() {
                     onClick={() => setActiveTab(item.name)}
                   >
                     <span className="mr-3 text-lg">{item.icon}</span>
-                    {item.name}
+                    <span className="flex items-center">
+                      {item.name}
+                      {item.beta && (
+                        <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300">
+                          Future
+                        </span>
+                      )}
+                    </span>
                   </button>
                 ))}
               </nav>
