@@ -371,3 +371,55 @@ export async function loadFormData() {
     return { error: 'Failed to load animal data' };
   }
 }
+
+export async function getAnimalsByFarm() {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (!user) {
+      return { error: 'User not authenticated' };
+    }
+
+    // Get the user's primary farm
+    const { data: farmUser, error: farmUserError } = await supabase
+      .from('farm_users')
+      .select('farm_id')
+      .eq('user_id', user.id)
+      .limit(1)
+      .single();
+
+    if (farmUserError || !farmUser) {
+      return null;
+    }
+
+    // Fetch all animals for this farm
+    const { data: animals, error: animalsError } = await supabase
+      .from('animal_records')
+      .select(`
+        id,
+        created_at,
+        animal_identification (
+          animal_ident,
+          sire,
+          dam,
+          sex,
+          bt,
+          rt,
+          status
+        )
+      `)
+      .eq('farm_id', farmUser.farm_id)
+      .order('created_at', { ascending: false });
+
+    if (animalsError) {
+      console.error('Error fetching animals:', animalsError);
+      return { error: animalsError.message };
+    }
+
+    return { data: animals };
+  } catch (error) {
+    console.error('Error in getAnimalsForFarm:', error);
+    return { error: 'Failed to load animals' };
+  }
+}
