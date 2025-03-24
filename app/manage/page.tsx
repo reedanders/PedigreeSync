@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // Add this import
+import { useRouter } from 'next/navigation';
 import { getFarmDetails } from '@/lib/actions/farm';
 
 export default function ManageDashboard() {
-  const router = useRouter(); // Add this
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('Dashboard');
   const [farm, setFarm] = useState<{ name: string } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,50 +30,54 @@ export default function ManageDashboard() {
   // Don't render the page until we have farm data
   if (isLoading) {
     return (
-      <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
-        {/* Skeleton Sidebar */}
-        <aside className="w-64 bg-white dark:bg-gray-800 shadow-md p-4 flex flex-col justify-between">
-          <div>
-            {/* Skeleton Farm name */}
-            <div className="px-2 pt-2 pb-4">
-              <div className="h-7 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-36"></div>
-            </div>
-
-            {/* Skeleton Navigation */}
-            <nav className="mt-6">
-              {[...Array(6)].map((_, index) => (
-                <div 
-                  key={index} 
-                  className="flex items-center p-3 w-full rounded-lg mb-1"
-                >
-                  <div className="h-5 w-5 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md mr-3"></div>
-                  <div className="h-5 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-20"></div>
+      <div className="container mx-auto px-8 pt-4 pb-12">
+        <div className="flex flex-col md:flex-row bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+          {/* Skeleton Sidebar */}
+          <aside className="w-full md:w-64 border-r border-gray-200 dark:border-gray-700">
+            <div className="p-4 flex flex-col h-full justify-between">
+              <div>
+                {/* Skeleton Farm name */}
+                <div className="px-2 pt-2 pb-4">
+                  <div className="h-7 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-36"></div>
                 </div>
-              ))}
-            </nav>
-          </div>
 
-          {/* Skeleton Settings */}
-          <div className="flex items-center p-3 w-full rounded-lg">
-            <div className="h-5 w-5 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md mr-3"></div>
-            <div className="h-5 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-16"></div>
-          </div>
-        </aside>
+                {/* Skeleton Navigation */}
+                <nav className="mt-6">
+                  {[...Array(6)].map((_, index) => (
+                    <div 
+                      key={index} 
+                      className="flex items-center p-3 w-full rounded-lg mb-1"
+                    >
+                      <div className="h-5 w-5 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md mr-3"></div>
+                      <div className="h-5 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-20"></div>
+                    </div>
+                  ))}
+                </nav>
+              </div>
 
-        {/* Skeleton Main Content */}
-        <main className="flex-1 overflow-auto p-6">
-          {/* Skeleton Page Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-            <div className="h-9 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-40"></div>
-          </div>
-          
-          {/* Skeleton Content Panel */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full">
-            <div className="h-8 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-1/3 mb-4"></div>
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-3/4 mb-3"></div>
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-1/2"></div>
-          </div>
-        </main>
+              {/* Skeleton Settings */}
+              <div className="flex items-center p-3 w-full rounded-lg">
+                <div className="h-5 w-5 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md mr-3"></div>
+                <div className="h-5 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-16"></div>
+              </div>
+            </div>
+          </aside>
+
+          {/* Skeleton Main Content */}
+          <main className="flex-1 p-6">
+            {/* Skeleton Page Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+              <div className="h-9 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-40"></div>
+            </div>
+            
+            {/* Skeleton Content Panel */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-full">
+              <div className="h-8 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-1/3 mb-4"></div>
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-3/4 mb-3"></div>
+              <div className="h-4 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-1/2"></div>
+            </div>
+          </main>
+        </div>
       </div>
     );
   }
@@ -141,9 +145,16 @@ export default function ManageDashboard() {
     switch(activeTab) {
       case 'Dashboard':
         return (
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-full">
             <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Dashboard</h1>
             <p className="text-gray-600 dark:text-gray-300">Welcome to your dashboard overview.</p>
+            
+            <div className="mt-6 p-4 bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-800 rounded-lg">
+              <h2 className="font-semibold text-primary-800 dark:text-primary-400">Farm Information</h2>
+              <p className="mt-1 text-primary-700 dark:text-primary-300">
+                You are currently managing <span className="font-bold">{farm.name}</span>.
+              </p>
+            </div>
           </div>
         );
       case 'Team':
@@ -192,58 +203,55 @@ export default function ManageDashboard() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white dark:bg-gray-800 shadow-md p-4 flex flex-col justify-between">
-        <div>
-          {/* Farm name - clean display without loading state */}
-          <div className="px-2 pt-2 pb-4">
-            <div className="flex items-center gap-2">
-              <h2 className="text-xl font-medium text-gray-900 dark:text-gray-100">
-                {farm.name}
-              </h2>
+    <div className="container mx-auto pt-4 pb-12">
+      <div className="flex flex-col md:flex-row bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+        {/* Sidebar */}
+        <aside className="w-full md:w-64 border-r border-gray-200 dark:border-gray-700">
+          <div className="p-4 flex flex-col h-full justify-between">
+            <div>
+              {/* Farm name */}
+              <div className="px-2 pt-2 pb-4">
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xl font-medium text-gray-900 dark:text-gray-100">
+                    {farm.name}
+                  </h2>
+                </div>
+              </div>
+
+              {/* Navigation */}
+              <nav className="mt-6">
+                {menuItems.map((item) => (
+                  <button
+                    key={item.name}
+                    className={`flex items-center p-3 w-full rounded-lg text-left ${
+                      activeTab === item.name ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    }`}
+                    onClick={() => setActiveTab(item.name)}
+                  >
+                    <span className="mr-3 text-lg">{item.icon}</span>
+                    {item.name}
+                  </button>
+                ))}
+              </nav>
             </div>
+
+            {/* Settings */}
+            <button className="flex items-center p-3 w-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg> 
+              Settings
+            </button>
           </div>
+        </aside>
 
-          {/* Navigation */}
-          <nav className="mt-6">
-            {menuItems.map((item) => (
-              <button
-                key={item.name}
-                className={`flex items-center p-3 w-full rounded-lg text-left ${
-                  activeTab === item.name ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                }`}
-                onClick={() => setActiveTab(item.name)}
-              >
-                <span className="mr-3 text-lg">{item.icon}</span>
-                {item.name}
-              </button>
-            ))}
-          </nav>
-        </div>
-
-        {/* Settings */}
-        <button className="flex items-center p-3 w-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg> 
-          Settings
-        </button>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 overflow-auto p-6">
-        {/* Page header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-            {activeTab}
-          </h1>
-        </div>
-        
-        {/* Dashboard content */}
-        {renderContent()}
-      </main>
+        {/* Main Content */}
+        <main className="flex-1 p-6">        
+          {/* Dashboard content */}
+          {renderContent()}
+        </main>
+      </div>
     </div>
   );
 }
