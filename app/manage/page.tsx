@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation'; // Add this import
 import { getFarmDetails } from '@/lib/actions/farm';
 
 export default function ManageDashboard() {
+  const router = useRouter(); // Add this
   const [activeTab, setActiveTab] = useState('Dashboard');
   const [farm, setFarm] = useState<{ name: string } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -78,21 +80,9 @@ export default function ManageDashboard() {
 
   // Farm data is essential - redirect if missing
   if (!farm?.name) {
-    // Optional: You could add a redirection here if needed
-    // router.push('/setup-farm');
-    return (
-      <div className="flex h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-md w-full">
-          <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">No Farm Found</h1>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
-            You need to set up a farm before accessing this page.
-          </p>
-          <a href="/dashboard" className="inline-block px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">
-            Return to Dashboard
-          </a>
-        </div>
-      </div>
-    );
+    // Redirect to onboarding page
+    router.push('/onboarding');
+    return null;
   }
 
   const menuItems = [
