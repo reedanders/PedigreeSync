@@ -9,7 +9,7 @@ import { AnimalConceptionInputs } from '@/components/animals/AnimalInputs/Animal
 import { AnimalNotesInputs } from '@/components/animals/AnimalInputs/AnimalNotesInputs';
 import { GeneralTraitsInputs } from '@/components/animals/AnimalInputs/GeneralTraitsInputs';
 import { submitFormData, loadFormData } from '@/lib/actions/animals';
-import { LoadingSkeleton } from '@/components/ui/LoadingSkeleton';
+import { AnimalInputsSkeleton } from '@/components/ui/Skeleton/AnimalInputsSkeleton';
 
 export default function DashboardPage() {
   const [formData, setFormData] = useState<FormDataType>({
@@ -135,7 +135,7 @@ export default function DashboardPage() {
   const titleClass = "text-base font-medium text-gray-900 dark:text-gray-100";
 
   if (isLoading) {
-    return <LoadingSkeleton 
+    return <AnimalInputsSkeleton 
       cardClass={cardClass} 
       cardBodyClass={cardBodyClass} 
     />;
