@@ -1,10 +1,99 @@
 'use client';
 
-import { useState } from 'react';
-import { Container } from '@/components/layout/Container';
+import { useState, useEffect } from 'react';
+import { getFarmDetails } from '@/lib/actions/farm';
 
 export default function ManageDashboard() {
   const [activeTab, setActiveTab] = useState('Dashboard');
+  const [farm, setFarm] = useState<{ name: string } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch farm data when component mounts
+  useEffect(() => {
+    async function loadFarm() {
+      try {
+        setIsLoading(true);
+        const farmData = await getFarmDetails();
+        setFarm(farmData);
+      } catch (error) {
+        console.error('Error loading farm:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadFarm();
+  }, []);
+
+  // Don't render the page until we have farm data
+  if (isLoading) {
+    return (
+      <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
+        {/* Skeleton Sidebar */}
+        <aside className="w-64 bg-white dark:bg-gray-800 shadow-md p-4 flex flex-col justify-between">
+          <div>
+            {/* Skeleton Farm name */}
+            <div className="px-2 pt-2 pb-4">
+              <div className="h-7 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-36"></div>
+            </div>
+
+            {/* Skeleton Navigation */}
+            <nav className="mt-6">
+              {[...Array(6)].map((_, index) => (
+                <div 
+                  key={index} 
+                  className="flex items-center p-3 w-full rounded-lg mb-1"
+                >
+                  <div className="h-5 w-5 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md mr-3"></div>
+                  <div className="h-5 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-20"></div>
+                </div>
+              ))}
+            </nav>
+          </div>
+
+          {/* Skeleton Settings */}
+          <div className="flex items-center p-3 w-full rounded-lg">
+            <div className="h-5 w-5 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md mr-3"></div>
+            <div className="h-5 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-16"></div>
+          </div>
+        </aside>
+
+        {/* Skeleton Main Content */}
+        <main className="flex-1 overflow-auto p-6">
+          {/* Skeleton Page Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+            <div className="h-9 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-40"></div>
+          </div>
+          
+          {/* Skeleton Content Panel */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full">
+            <div className="h-8 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-1/3 mb-4"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-3/4 mb-3"></div>
+            <div className="h-4 bg-gray-200 dark:bg-gray-700 animate-pulse rounded-md w-1/2"></div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  // Farm data is essential - redirect if missing
+  if (!farm?.name) {
+    // Optional: You could add a redirection here if needed
+    // router.push('/setup-farm');
+    return (
+      <div className="flex h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-md w-full">
+          <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">No Farm Found</h1>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">
+            You need to set up a farm before accessing this page.
+          </p>
+          <a href="/dashboard" className="inline-block px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">
+            Return to Dashboard
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   const menuItems = [
     { 
@@ -117,8 +206,14 @@ export default function ManageDashboard() {
       {/* Sidebar */}
       <aside className="w-64 bg-white dark:bg-gray-800 shadow-md p-4 flex flex-col justify-between">
         <div>
-          {/* Farm name */}
-          <div className="text-primary-600 dark:text-primary-400 text-2xl font-bold p-2">Farm Name</div>
+          {/* Farm name - clean display without loading state */}
+          <div className="px-2 pt-2 pb-4">
+            <div className="flex items-center gap-2">
+              <h2 className="text-xl font-medium text-gray-900 dark:text-gray-100">
+                {farm.name}
+              </h2>
+            </div>
+          </div>
 
           {/* Navigation */}
           <nav className="mt-6">
