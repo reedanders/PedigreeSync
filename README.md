@@ -4,6 +4,8 @@ This project is an **unofficial implementation of PedigreeMaster**, a widely use
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/85e6a9e0-d2e6-41a8-8864-3b21de7249e5/deploy-status)](https://app.netlify.com/sites/reedbuilt/deploys)
 
+![Screenshot 2025-03-26 at 12 33 21 PM](https://github.com/user-attachments/assets/e19fb044-88fc-4000-a88c-83291fbd849b)
+
 ## Vision
 
 The goal of this project is to provide a web-based alternative to the Windows-based PedigreeMaster with enhanced usability and accessibility. The application will eventually incorporate all functionalities of PedigreeMaster, with additional modern features to streamline data management for livestock improvement programs. Initially, the app with address the primary painpoint of converting farm records to a format acceptable by PedigreeMaster. User
