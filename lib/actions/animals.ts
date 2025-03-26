@@ -91,7 +91,11 @@ export async function submitFormData({
       return { error: traitsError.message };
     }
 
-    revalidatePath('/dashboard')
+    // Revalidate the relevant paths
+    revalidatePath('/dashboard');
+    revalidatePath('/manage/animals');
+    revalidatePath(`/manage/animals/${animalId}`);
+    
     return { success: true }
   } catch (error) {
     console.error('Error in submitFormData:', error);
@@ -99,7 +103,8 @@ export async function submitFormData({
   }
 }
 
-export async function loadFormData() {
+// Modified to accept an animal ID parameter
+export async function loadFormData(animalId?: string) {
   try {
     const supabase = await createClient()
     
@@ -108,9 +113,15 @@ export async function loadFormData() {
     if (!user) {
       return { error: 'User not authenticated' };
     }
+    
+    // Get user's farm
+    const { data: farmUser, error: farmError } = await getUserFarm();
+    if (farmError || !farmUser) {
+      return { error: typeof farmError === 'string' ? farmError : "No farm found for this user" };
+    }
 
-    // Fetch animal records with all related tables in a single query
-    const { data: animalData, error: animalError } = await supabase
+    // Build the base query
+    const baseQuery = supabase
       .from('animal_records')
       .select(`
         id,
@@ -155,13 +166,23 @@ export async function loadFormData() {
           adult5_date, adult5_weight, adult5_c_fat, adult5_emd, adult5_sc, adult5_wec, adult5_group
         )
       `)
-      .order('created_at', { ascending: false })
-      .limit(1)
-      .single();
+      .eq('farm_id', farmUser.farm_id);
+
+    // If animalId is provided, fetch that specific animal
+    // Otherwise, get the most recent animal
+    let query = baseQuery;
+    
+    if (animalId) {
+      query = query.eq('id', animalId);
+    } else {
+      query = query.order('created_at', { ascending: false }).limit(1);
+    }
+    
+    const { data: animalData, error: animalError } = await query.single();
 
     if (animalError) {
       console.error('Error fetching animal:', animalError);
-      return { error: animalError.message };
+      return { error: animalError.message || 'Animal not found' };
     }
 
     // Transform general_traits data into a better nested structure

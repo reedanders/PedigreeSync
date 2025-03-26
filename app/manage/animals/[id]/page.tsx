@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import { FormContext } from '@/lib/contexts/FormContext';
 import type { FormDataType } from '@/lib/types/form';
 import { AnimalMetadataInputs } from '@/components/animals/AnimalInputs/AnimalMetadataInputs';
@@ -11,7 +13,11 @@ import { GeneralTraitsInputs } from '@/components/animals/AnimalInputs/GeneralTr
 import { submitFormData, loadFormData } from '@/lib/actions/animals';
 import { AnimalInputsSkeleton } from '@/components/ui/Skeleton/AnimalInputsSkeleton';
 
-export default function DashboardPage() {
+export default function AnimalDetailPage() {
+  // Get the animal ID from the URL parameter
+  const params = useParams();
+  const routeAnimalId = params.id as string;
+  
   const [formData, setFormData] = useState<FormDataType>({
     animalMetadata: {
       autoBuildText: '',
@@ -58,6 +64,7 @@ export default function DashboardPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [farmId, setFarmId] = useState<string>('');
   const [animalId, setAnimalId] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -71,9 +78,14 @@ export default function DashboardPage() {
   useEffect(() => {
     async function init() {
       try {
-        const { data, error } = await loadFormData();
+        // Pass the URL parameter to loadFormData
+        const { data, error } = await loadFormData(routeAnimalId);
         
-        if (error) throw error;
+        if (error) {
+          setError(error);
+          return;
+        }
+        
         if (data) {
           setFarmId(data.farmId);
           setAnimalId(data.animalId);
@@ -122,34 +134,101 @@ export default function DashboardPage() {
           }));
         }
       } catch (error) {
-        console.error('Failed to load farm:', error);
+        console.error('Failed to load animal:', error);
+        setError('Failed to load animal data');
       } finally {
         setIsLoading(false);
       }
     }
     init();
-  }, []);
+  }, [routeAnimalId]);
 
-  const cardClass = "card bg-white dark:bg-gray-800 shadow-xl border dark:border-gray-700";
-  const cardBodyClass = "card-body";
-  const titleClass = "text-base font-medium text-gray-900 dark:text-gray-100";
+  const cardClass = "bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700";
+  const cardBodyClass = "p-5";
+  const titleClass = "text-lg font-medium mb-4 text-gray-800 dark:text-white";
+  const buttonPrimaryClass = "px-4 py-2.5 text-white bg-primary-600 hover:bg-primary-700 rounded-md font-medium transition-colors";
+  const buttonSecondaryClass = "px-4 py-2.5 text-gray-700 bg-gray-100 hover:bg-gray-200 dark:text-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-md font-medium transition-colors";
+
+  // Container with rounded background
+  const containerClass = "min-h-screen flex items-start justify-center px-4 py-6";
+  const backgroundClass = "w-full max-w-7xl p-2";
 
   if (isLoading) {
-    return <AnimalInputsSkeleton 
-      cardClass={cardClass} 
-      cardBodyClass={cardBodyClass} 
-    />;
+    return (
+      <div className={containerClass}>
+        <div className={backgroundClass}>
+          <AnimalInputsSkeleton 
+            cardClass={cardClass} 
+            cardBodyClass={cardBodyClass} 
+          />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={containerClass}>
+        <div className={backgroundClass}>
+          <div className={cardClass}>
+            <div className={cardBodyClass}>
+              <div className="p-5 mb-4 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300">
+                {error}
+              </div>
+              <div className="mt-6">
+                <Link 
+                  href="/manage/animals"
+                  className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 inline-flex items-center gap-2"
+                >
+                  <span>←</span> Back to animals
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <FormContext.Provider value={{ formData, setFormData, farmId, animalId }}>
-      <main className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <section className="space-y-4">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className={containerClass}>
+        <div className={backgroundClass}>
+          <section className="space-y-6">
+            {/* Header with back button */}
+            <div className={cardClass}>
+              <div className={`${cardBodyClass} flex justify-between items-center`}>
+                <div>
+                  <h1 className="text-2xl font-bold mb-1 text-gray-800 dark:text-white">
+                    Animal: {formData.animalIdentification.animalIdent || 'Unknown'}
+                  </h1>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Edit animal details and traits
+                  </p>
+                </div>
+                <div className="flex gap-3">
+                  <Link
+                    href="/manage/animals"
+                    className={buttonSecondaryClass}
+                  >
+                    Back to List
+                  </Link>
+                  <button
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                    className={`${buttonPrimaryClass} ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                  >
+                    {isSubmitting ? 'Saving...' : 'Save Record'}
+                  </button>
+                </div>
+              </div>
+            </div>
+        
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Database Filters */}
               <div className={`lg:col-span-full ${cardClass}`}>
                 <div className={cardBodyClass}>
+                  <h2 className={titleClass}>Database Filters</h2>
                   <AnimalMetadataInputs />
                 </div>
               </div>
@@ -157,6 +236,7 @@ export default function DashboardPage() {
               {/* Animal Identification */}
               <div className={`lg:col-span-2 ${cardClass}`}>
                 <div className={cardBodyClass}>
+                  <h2 className={titleClass}>Animal Identification</h2>
                   <AnimalIdInputs />
                 </div>
               </div>
@@ -164,7 +244,8 @@ export default function DashboardPage() {
               {/* Conception */}
               <div className={cardClass}>
                 <div className={cardBodyClass}>
-                    <AnimalConceptionInputs />
+                  <h2 className={titleClass}>Conception</h2>
+                  <AnimalConceptionInputs />
                 </div>
               </div>
             </div>
@@ -172,32 +253,21 @@ export default function DashboardPage() {
             {/* Group Comments */}
             <div className={cardClass}>
               <div className={cardBodyClass}>
-                  <AnimalNotesInputs />
+                <h2 className={titleClass}>Group & Comments</h2>
+                <AnimalNotesInputs />
               </div>
             </div>
 
             {/* Animal Traits */}
             <div className={cardClass}>
               <div className={cardBodyClass}>
+                <h2 className={titleClass}>General Traits</h2>
                 <GeneralTraitsInputs />
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className={cardClass}>
-              <div className={`${cardBodyClass} flex justify-end`}>
-                <button
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  className="btn btn-primary"
-                >
-                  {isSubmitting ? 'Saving...' : 'Save Record'}
-                </button>
               </div>
             </div>
           </section>
         </div>
-      </main>
+      </div>
     </FormContext.Provider>
   );
 }
