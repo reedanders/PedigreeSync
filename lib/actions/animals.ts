@@ -106,6 +106,11 @@ export async function submitFormData({
 // Modified to accept an animal ID parameter
 export async function loadFormData(animalId?: string) {
   try {
+    // Return an error if no animalId is provided
+    if (!animalId) {
+      return { error: 'Animal ID is required' };
+    }
+
     const supabase = await createClient()
     
     // Get authenticated user
@@ -120,8 +125,8 @@ export async function loadFormData(animalId?: string) {
       return { error: typeof farmError === 'string' ? farmError : "No farm found for this user" };
     }
 
-    // Build the base query
-    const baseQuery = supabase
+    // Query for the specific animal by ID
+    const { data: animalData, error: animalError } = await supabase
       .from('animal_records')
       .select(`
         id,
@@ -166,23 +171,13 @@ export async function loadFormData(animalId?: string) {
           adult5_date, adult5_weight, adult5_c_fat, adult5_emd, adult5_sc, adult5_wec, adult5_group
         )
       `)
-      .eq('farm_id', farmUser.farm_id);
-
-    // If animalId is provided, fetch that specific animal
-    // Otherwise, get the most recent animal
-    let query = baseQuery;
-    
-    if (animalId) {
-      query = query.eq('id', animalId);
-    } else {
-      query = query.order('created_at', { ascending: false }).limit(1);
-    }
-    
-    const { data: animalData, error: animalError } = await query.single();
+      .eq('farm_id', farmUser.farm_id)
+      .eq('id', animalId)
+      .single();
 
     if (animalError) {
       console.error('Error fetching animal:', animalError);
-      return { error: animalError.message || 'Animal not found' };
+      return { error: animalError.message || `Animal with ID ${animalId} not found` };
     }
 
     // Transform general_traits data into a better nested structure
