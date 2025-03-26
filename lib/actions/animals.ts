@@ -5,73 +5,9 @@ import { createClient } from '@/lib/utils/supabase/server'
 import type { FormDataType } from '@/lib/types/form'
 import { GeneralTraitsDbRecord, GeneralTraitsState } from '@/lib/types/form';
 
-export async function submitFormData({ 
-  formData, 
-  animalId 
-}: { 
-  formData: FormDataType; 
-  animalId: string; 
-}) {
-  const supabase = await createClient()
-
-  // Update animal_metadata
-  const { error: metadataError } = await supabase
-    .from('animal_metadata')
-    .update({
-      auto_build_text: formData.animalMetadata.autoBuildText,
-      edit_date1: formData.animalMetadata.editDate1,
-      edit_date2: formData.animalMetadata.editDate2,
-      limit_inputs: formData.animalMetadata.limitInputs,
-      carcass_scanner_no: formData.animalMetadata.carcassScannerNo,
-      show_wool_fleece: formData.animalMetadata.showWoolFleece
-    })
-    .eq('animal_id', animalId)
-
-  if (metadataError) {
-    console.error(metadataError)
-    return { error: 'Failed to update metadata' }
-  }
-
-  // Update animal_identification
-  const { error: identificationError } = await supabase
-    .from('animal_identification')
-    .update({
-      animal_ident: formData.animalIdentification.animalIdent,
-      sire: formData.animalIdentification.sire,
-      dam: formData.animalIdentification.dam,
-      sex: formData.animalIdentification.sex,
-      bt: formData.animalIdentification.bt,
-      rt: formData.animalIdentification.rt,
-      comment: formData.animalNotes.comment,
-      status: formData.animalNotes.status
-    })
-    .eq('animal_id', animalId)
-
-  if (identificationError) {
-    console.error(identificationError)
-    return { error: 'Failed to update identification' }
-  }
-
-  // Update animal_conception
-  const { error: conceptionError } = await supabase
-    .from('animal_conception')
-    .update({
-      method: formData.animalConception.method,
-      date: formData.animalConception.date,
-      lamb_ease: formData.animalConception.lambEase,
-      nickname: formData.animalConception.nickname,
-      group: formData.animalNotes.group
-    })
-    .eq('animal_id', animalId)
-
-  if (conceptionError) {
-    console.error(conceptionError)
-    return { error: 'Failed to update conception data' }
-  }
-
-  // Transform generalTraits from nested format to flat database format
-  const generalTraits = formData.generalTraits;
-  const generalTraitsDbFormat = {
+// Helper functions for transformations
+function transformFormToDbTraits(generalTraits: GeneralTraitsState, animalId: string) {
+  return {
     // Birth traits
     birth_date: generalTraits.birth?.date || null,
     birth_weight: generalTraits.birth?.weight || null,
@@ -171,27 +107,236 @@ export async function submitFormData({
     // Link to animal record
     animal_id: animalId
   };
-  
-  // Update general_traits table
-  const { error: traitsError } = await supabase
-    .from('general_traits')
-    .upsert(generalTraitsDbFormat, {
-      onConflict: 'animal_id',
-      ignoreDuplicates: false
-    });
-  
-  if (traitsError) {
-    console.error('Error updating traits:', traitsError);
-    return { error: traitsError.message };
-  }
+}
 
-  revalidatePath('/dashboard')
-  return { success: true }
+function transformDbToFormTraits(traits: GeneralTraitsDbRecord): GeneralTraitsState {
+  if (!traits) return {};
+  
+  return {
+    birth: {
+      date: traits.birth_date || null,
+      weight: traits.birth_weight || null,
+      cFat: traits.birth_c_fat || null,
+      emd: traits.birth_emd || null,
+      sc: traits.birth_sc || null,
+      wec: traits.birth_wec || null,
+      group: traits.birth_group || null
+    },
+    weaning: {
+      date: traits.weaning_date || null,
+      weight: traits.weaning_weight || null,
+      cFat: traits.weaning_c_fat || null,
+      emd: traits.weaning_emd || null,
+      sc: traits.weaning_sc || null,
+      wec: traits.weaning_wec || null,
+      group: traits.weaning_group || null
+    },
+    epWeaning: {
+      date: traits.ep_weaning_date || null,
+      weight: traits.ep_weaning_weight || null,
+      cFat: traits.ep_weaning_c_fat || null,
+      emd: traits.ep_weaning_emd || null,
+      sc: traits.ep_weaning_sc || null,
+      wec: traits.ep_weaning_wec || null,
+      group: traits.ep_weaning_group || null
+    },
+    pWeaning: {
+      date: traits.p_weaning_date || null,
+      weight: traits.p_weaning_weight || null,
+      cFat: traits.p_weaning_c_fat || null,
+      emd: traits.p_weaning_emd || null,
+      sc: traits.p_weaning_sc || null,
+      wec: traits.p_weaning_wec || null,
+      group: traits.p_weaning_group || null
+    },
+    yearling: {
+      date: traits.yearling_date || null,
+      weight: traits.yearling_weight || null,
+      cFat: traits.yearling_c_fat || null,
+      emd: traits.yearling_emd || null,
+      sc: traits.yearling_sc || null,
+      wec: traits.yearling_wec || null,
+      group: traits.yearling_group || null
+    },
+    hogget: {
+      date: traits.hogget_date || null,
+      weight: traits.hogget_weight || null,
+      cFat: traits.hogget_c_fat || null,
+      emd: traits.hogget_emd || null,
+      sc: traits.hogget_sc || null,
+      wec: traits.hogget_wec || null,
+      group: traits.hogget_group || null
+    },
+    adult: {
+      date: traits.adult_date || null,
+      weight: traits.adult_weight || null,
+      cFat: traits.adult_c_fat || null,
+      emd: traits.adult_emd || null,
+      sc: traits.adult_sc || null,
+      wec: traits.adult_wec || null,
+      group: traits.adult_group || null
+    },
+    adult2: {
+      date: traits.adult2_date || null,
+      weight: traits.adult2_weight || null,
+      cFat: traits.adult2_c_fat || null,
+      emd: traits.adult2_emd || null,
+      sc: traits.adult2_sc || null,
+      wec: traits.adult2_wec || null,
+      group: traits.adult2_group || null
+    },
+    adult3: {
+      date: traits.adult3_date || null,
+      weight: traits.adult3_weight || null,
+      cFat: traits.adult3_c_fat || null,
+      emd: traits.adult3_emd || null,
+      sc: traits.adult3_sc || null,
+      wec: traits.adult3_wec || null,
+      group: traits.adult3_group || null
+    },
+    adult4: {
+      date: traits.adult4_date || null,
+      weight: traits.adult4_weight || null,
+      cFat: traits.adult4_c_fat || null,
+      emd: traits.adult4_emd || null,
+      sc: traits.adult4_sc || null,
+      wec: traits.adult4_wec || null,
+      group: traits.adult4_group || null
+    },
+    adult5: {
+      date: traits.adult5_date || null,
+      weight: traits.adult5_weight || null,
+      cFat: traits.adult5_c_fat || null,
+      emd: traits.adult5_emd || null,
+      sc: traits.adult5_sc || null,
+      wec: traits.adult5_wec || null,
+      group: traits.adult5_group || null
+    }
+  };
+}
+
+async function getUserFarm() {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (!user) {
+      return { error: 'User not authenticated' };
+    }
+
+    // Get the user's primary farm
+    const { data: farmUser, error: farmUserError } = await supabase
+      .from('farm_users')
+      .select('farm_id')
+      .eq('user_id', user.id)
+      .limit(1)
+      .single();
+
+    if (farmUserError || !farmUser) {
+      return { error: 'No farm found for user' };
+    }
+
+    return { data: farmUser };
+  } catch (error) {
+    console.error('Error getting user farm:', error);
+    return { error: 'Failed to get farm information' };
+  }
+}
+
+export async function submitFormData({ 
+  formData, 
+  animalId 
+}: { 
+  formData: FormDataType; 
+  animalId: string; 
+}) {
+  try {
+    const supabase = await createClient()
+
+    // Update animal_metadata
+    const { error: metadataError } = await supabase
+      .from('animal_metadata')
+      .update({
+        auto_build_text: formData.animalMetadata.autoBuildText,
+        edit_date1: formData.animalMetadata.editDate1,
+        edit_date2: formData.animalMetadata.editDate2,
+        limit_inputs: formData.animalMetadata.limitInputs,
+        carcass_scanner_no: formData.animalMetadata.carcassScannerNo,
+        show_wool_fleece: formData.animalMetadata.showWoolFleece
+      })
+      .eq('animal_id', animalId)
+
+    if (metadataError) {
+      console.error(metadataError)
+      return { error: 'Failed to update metadata' }
+    }
+
+    // Update animal_identification
+    const { error: identificationError } = await supabase
+      .from('animal_identification')
+      .update({
+        animal_ident: formData.animalIdentification.animalIdent,
+        sire: formData.animalIdentification.sire,
+        dam: formData.animalIdentification.dam,
+        sex: formData.animalIdentification.sex,
+        bt: formData.animalIdentification.bt,
+        rt: formData.animalIdentification.rt,
+        comment: formData.animalNotes.comment,
+        status: formData.animalNotes.status
+      })
+      .eq('animal_id', animalId)
+
+    if (identificationError) {
+      console.error(identificationError)
+      return { error: 'Failed to update identification' }
+    }
+
+    // Update animal_conception
+    const { error: conceptionError } = await supabase
+      .from('animal_conception')
+      .update({
+        method: formData.animalConception.method,
+        date: formData.animalConception.date,
+        lamb_ease: formData.animalConception.lambEase,
+        nickname: formData.animalConception.nickname,
+        group: formData.animalNotes.group
+      })
+      .eq('animal_id', animalId)
+
+    if (conceptionError) {
+      console.error(conceptionError)
+      return { error: 'Failed to update conception data' }
+    }
+
+    // Transform generalTraits from nested format to flat database format
+    const generalTraitsDbFormat = transformFormToDbTraits(formData.generalTraits, animalId);
+    
+    // Update general_traits table
+    const { error: traitsError } = await supabase
+      .from('general_traits')
+      .upsert(generalTraitsDbFormat, {
+        onConflict: 'animal_id',
+        ignoreDuplicates: false
+      });
+    
+    if (traitsError) {
+      console.error('Error updating traits:', traitsError);
+      return { error: traitsError.message };
+    }
+
+    revalidatePath('/dashboard')
+    return { success: true }
+  } catch (error) {
+    console.error('Error in submitFormData:', error);
+    return { error: 'Failed to submit animal data' };
+  }
 }
 
 export async function loadFormData() {
   try {
     const supabase = await createClient()
+    
+    // Get authenticated user
     const { data: { user }} = await supabase.auth.getUser();
     if (!user) {
       return { error: 'User not authenticated' };
@@ -254,107 +399,7 @@ export async function loadFormData() {
 
     // Transform general_traits data into a better nested structure
     const traits = animalData.general_traits as GeneralTraitsDbRecord;
-    const generalTraits: GeneralTraitsState = traits ? {
-      birth: {
-        date: traits.birth_date || null,
-        weight: traits.birth_weight || null,
-        cFat: traits.birth_c_fat || null,
-        emd: traits.birth_emd || null,
-        sc: traits.birth_sc || null,
-        wec: traits.birth_wec || null,
-        group: traits.birth_group || null
-      },
-      weaning: {
-        date: traits.weaning_date || null,
-        weight: traits.weaning_weight || null,
-        cFat: traits.weaning_c_fat || null,
-        emd: traits.weaning_emd || null,
-        sc: traits.weaning_sc || null,
-        wec: traits.weaning_wec || null,
-        group: traits.weaning_group || null
-      },
-      epWeaning: {
-        date: traits.ep_weaning_date || null,
-        weight: traits.ep_weaning_weight || null,
-        cFat: traits.ep_weaning_c_fat || null,
-        emd: traits.ep_weaning_emd || null,
-        sc: traits.ep_weaning_sc || null,
-        wec: traits.ep_weaning_wec || null,
-        group: traits.ep_weaning_group || null
-      },
-      pWeaning: {
-        date: traits.p_weaning_date || null,
-        weight: traits.p_weaning_weight || null,
-        cFat: traits.p_weaning_c_fat || null,
-        emd: traits.p_weaning_emd || null,
-        sc: traits.p_weaning_sc || null,
-        wec: traits.p_weaning_wec || null,
-        group: traits.p_weaning_group || null
-      },
-      yearling: {
-        date: traits.yearling_date || null,
-        weight: traits.yearling_weight || null,
-        cFat: traits.yearling_c_fat || null,
-        emd: traits.yearling_emd || null,
-        sc: traits.yearling_sc || null,
-        wec: traits.yearling_wec || null,
-        group: traits.yearling_group || null
-      },
-      hogget: {
-        date: traits.hogget_date || null,
-        weight: traits.hogget_weight || null,
-        cFat: traits.hogget_c_fat || null,
-        emd: traits.hogget_emd || null,
-        sc: traits.hogget_sc || null,
-        wec: traits.hogget_wec || null,
-        group: traits.hogget_group || null
-      },
-      adult: {
-        date: traits.adult_date || null,
-        weight: traits.adult_weight || null,
-        cFat: traits.adult_c_fat || null,
-        emd: traits.adult_emd || null,
-        sc: traits.adult_sc || null,
-        wec: traits.adult_wec || null,
-        group: traits.adult_group || null
-      },
-      adult2: {
-        date: traits.adult2_date || null,
-        weight: traits.adult2_weight || null,
-        cFat: traits.adult2_c_fat || null,
-        emd: traits.adult2_emd || null,
-        sc: traits.adult2_sc || null,
-        wec: traits.adult2_wec || null,
-        group: traits.adult2_group || null
-      },
-      adult3: {
-        date: traits.adult3_date || null,
-        weight: traits.adult3_weight || null,
-        cFat: traits.adult3_c_fat || null,
-        emd: traits.adult3_emd || null,
-        sc: traits.adult3_sc || null,
-        wec: traits.adult3_wec || null,
-        group: traits.adult3_group || null
-      },
-      adult4: {
-        date: traits.adult4_date || null,
-        weight: traits.adult4_weight || null,
-        cFat: traits.adult4_c_fat || null,
-        emd: traits.adult4_emd || null,
-        sc: traits.adult4_sc || null,
-        wec: traits.adult4_wec || null,
-        group: traits.adult4_group || null
-      },
-      adult5: {
-        date: traits.adult5_date || null,
-        weight: traits.adult5_weight || null,
-        cFat: traits.adult5_c_fat || null,
-        emd: traits.adult5_emd || null,
-        sc: traits.adult5_sc || null,
-        wec: traits.adult5_wec || null,
-        group: traits.adult5_group || null
-      }
-    } : {};
+    const generalTraits = transformDbToFormTraits(traits);
 
     return {
       data: {
@@ -374,25 +419,16 @@ export async function loadFormData() {
 
 export async function getAnimalsByFarm() {
   try {
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    // Get user's farm
+    const { data: farmUser, error } = await getUserFarm();
     
-    if (!user) {
-      return { error: 'User not authenticated' };
+    // Check for both error and missing data
+    if (error || !farmUser) {
+      return { error: error || "No farm found for this user" };
     }
 
-    // Get the user's primary farm
-    const { data: farmUser, error: farmUserError } = await supabase
-      .from('farm_users')
-      .select('farm_id')
-      .eq('user_id', user.id)
-      .limit(1)
-      .single();
-
-    if (farmUserError || !farmUser) {
-      return null;
-    }
-
+    const supabase = await createClient();
+    
     // Fetch all animals for this farm
     const { data: animals, error: animalsError } = await supabase
       .from('animal_records')
@@ -419,7 +455,7 @@ export async function getAnimalsByFarm() {
 
     return { data: animals };
   } catch (error) {
-    console.error('Error in getAnimalsForFarm:', error);
+    console.error('Error in getAnimalsByFarm:', error);
     return { error: 'Failed to load animals' };
   }
 }
