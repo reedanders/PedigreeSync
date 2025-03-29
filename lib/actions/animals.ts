@@ -10,6 +10,7 @@ import {
   getUserFarm 
 } from './animals.helpers'
 
+// Modified to handle both creating new animals and updating existing ones
 export async function submitFormData({ 
   formData, 
   animalId 
@@ -19,66 +20,120 @@ export async function submitFormData({
 }) {
   try {
     const supabase = await createClient()
-
-    // Update animal_metadata
-    const { error: metadataError } = await supabase
-      .from('animal_metadata')
-      .update({
-        auto_build_text: formData.animalMetadata.autoBuildText,
-        edit_date1: formData.animalMetadata.editDate1,
-        edit_date2: formData.animalMetadata.editDate2,
-        limit_inputs: formData.animalMetadata.limitInputs,
-        carcass_scanner_no: formData.animalMetadata.carcassScannerNo,
-        show_wool_fleece: formData.animalMetadata.showWoolFleece
-      })
-      .eq('animal_id', animalId)
-
-    if (metadataError) {
-      console.error(metadataError)
-      return { error: 'Failed to update metadata' }
+    
+    // Check if we're creating a new animal
+    const isNewAnimal = animalId === 'new';
+    let newAnimalId: string | undefined;
+    
+    // If creating a new animal, we need to establish a new record first
+    if (isNewAnimal) {
+      // Get user's farm
+      const { data: farmUser, error: farmError } = await getUserFarm();
+      if (farmError || !farmUser) {
+        return { error: typeof farmError === 'string' ? farmError : "No farm found for this user" };
+      }
+      
+      // Create the base animal record
+      const { data: animalRecord, error: animalError } = await supabase
+        .from('animal_records')
+        .insert({ farm_id: farmUser.farm_id })
+        .select('id')
+        .single();
+      
+      if (animalError) {
+        console.error('Error creating animal record:', animalError);
+        return { error: 'Failed to create new animal record' };
+      }
+      
+      newAnimalId = animalRecord.id;
+      // Now we'll use this ID for all related table operations
+      if (!newAnimalId) {
+        throw new Error('Failed to create new animal ID');
+      }
+      animalId = newAnimalId;
     }
+    
+    // Common function for handling database errors
+    const handleError = (error: any, operation: string) => {
+      console.error(`Error ${isNewAnimal ? 'creating' : 'updating'} ${operation}:`, error);
+      return { error: `Failed to ${isNewAnimal ? 'create' : 'update'} ${operation}` };
+    };
+    
+    // Update or create animal_metadata
+    const metadataOperation = isNewAnimal 
+      ? supabase.from('animal_metadata').insert({
+          animal_id: animalId,
+          auto_build_text: formData.animalMetadata.autoBuildText,
+          edit_date1: formData.animalMetadata.editDate1,
+          edit_date2: formData.animalMetadata.editDate2,
+          limit_inputs: formData.animalMetadata.limitInputs,
+          carcass_scanner_no: formData.animalMetadata.carcassScannerNo,
+          show_wool_fleece: formData.animalMetadata.showWoolFleece
+        })
+      : supabase.from('animal_metadata').update({
+          auto_build_text: formData.animalMetadata.autoBuildText,
+          edit_date1: formData.animalMetadata.editDate1,
+          edit_date2: formData.animalMetadata.editDate2,
+          limit_inputs: formData.animalMetadata.limitInputs,
+          carcass_scanner_no: formData.animalMetadata.carcassScannerNo,
+          show_wool_fleece: formData.animalMetadata.showWoolFleece
+        }).eq('animal_id', animalId);
 
-    // Update animal_identification
-    const { error: identificationError } = await supabase
-      .from('animal_identification')
-      .update({
-        animal_ident: formData.animalIdentification.animalIdent,
-        sire: formData.animalIdentification.sire,
-        dam: formData.animalIdentification.dam,
-        sex: formData.animalIdentification.sex,
-        bt: formData.animalIdentification.bt,
-        rt: formData.animalIdentification.rt,
-        comment: formData.animalNotes.comment,
-        status: formData.animalNotes.status
-      })
-      .eq('animal_id', animalId)
+    const { error: metadataError } = await metadataOperation;
+    if (metadataError) return handleError(metadataError, 'animal metadata');
 
-    if (identificationError) {
-      console.error(identificationError)
-      return { error: 'Failed to update identification' }
-    }
+    // Update or create animal_identification
+    const identificationOperation = isNewAnimal
+      ? supabase.from('animal_identification').insert({
+          animal_id: animalId,
+          animal_ident: formData.animalIdentification.animalIdent,
+          sire: formData.animalIdentification.sire,
+          dam: formData.animalIdentification.dam,
+          sex: formData.animalIdentification.sex,
+          bt: formData.animalIdentification.bt,
+          rt: formData.animalIdentification.rt,
+          comment: formData.animalNotes.comment,
+          status: formData.animalNotes.status
+        })
+      : supabase.from('animal_identification').update({
+          animal_ident: formData.animalIdentification.animalIdent,
+          sire: formData.animalIdentification.sire,
+          dam: formData.animalIdentification.dam,
+          sex: formData.animalIdentification.sex,
+          bt: formData.animalIdentification.bt,
+          rt: formData.animalIdentification.rt,
+          comment: formData.animalNotes.comment,
+          status: formData.animalNotes.status
+        }).eq('animal_id', animalId);
+    
+    const { error: identificationError } = await identificationOperation;
+    if (identificationError) return handleError(identificationError, 'animal identification');
 
-    // Update animal_conception
-    const { error: conceptionError } = await supabase
-      .from('animal_conception')
-      .update({
-        method: formData.animalConception.method,
-        date: formData.animalConception.date,
-        lamb_ease: formData.animalConception.lambEase,
-        nickname: formData.animalConception.nickname,
-        group: formData.animalNotes.group
-      })
-      .eq('animal_id', animalId)
-
-    if (conceptionError) {
-      console.error(conceptionError)
-      return { error: 'Failed to update conception data' }
-    }
+    // Update or create animal_conception
+    const conceptionOperation = isNewAnimal
+      ? supabase.from('animal_conception').insert({
+          animal_id: animalId,
+          method: formData.animalConception.method,
+          date: formData.animalConception.date,
+          lamb_ease: formData.animalConception.lambEase,
+          nickname: formData.animalConception.nickname,
+          group: formData.animalNotes.group
+        })
+      : supabase.from('animal_conception').update({
+          method: formData.animalConception.method,
+          date: formData.animalConception.date,
+          lamb_ease: formData.animalConception.lambEase,
+          nickname: formData.animalConception.nickname,
+          group: formData.animalNotes.group
+        }).eq('animal_id', animalId);
+    
+    const { error: conceptionError } = await conceptionOperation;
+    if (conceptionError) return handleError(conceptionError, 'animal conception data');
 
     // Transform generalTraits from nested format to flat database format
     const generalTraitsDbFormat = transformFormToDbTraits(formData.generalTraits, animalId);
     
-    // Update general_traits table
+    // Always use upsert for general_traits for consistency
     const { error: traitsError } = await supabase
       .from('general_traits')
       .upsert(generalTraitsDbFormat, {
@@ -86,31 +141,27 @@ export async function submitFormData({
         ignoreDuplicates: false
       });
     
-    if (traitsError) {
-      console.error('Error updating traits:', traitsError);
-      return { error: traitsError.message };
-    }
+    if (traitsError) return handleError(traitsError, 'animal traits');
 
     // Revalidate the relevant paths
     revalidatePath('/dashboard');
     revalidatePath('/manage/animals');
-    revalidatePath(`/manage/animals/${animalId}`);
+    if (!isNewAnimal) {
+      revalidatePath(`/manage/animals/${animalId}`);
+    }
     
-    return { success: true }
+    return { 
+      success: true,
+      animalId: newAnimalId // Return the new ID if we created one
+    };
   } catch (error) {
     console.error('Error in submitFormData:', error);
     return { error: 'Failed to submit animal data' };
   }
 }
 
-// Modified to accept an animal ID parameter
 export async function loadFormData(animalId?: string) {
   try {
-    // Return an error if no animalId is provided
-    if (!animalId) {
-      return { error: 'Animal ID is required' };
-    }
-
     const supabase = await createClient()
     
     // Get authenticated user
@@ -123,6 +174,47 @@ export async function loadFormData(animalId?: string) {
     const { data: farmUser, error: farmError } = await getUserFarm();
     if (farmError || !farmUser) {
       return { error: typeof farmError === 'string' ? farmError : "No farm found for this user" };
+    }
+
+    // Special case for new animal
+    if (animalId === 'new') {
+      return {
+        data: {
+          farmId: farmUser.farm_id,
+          animalId: 'new',
+          animalMetadata: {
+            auto_build_text: '',
+            edit_date1: '2025-02-11 16:33:53+00',
+            edit_date2: '2025-02-11 16:33:53+00',
+            limit_inputs: 'None',
+            carcass_scanner_no: '',
+            show_wool_fleece: false
+          },
+          animalIdentification: {
+            animal_ident: '',
+            sire: '',
+            dam: '',
+            sex: 0,
+            bt: 0,
+            rt: 0,
+            comment: '',
+            status: 0
+          },
+          animalConception: {
+            method: 0,
+            date: '2025-02-11 16:33:53+00',
+            lamb_ease: 0,
+            nickname: '',
+            group: 0
+          },
+          generalTraits: {}
+        }
+      };
+    }
+
+    // Return an error if no animalId is provided
+    if (!animalId) {
+      return { error: 'Animal ID is required' };
     }
 
     // Query for the specific animal by ID

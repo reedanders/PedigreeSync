@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FormContext } from '@/lib/contexts/FormContext';
 import type { FormDataType } from '@/lib/types/form';
@@ -16,7 +16,9 @@ import { AnimalInputsSkeleton } from '@/components/ui/Skeleton/AnimalInputsSkele
 export default function AnimalDetailPage() {
   // Get the animal ID from the URL parameter
   const params = useParams();
+  const router = useRouter();
   const routeAnimalId = params.id as string;
+  const isNewAnimal = routeAnimalId === 'new';
   
   const [formData, setFormData] = useState<FormDataType>({
     animalMetadata: {
@@ -69,7 +71,14 @@ export default function AnimalDetailPage() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
-      await submitFormData({ formData, animalId });
+      const result = await submitFormData({ formData, animalId });
+      
+      if (result.error) {
+        setError(result.error);
+      } else if (isNewAnimal && result.animalId) {
+        // Redirect to the edit page for the newly created animal
+        router.push(`/manage/animals/${result.animalId}`);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -151,7 +160,7 @@ export default function AnimalDetailPage() {
 
   // Container with rounded background
   const containerClass = "min-h-screen flex items-start justify-center px-4 py-6";
-  const backgroundClass = "w-full max-w-7xl p-2";
+  const backgroundClass = "w-full max-w-7xl bg-gray-100 dark:bg-gray-900 rounded-2xl p-4 sm:p-6 lg:p-8";
 
   if (isLoading) {
     return (
@@ -200,10 +209,14 @@ export default function AnimalDetailPage() {
               <div className={`${cardBodyClass} flex justify-between items-center`}>
                 <div>
                   <h1 className="text-2xl font-bold mb-1 text-gray-800 dark:text-white">
-                    Animal: {formData.animalIdentification.animalIdent || 'Unknown'}
+                    {isNewAnimal 
+                      ? 'Add New Animal' 
+                      : `Animal: ${formData.animalIdentification.animalIdent || 'Unknown'}`}
                   </h1>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Edit animal details and traits
+                    {isNewAnimal 
+                      ? 'Create a new animal record' 
+                      : `Edit animal details and traits`}
                   </p>
                 </div>
                 <div className="flex gap-3">
@@ -218,7 +231,11 @@ export default function AnimalDetailPage() {
                     disabled={isSubmitting}
                     className={`${buttonPrimaryClass} ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                   >
-                    {isSubmitting ? 'Saving...' : 'Save Record'}
+                    {isSubmitting 
+                      ? 'Saving...' 
+                      : isNewAnimal 
+                        ? 'Create Animal' 
+                        : 'Save Changes'}
                   </button>
                 </div>
               </div>
