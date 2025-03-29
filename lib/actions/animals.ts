@@ -63,20 +63,20 @@ export async function submitFormData({
     const metadataOperation = isNewAnimal 
       ? supabase.from('animal_metadata').insert({
           animal_id: animalId,
-          auto_build_text: formData.animalMetadata.autoBuildText,
-          edit_date1: formData.animalMetadata.editDate1,
-          edit_date2: formData.animalMetadata.editDate2,
-          limit_inputs: formData.animalMetadata.limitInputs,
-          carcass_scanner_no: formData.animalMetadata.carcassScannerNo,
-          show_wool_fleece: formData.animalMetadata.showWoolFleece
+          auto_build_text: formData.animalMetadata.autoBuildText || '',
+          edit_date1: formData.animalMetadata.editDate1 || null,
+          edit_date2: formData.animalMetadata.editDate2 || null,
+          limit_inputs: formData.animalMetadata.limitInputs || 'None',
+          carcass_scanner_no: formData.animalMetadata.carcassScannerNo || '',
+          show_wool_fleece: formData.animalMetadata.showWoolFleece ?? false
         })
       : supabase.from('animal_metadata').update({
-          auto_build_text: formData.animalMetadata.autoBuildText,
-          edit_date1: formData.animalMetadata.editDate1,
-          edit_date2: formData.animalMetadata.editDate2,
-          limit_inputs: formData.animalMetadata.limitInputs,
-          carcass_scanner_no: formData.animalMetadata.carcassScannerNo,
-          show_wool_fleece: formData.animalMetadata.showWoolFleece
+          auto_build_text: formData.animalMetadata.autoBuildText || '',
+          edit_date1: formData.animalMetadata.editDate1 || null,
+          edit_date2: formData.animalMetadata.editDate2 || null,
+          limit_inputs: formData.animalMetadata.limitInputs || 'None',
+          carcass_scanner_no: formData.animalMetadata.carcassScannerNo || '',
+          show_wool_fleece: formData.animalMetadata.showWoolFleece ?? false
         }).eq('animal_id', animalId);
 
     const { error: metadataError } = await metadataOperation;
@@ -113,18 +113,18 @@ export async function submitFormData({
     const conceptionOperation = isNewAnimal
       ? supabase.from('animal_conception').insert({
           animal_id: animalId,
-          method: formData.animalConception.method,
-          date: formData.animalConception.date,
-          lamb_ease: formData.animalConception.lambEase,
-          nickname: formData.animalConception.nickname,
-          group: formData.animalNotes.group
+          method: formData.animalConception.method || 0,
+          date: formData.animalConception.date || null,
+          lamb_ease: formData.animalConception.lambEase || 0,
+          nickname: formData.animalConception.nickname || '',
+          group: formData.animalNotes.group || 0
         })
       : supabase.from('animal_conception').update({
-          method: formData.animalConception.method,
-          date: formData.animalConception.date,
-          lamb_ease: formData.animalConception.lambEase,
-          nickname: formData.animalConception.nickname,
-          group: formData.animalNotes.group
+          method: formData.animalConception.method || 0,
+          date: formData.animalConception.date || null,
+          lamb_ease: formData.animalConception.lambEase || 0,
+          nickname: formData.animalConception.nickname || '',
+          group: formData.animalNotes.group || 0
         }).eq('animal_id', animalId);
     
     const { error: conceptionError } = await conceptionOperation;
@@ -184,8 +184,8 @@ export async function loadFormData(animalId?: string) {
           animalId: 'new',
           animalMetadata: {
             auto_build_text: '',
-            edit_date1: '2025-02-11 16:33:53+00',
-            edit_date2: '2025-02-11 16:33:53+00',
+            edit_date1: null,
+            edit_date2: null,
             limit_inputs: 'None',
             carcass_scanner_no: '',
             show_wool_fleece: false
@@ -202,7 +202,7 @@ export async function loadFormData(animalId?: string) {
           },
           animalConception: {
             method: 0,
-            date: '2025-02-11 16:33:53+00',
+            date: null,
             lamb_ease: 0,
             nickname: '',
             group: 0
