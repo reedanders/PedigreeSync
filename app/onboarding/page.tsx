@@ -101,10 +101,10 @@ export default function OnboardingPage() {
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
-            onClick={() => router.push('/dashboard')}
+            onClick={() => router.push('/manage')}
             className="px-6 py-3 bg-primary-600 text-white rounded-md hover:bg-primary-700"
           >
-            Go to Dashboard
+            Go to Management Dashboard
           </button>
           <button
             onClick={() => router.push('/animals/new')}
