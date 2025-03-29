@@ -334,3 +334,50 @@ export async function getAnimalsByFarm() {
     return { error: 'Failed to load animals' };
   }
 }
+
+export async function deleteAnimal(animalId: string) {
+  try {
+    const supabase = await createClient();
+    
+    // Verify user has permission to delete this animal
+    const { data: farmUser, error: farmError } = await getUserFarm();
+    if (farmError || !farmUser) {
+      return { error: typeof farmError === 'string' ? farmError : "No farm found for this user" };
+    }
+    
+    // Verify this animal belongs to the user's farm
+    const { data: animal, error: animalCheckError } = await supabase
+      .from('animal_records')
+      .select('farm_id')
+      .eq('id', animalId)
+      .single();
+      
+    if (animalCheckError || !animal) {
+      return { error: 'Animal not found' };
+    }
+    
+    if (animal.farm_id !== farmUser.farm_id) {
+      return { error: 'You do not have permission to delete this animal' };
+    }
+    
+    // Delete the animal record (related records should cascade due to foreign key constraints)
+    const { error: deleteError } = await supabase
+      .from('animal_records')
+      .delete()
+      .eq('id', animalId);
+    
+    if (deleteError) {
+      console.error('Error deleting animal:', deleteError);
+      return { error: 'Failed to delete animal record' };
+    }
+
+    // Revalidate paths
+    revalidatePath('/dashboard');
+    revalidatePath('/manage/animals');
+    
+    return { success: true };
+  } catch (error) {
+    console.error('Error in deleteAnimal:', error);
+    return { error: 'Failed to delete animal record' };
+  }
+}

@@ -10,7 +10,7 @@ import { AnimalIdInputs } from '@/components/animals/AnimalInputs/AnimalIdInputs
 import { AnimalConceptionInputs } from '@/components/animals/AnimalInputs/AnimalConceptionInputs';
 import { AnimalNotesInputs } from '@/components/animals/AnimalInputs/AnimalNotesInputs';
 import { GeneralTraitsInputs } from '@/components/animals/AnimalInputs/GeneralTraitsInputs';
-import { submitFormData, loadFormData } from '@/lib/actions/animals';
+import { submitFormData, loadFormData, deleteAnimal } from '@/lib/actions/animals';
 import { AnimalInputsSkeleton } from '@/components/ui/Skeleton/AnimalInputsSkeleton';
 
 export default function AnimalDetailPage() {
@@ -64,6 +64,8 @@ export default function AnimalDetailPage() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [farmId, setFarmId] = useState<string>('');
   const [animalId, setAnimalId] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -81,6 +83,33 @@ export default function AnimalDetailPage() {
       }
     } finally {
       setIsSubmitting(false);
+    }
+  };
+  
+  const handleDeleteClick = () => {
+    setShowDeleteConfirm(true);
+  };
+  
+  const handleCancelDelete = () => {
+    setShowDeleteConfirm(false);
+  };
+  
+  const handleConfirmDelete = async () => {
+    if (isNewAnimal) return;
+    
+    setIsDeleting(true);
+    try {
+      const result = await deleteAnimal(animalId);
+      
+      if (result.error) {
+        setError(result.error);
+        setShowDeleteConfirm(false);
+      } else {
+        // Redirect to animals list on successful delete
+        router.push('/manage/animals');
+      }
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -199,6 +228,42 @@ export default function AnimalDetailPage() {
     );
   }
 
+  // Delete confirmation modal
+  const DeleteConfirmationDialog = () => {
+    if (!showDeleteConfirm) return null;
+    
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className={`${cardClass} w-full max-w-md mx-4`}>
+          <div className={cardBodyClass}>
+            <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-white">
+              Delete Animal
+            </h3>
+            <p className="mb-6 text-gray-600 dark:text-gray-300">
+              Are you sure you want to delete {formData.animalIdentification.animalIdent || 'this animal'}? This action cannot be undone.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={handleCancelDelete}
+                disabled={isDeleting}
+                className={buttonSecondaryClass}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirmDelete}
+                disabled={isDeleting}
+                className="px-4 py-2.5 text-white bg-red-600 hover:bg-red-700 rounded-md font-medium transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {isDeleting ? 'Deleting...' : 'Delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <FormContext.Provider value={{ formData, setFormData, farmId, animalId }}>
       <div className={containerClass}>
@@ -226,6 +291,17 @@ export default function AnimalDetailPage() {
                   >
                     Back to List
                   </Link>
+                  
+                  {/* Only show delete button for existing animals */}
+                  {!isNewAnimal && (
+                    <button
+                      onClick={handleDeleteClick}
+                      className="px-4 py-2.5 text-white bg-red-600 hover:bg-red-700 rounded-md font-medium transition-colors"
+                    >
+                      Delete
+                    </button>
+                  )}
+                  
                   <button
                     onClick={handleSubmit}
                     disabled={isSubmitting}
@@ -285,6 +361,9 @@ export default function AnimalDetailPage() {
           </section>
         </div>
       </div>
+      
+      {/* Render the delete confirmation dialog */}
+      <DeleteConfirmationDialog />
     </FormContext.Provider>
   );
 }
