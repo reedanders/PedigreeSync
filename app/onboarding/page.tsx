@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Container } from '@/components/layout/Container';
 import { createFarm } from '@/lib/actions/farm';
 import { useAuth } from '@/lib/contexts/AuthContext';
+import DashboardSkeleton from '@/components/ui/Skeleton/DashboardSkeleton';
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -13,7 +14,13 @@ export default function OnboardingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [farmName, setFarmName] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
   
+  // Set mounted state when component mounts
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
@@ -37,6 +44,11 @@ export default function OnboardingPage() {
     } finally {
       setIsSubmitting(false);
     }
+  }
+
+  // Skeleton loader to prevent layout shift
+  if (!isMounted) {
+    return <DashboardSkeleton />;
   }
 
   function renderStep1() {
