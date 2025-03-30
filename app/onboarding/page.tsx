@@ -107,7 +107,7 @@ export default function OnboardingPage() {
             Go to Management Dashboard
           </button>
           <button
-            onClick={() => router.push('/animals/new')}
+            onClick={() => router.push('/manage/animals/new')}
             className="px-6 py-3 bg-white text-primary-600 border border-primary-600 rounded-md hover:bg-gray-50 dark:bg-gray-700 dark:text-primary-400 dark:border-primary-400 dark:hover:bg-gray-600"
           >
             Add First Animal
