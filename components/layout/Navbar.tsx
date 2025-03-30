@@ -58,12 +58,14 @@ export const Navbar = () => {
 
         {/* Auth/Theme Controls */}
         <div className="flex items-center gap-3 nav__item mr-2 lg:order-2">
-          {mounted && <ThemeChanger />}
+          {/* ThemeChanger handles its own mounting */}
+          <ThemeChanger />
           
           <div className="h-[42px] flex items-center">
             {mounted && !isLoading && (
               isLoggedIn ? (
                 <div className="flex items-center gap-2">
+                  {/* Rest of your auth buttons */}
                   <Link 
                     href="/manage" 
                     className="px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-primary-500 focus:text-primary-500 focus:bg-primary-100 focus:outline-none dark:focus:bg-gray-800"

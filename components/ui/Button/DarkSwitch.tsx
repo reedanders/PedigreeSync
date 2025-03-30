@@ -4,11 +4,15 @@ import { useTheme } from "next-themes";
 
 const ThemeChanger = () => {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
 
+  // Only run on client side
   useEffect(() => setMounted(true), []);
 
-  // Return placeholder with same dimensions
+  // Get the correct theme value
+  const currentTheme = resolvedTheme || theme;
+
+  // Return placeholder with same dimensions during SSR
   if (!mounted) {
     return (
       <div className="flex items-center order-last w-5 h-5" aria-hidden="true">
@@ -19,10 +23,12 @@ const ThemeChanger = () => {
 
   return (
     <div className="flex items-center order-last">
-      {theme === "dark" ? (
+      {currentTheme === "dark" ? (
         <button
           onClick={() => setTheme("light")}
-          className="text-gray-300 rounded-full outline-none focus:outline-none">
+          className="text-gray-300 rounded-full outline-none focus:outline-none"
+          aria-label="Switch to light mode"
+        >
           <span className="sr-only">Light Mode</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +41,9 @@ const ThemeChanger = () => {
       ) : (
         <button
           onClick={() => setTheme("dark")}
-          className="text-gray-500 rounded-full outline-none focus:outline-none focus-visible:ring focus-visible:ring-gray-100 focus:ring-opacity-20">
+          className="text-gray-500 rounded-full outline-none focus:outline-none focus-visible:ring focus-visible:ring-gray-100 focus:ring-opacity-20"
+          aria-label="Switch to dark mode"
+        >
           <span className="sr-only">Dark Mode</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
