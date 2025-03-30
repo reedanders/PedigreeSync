@@ -50,18 +50,6 @@ export async function createFarm(formData: FormData) {
       return { success: false, error: 'Failed to link user to farm' };
     }
     
-    // 3. Create initial animal_records entry for this farm
-    const { error: recordsError } = await supabase
-      .from('animal_records')
-      .insert({
-        farm_id: farm.id
-      });
-    
-    if (recordsError) {
-      console.error('Animal records initialization error:', recordsError);
-      // Non-critical error, can still proceed
-    }
-    
     // Success path
     revalidatePath('/dashboard');
     return { success: true, farmId: farm.id };
