@@ -50,18 +50,6 @@ export async function createFarm(formData: FormData) {
       return { success: false, error: 'Failed to link user to farm' };
     }
     
-    // 3. Create initial animal_records entry for this farm
-    const { error: recordsError } = await supabase
-      .from('animal_records')
-      .insert({
-        farm_id: farm.id
-      });
-    
-    if (recordsError) {
-      console.error('Animal records initialization error:', recordsError);
-      // Non-critical error, can still proceed
-    }
-    
     // Success path
     revalidatePath('/dashboard');
     return { success: true, farmId: farm.id };
@@ -69,4 +57,39 @@ export async function createFarm(formData: FormData) {
     console.error('Unexpected error in farm creation:', err);
     return { success: false, error: 'An unexpected error occurred' };
   }
+}
+
+export async function getFarmDetails() {
+  const supabase = await createClient();
+  
+  // Get the authenticated user
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return null;
+  }
+  
+  // Get the user's primary farm
+  const { data: farmUser, error: farmUserError } = await supabase
+    .from('farm_users')
+    .select('farm_id')
+    .eq('user_id', user.id)
+    .limit(1)
+    .single();
+  
+  if (farmUserError || !farmUser) {
+    return null;
+  }
+  
+  // Get the farm details
+  const { data: farm, error: farmError } = await supabase
+    .from('farm')
+    .select('id, name')
+    .eq('id', farmUser.farm_id)
+    .single();
+  
+  if (farmError || !farm) {
+    return null;
+  }
+  
+  return farm;
 }

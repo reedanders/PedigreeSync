@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Container } from '@/components/layout/Container';
 import { createFarm } from '@/lib/actions/farm';
 import { useAuth } from '@/lib/contexts/AuthContext';
+import DashboardSkeleton from '@/components/ui/Skeleton/DashboardSkeleton';
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -13,7 +14,13 @@ export default function OnboardingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [farmName, setFarmName] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
   
+  // Set mounted state when component mounts
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
@@ -37,6 +44,11 @@ export default function OnboardingPage() {
     } finally {
       setIsSubmitting(false);
     }
+  }
+
+  // Skeleton loader to prevent layout shift
+  if (!isMounted) {
+    return <DashboardSkeleton />;
   }
 
   function renderStep1() {
@@ -101,13 +113,13 @@ export default function OnboardingPage() {
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
-            onClick={() => router.push('/dashboard')}
+            onClick={() => router.push('/manage')}
             className="px-6 py-3 bg-primary-600 text-white rounded-md hover:bg-primary-700"
           >
-            Go to Dashboard
+            Go to Management Dashboard
           </button>
           <button
-            onClick={() => router.push('/animals/new')}
+            onClick={() => router.push('/manage/animals/new')}
             className="px-6 py-3 bg-white text-primary-600 border border-primary-600 rounded-md hover:bg-gray-50 dark:bg-gray-700 dark:text-primary-400 dark:border-primary-400 dark:hover:bg-gray-600"
           >
             Add First Animal
