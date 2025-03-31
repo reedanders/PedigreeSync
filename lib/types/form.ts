@@ -56,6 +56,13 @@ export interface AnimalMetadata {
   showWoolFleece: boolean;
 }
 
+export interface AnimalMetadataForm {
+  autoBuildText: string;
+  editDate1: string | null;
+  editDate2: string | null;
+  // ...
+}
+
 export interface AnimalIdentification {
   animalIdent: string;
   sire: string;
@@ -70,6 +77,12 @@ export interface AnimalConception {
   date: string;
   lambEase: LambEase;
   nickname: string;
+}
+
+export interface AnimalConceptionForm {
+  method: number;
+  date: string | null;
+  // ...
 }
 
 export interface AnimalNotes {
