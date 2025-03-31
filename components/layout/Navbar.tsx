@@ -12,6 +12,7 @@ export const Navbar = () => {
   const isLoggedIn = !!user;
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // Handle client-side components
   useEffect(() => {
@@ -25,6 +26,11 @@ export const Navbar = () => {
     }
   }, [pathname, refreshSession, mounted]);
   
+  // Close mobile menu when navigating to a new page
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+  
   const navigation = [
     { label: "About EBVs", href: "/about-ebvs" },
     { label: "Roadmap", href: "/roadmap" }
@@ -32,71 +38,143 @@ export const Navbar = () => {
 
   return (
     <div className="w-full">
-      <nav className="container relative flex flex-wrap items-center justify-between p-8 mx-auto lg:justify-between xl:px-1">
-        {/* Logo  */}
-        <Link href="/">
-          <span className="flex items-center space-x-2 text-2xl font-medium text-[#4E4E4E] dark:text-white">
-              <span>
-                {mounted && <LambIcon />}
-              </span>
-            <span>PedigreeSync</span>
-          </span>
-        </Link>
+      <nav className="container relative flex flex-wrap items-center p-6 mx-auto lg:px-8">
+        {/* Logo */}
+        <div className="flex-none lg:w-1/4">
+          <Link href="/">
+            <span className="flex items-center space-x-2 text-2xl font-medium text-[#4E4E4E] dark:text-white">
+              <span>{mounted && <LambIcon />}</span>
+              <span>PedigreeSync</span>
+            </span>
+          </Link>
+        </div>
 
-        {/* menu  */}
-        {!isLoggedIn && (<div className="hidden text-center lg:flex lg:items-center">
-          <ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
-            {navigation.map((menu, index) => (
-              <li className="mr-3 nav__item" key={index}>
-                <Link href={menu.href || "#"} className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-primary-500 focus:text-primary-500 focus:bg-primary-100 focus:outline-none dark:focus:bg-gray-800">
-                  {menu.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>)}
-
-        {/* Auth/Theme Controls */}
-        <div className="flex items-center gap-3 nav__item mr-2 lg:order-2">
+        {/* Theme toggle + hamburger (mobile only) */}
+        <div className="flex items-center ml-auto lg:hidden">
           {mounted && <ThemeChanger />}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="ml-3 p-2 focus:outline-none"
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            <div className="w-6 flex items-center justify-center relative">
+              <span className={`block absolute h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${mobileMenuOpen ? 'rotate-45' : '-translate-y-1.5'}`}></span>
+              <span className={`block absolute h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+              <span className={`block absolute h-0.5 w-6 bg-current transform transition duration-300 ease-in-out ${mobileMenuOpen ? '-rotate-45' : 'translate-y-1.5'}`}></span>
+            </div>
+          </button>
+        </div>
+
+        {/* Desktop navigation - centered */}
+        <div className="hidden lg:flex lg:flex-1 lg:justify-center lg:items-center lg:space-x-4">
+          {!isLoggedIn && navigation.map((item, index) => (
+            <Link 
+              key={index}
+              href={item.href} 
+              className="px-4 py-2 text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400"
+            >
+              {item.label}
+            </Link>
+          ))}
           
-          <div className="h-[42px] flex items-center">
-            {mounted && !isLoading && (
-              isLoggedIn ? (
-                <div className="flex items-center gap-2">
-                  <Link 
-                    href="/dashboard" 
-                    className="px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-primary-500 focus:text-primary-500 focus:bg-primary-100 focus:outline-none dark:focus:bg-gray-800"
-                  >
-                    Dashboard
-                  </Link>
-                  <button
-                    onClick={signOut}
-                    className="px-4 py-2 text-lg font-normal text-white bg-primary-600 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                  >
-                    Log out
-                  </button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <Link
-                    href="/login"
-                    className="px-4 py-2 text-lg font-normal text-gray-800 dark:text-white hover:text-primary-600 dark:hover:text-primary-500"
-                  >
-                    Log in
-                  </Link>
-                  <Link
-                    href="/signup"
-                    className="px-4 py-2 text-lg font-normal text-white bg-primary-600 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                  >
-                    Sign up
-                  </Link>
-                </div>
-              )
-            )}
+          {mounted && !isLoading && isLoggedIn && (
+            <Link 
+              href="/dashboard" 
+              className="px-4 py-2 text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400"
+            >
+              Dashboard
+            </Link>
+          )}
+        </div>
+        
+        {/* Auth controls and theme toggle */}
+        <div className="hidden lg:flex lg:items-center lg:w-1/4 lg:justify-end lg:space-x-4">
+          {mounted && !isLoading && isLoggedIn && (
+            <button
+              onClick={signOut}
+              className="px-4 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-md"
+            >
+              Log Out
+            </button>
+          )}
+          
+          {mounted && !isLoading && !isLoggedIn && (
+            <>
+              <Link 
+                href="/login" 
+                className="px-4 py-2 text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400"
+              >
+                Log In
+              </Link>
+              <Link 
+                href="/signup" 
+                className="px-4 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-md"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
+          
+          <div>
+            {mounted && <ThemeChanger />}
           </div>
         </div>
       </nav>
+      
+      {/* Mobile menu dropdown remains unchanged */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden container mx-auto px-6 pb-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4">
+            {!isLoggedIn && (
+              <div className="space-y-1 mb-4">
+                {navigation.map((item, index) => (
+                  <Link 
+                    key={index}
+                    href={item.href} 
+                    className="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+            
+            {mounted && !isLoading && isLoggedIn && (
+              <div className="space-y-2">
+                <Link 
+                  href="/dashboard" 
+                  className="block w-full text-center px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={signOut}
+                  className="block w-full text-center px-4 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-md"
+                >
+                  Log Out
+                </button>
+              </div>
+            )}
+            
+            {mounted && !isLoading && !isLoggedIn && (
+              <div className="space-y-2">
+                <Link 
+                  href="/login" 
+                  className="block w-full text-center px-4 py-2 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
+                >
+                  Log In
+                </Link>
+                <Link 
+                  href="/signup" 
+                  className="block w-full text-center px-4 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-md"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
