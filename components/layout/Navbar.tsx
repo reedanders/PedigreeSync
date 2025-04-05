@@ -76,26 +76,25 @@ export const Navbar = () => {
               {item.label}
             </Link>
           ))}
-          
-          {mounted && !isLoading && isLoggedIn && (
-            <Link 
-              href="/dashboard" 
-              className="px-4 py-2 text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400"
-            >
-              Dashboard
-            </Link>
-          )}
         </div>
         
         {/* Auth controls and theme toggle */}
         <div className="hidden lg:flex lg:items-center lg:w-1/4 lg:justify-end lg:space-x-4">
           {mounted && !isLoading && isLoggedIn && (
-            <button
-              onClick={signOut}
-              className="px-4 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-md"
-            >
-              Log Out
-            </button>
+            <>
+              <Link 
+                href="/manage" 
+                className="px-4 py-2 text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400"
+              >
+                Dashboard
+              </Link>
+              <button
+                onClick={signOut}
+                className="px-4 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-md"
+              >
+                Log Out
+              </button>
+            </>
           )}
           
           {mounted && !isLoading && !isLoggedIn && (
@@ -142,7 +141,7 @@ export const Navbar = () => {
             {mounted && !isLoading && isLoggedIn && (
               <div className="space-y-2">
                 <Link 
-                  href="/dashboard" 
+                  href="/manage" 
                   className="block w-full text-center px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
                 >
                   Dashboard
