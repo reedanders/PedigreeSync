@@ -38,6 +38,11 @@ export default function LoginPage() {
                 required
                 className="px-4 py-2 bg-white dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500"
               />
+              <div className="text-right">
+                <Link href="/forgot-password" className="text-sm text-primary-600 hover:underline">
+                  Forgot your password?
+                </Link>
+              </div>
             </div>
 
             <div className="flex flex-wrap gap-4 mt-6">

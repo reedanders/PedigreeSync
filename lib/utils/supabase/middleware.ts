@@ -40,18 +40,33 @@ export async function updateSession(request: NextRequest) {
     '/roadmap',
     '/import',
     '/verification-required',
+    '/forgot-password',
+    '/reset-password',
     '/'
   ]
 
-  const isPublicRoute = publicRoutes.some(route => 
-    request.nextUrl.pathname.startsWith(route) || request.nextUrl.pathname === route
-  )
+  // Fix the route checking logic
+  const pathname = request.nextUrl.pathname
+  const isPublicRoute = publicRoutes.some(route => {
+    // Exact match for homepage and simple routes
+    if (route === pathname) return true
+    
+    // Check if pathname starts with route AND the next character is a slash or nothing
+    // This prevents '/manage' from matching '/man' in the publicRoutes
+    if (pathname.startsWith(route) && route !== '/') {
+      // Check if it's an exact match or if the next character is a slash
+      const nextChar = pathname.charAt(route.length)
+      return nextChar === '' || nextChar === '/'
+    }
+    
+    return false
+  })
 
   // Check if user exists but email is not verified
   if (
     user && 
     !user.email_confirmed_at && 
-    !request.nextUrl.pathname.startsWith('/verification-required')
+    !pathname.startsWith('/verification-required')
   ) {
     // Redirect to verification required page
     const url = request.nextUrl.clone()
@@ -59,11 +74,21 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // Check if user is not logged in and trying to access protected route
+  // Redirect authenticated users away from login/signup pages
   if (
-    !user &&
-    !isPublicRoute
+    user && 
+    user.email_confirmed_at && 
+    (pathname === '/login' || pathname === '/signup')
   ) {
+    // User is logged in and trying to access login or signup page
+    const url = request.nextUrl.clone()
+    url.pathname = '/manage'
+    return NextResponse.redirect(url)
+  }
+
+  // Check if user is not logged in and trying to access protected route
+  if (!user && !isPublicRoute) {
+    console.log(`Redirecting unauthenticated user from ${pathname} to /login`)
     // No user, redirect to login page
     const url = request.nextUrl.clone()
     url.pathname = '/login'
