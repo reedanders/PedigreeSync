@@ -13,10 +13,8 @@ export async function requestPasswordReset(formData: FormData) {
     return { error: 'Please enter a valid email address' }
   }
   
-  // Send password reset email
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${'http://localhost:8888'}/reset-password`,
-  })
+  // Send password reset email; Redirect is defined in supabase
+  const { error } = await supabase.auth.resetPasswordForEmail(email)
   
   if (error) {
     console.error('Password reset error:', error)
