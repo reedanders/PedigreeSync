@@ -3,9 +3,11 @@ import { test, expect } from '@playwright/test';
 const baseUrl = process.env.BRANCH_URL || 'https://pedigreesync.netlify.app/';
 
 // Use environment variables with fallbacks for testing
-const TEST_EMAIL = process.env.TEST_USER_EMAIL || '';
-const TEST_PASSWORD = process.env.TEST_USER_PASSWORD || '';
-
+if (!process.env.TEST_USER_EMAIL || !process.env.TEST_USER_PASSWORD) {
+  throw new Error('Environment variables TEST_USER_EMAIL and TEST_USER_PASSWORD must be set.');
+}
+const TEST_EMAIL = process.env.TEST_USER_EMAIL;
+const TEST_PASSWORD = process.env.TEST_USER_PASSWORD;
 test('User can log in', async ({ page }) => {
   
   // Navigate to the login page
