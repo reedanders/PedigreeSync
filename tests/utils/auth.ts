@@ -1,9 +1,15 @@
 import { Page } from '@playwright/test';
 
 // Test credentials should be loaded from environment variables
-const TEST_EMAIL = process.env.TEST_USER_EMAIL || '';
-const TEST_PASSWORD = process.env.TEST_USER_PASSWORD || '';
+if (!process.env.TEST_USER_EMAIL) {
+  throw new Error('Environment variable TEST_USER_EMAIL is not set.');
+}
+const TEST_EMAIL = process.env.TEST_USER_EMAIL;
 
+if (!process.env.TEST_USER_PASSWORD) {
+  throw new Error('Environment variable TEST_USER_PASSWORD is not set.');
+}
+const TEST_PASSWORD = process.env.TEST_USER_PASSWORD;
 /**
  * Logs in using the test account
  */
