@@ -39,7 +39,7 @@ export function GeneralTraitsInputs() {
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
           {TRAITS_CONFIG.stageKeys.map((stageKey) => (
-            <tr key={stageKey} className="hover:bg-gray-100 dark:hover:bg-gray-600">
+            <tr key={stageKey} className="hover:bg-gray-100 dark:hover:bg-base-300">
               <td className="font-medium text-gray-900 dark:text-base-content">
                 {TRAITS_CONFIG.stages[stageKey as StageKey].label}
               </td>
