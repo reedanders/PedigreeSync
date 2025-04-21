@@ -132,7 +132,7 @@ const AnimalsTable = ({ animals }: { animals: any[] }) => {
           {animals.map(animal => (
             <tr 
               key={animal.id} 
-              className="hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
+              className="hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
             >
               <td className="px-4 py-3 whitespace-nowrap font-medium text-gray-900 dark:text-gray-100">
                 {animal.animal_identification[0]?.animal_ident || 'Unknown'}

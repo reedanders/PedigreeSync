@@ -8,7 +8,7 @@ This project is an **unofficial implementation of PedigreeMaster**, a widely use
 
 ## Vision
 
-The goal of this project is to provide a web-based alternative to the Windows-based PedigreeMaster with enhanced usability and accessibility. The application will eventually incorporate all functionalities of PedigreeMaster, with additional modern features to streamline data management for livestock improvement programs. Initially, the app with address the primary painpoint of converting farm records to a format acceptable by PedigreeMaster. User
+The goal of this project is to provide a web-based alternative to the Windows-based PedigreeMaster with enhanced usability and accessibility. The application will eventually incorporate all functionalities of PedigreeMaster, with additional modern features to streamline data management for livestock improvement programs. Initially, the app with address the primary painpoint of converting farm records to a format acceptable by PedigreeMaster. 
 
 ---
 

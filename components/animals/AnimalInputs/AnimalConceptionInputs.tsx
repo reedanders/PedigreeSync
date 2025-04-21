@@ -32,7 +32,7 @@ export function AnimalConceptionInputs() {
           htmlFor="conceptionMethod"
           className="block text-sm font-medium text-gray-900 dark:text-base-content"
         >
-          Conception Method
+          Method
         </label>
         <select
           id="conceptionMethod"
@@ -56,7 +56,7 @@ export function AnimalConceptionInputs() {
           htmlFor="conceptionDate"
           className="block text-sm font-medium text-gray-900 dark:text-base-content"
         >
-          Conception Date
+          Date
         </label>
         <input
           id="conceptionDate"

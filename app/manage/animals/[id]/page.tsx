@@ -188,8 +188,8 @@ export default function AnimalDetailPage() {
   const buttonSecondaryClass = "px-4 py-2.5 text-gray-700 bg-gray-100 hover:bg-gray-200 dark:text-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-md font-medium transition-colors";
 
   // Container with rounded background
-  const containerClass = "min-h-screen flex items-start justify-center px-4 py-6";
-  const backgroundClass = "w-full max-w-7xl bg-gray-100 dark:bg-gray-900 rounded-2xl p-4 sm:p-6 lg:p-8";
+  const containerClass = "min-h-screen flex items-start justify-center";
+  const backgroundClass = "w-full max-w-7xl";
 
   if (isLoading) {
     return (
@@ -308,13 +308,6 @@ export default function AnimalDetailPage() {
             </div>
         
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Database Filters */}
-              <div className={`lg:col-span-full ${cardClass}`}>
-                <div className={cardBodyClass}>
-                  <h2 className={titleClass}>Database Filters</h2>
-                  <AnimalMetadataInputs />
-                </div>
-              </div>
 
               {/* Animal Identification */}
               <div className={`lg:col-span-2 ${cardClass}`}>
