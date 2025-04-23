@@ -272,6 +272,21 @@ export async function loadFormData(animalId?: string) {
       return { error: animalError.message || `Animal with ID ${animalId} not found` };
     }
 
+    // Query for record_events data
+    const { data: recordEvents, error: recordEventsError } = await supabase
+      .from('record_events')
+      .select('*')
+      .eq('animal_id', animalId)
+      .order('event_date', { ascending: true });
+      
+    if (recordEventsError) {
+      console.error('Error fetching record events:', recordEventsError);
+      // Don't return error - just log it since this is exploratory
+    } else {
+      // Log the record events data
+      console.log('Record events data:', recordEvents);
+    }
+
     // Transform general_traits data into a better nested structure
     const traits = animalData.general_traits as GeneralTraitsDbRecord;
     const generalTraits = transformDbToFormTraits(traits);
