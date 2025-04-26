@@ -207,7 +207,8 @@ export async function loadFormData(animalId?: string) {
             nickname: '',
             group: 0
           },
-          generalTraits: {}
+          generalTraits: {},
+          recordEvents: []
         }
       };
     }
@@ -281,10 +282,6 @@ export async function loadFormData(animalId?: string) {
       
     if (recordEventsError) {
       console.error('Error fetching record events:', recordEventsError);
-      // Don't return error - just log it since this is exploratory
-    } else {
-      // Log the record events data
-      console.log('Record events data:', recordEvents);
     }
 
     // Transform general_traits data into a better nested structure
@@ -298,7 +295,8 @@ export async function loadFormData(animalId?: string) {
         animalMetadata: animalData.animal_metadata[0],
         animalIdentification: animalData.animal_identification[0],
         animalConception: animalData.animal_conception[0],
-        generalTraits
+        generalTraits,
+        recordEvents// Add record events to the response
       }
     };
   } catch (error) {
