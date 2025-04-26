@@ -10,6 +10,7 @@ import { AnimalIdInputs } from '@/components/animals/AnimalInputs/AnimalIdInputs
 import { AnimalConceptionInputs } from '@/components/animals/AnimalInputs/AnimalConceptionInputs';
 import { AnimalNotesInputs } from '@/components/animals/AnimalInputs/AnimalNotesInputs';
 import { GeneralTraitsInputs } from '@/components/animals/AnimalInputs/GeneralTraitsInputs';
+import { AnimalRecordEvents } from '@/components/animals/AnimalInputs/AnimalRecordEvents';
 import { submitFormData, loadFormData, deleteAnimal } from '@/lib/actions/animals';
 import { AnimalInputsSkeleton } from '@/components/ui/Skeleton/AnimalInputsSkeleton';
 
@@ -69,6 +70,7 @@ export default function AnimalDetailPage() {
   const [farmId, setFarmId] = useState<string>('');
   const [animalId, setAnimalId] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const [recordEvents, setRecordEvents] = useState<any[]>([]);
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -127,6 +129,7 @@ export default function AnimalDetailPage() {
         if (data) {
           setFarmId(data.farmId);
           setAnimalId(data.animalId);
+          setRecordEvents(data.recordEvents || []);
           setFormData(prev => ({
             ...prev,
             animalMetadata: {
@@ -265,7 +268,7 @@ export default function AnimalDetailPage() {
   };
 
   return (
-    <FormContext.Provider value={{ formData, setFormData, farmId, animalId }}>
+    <FormContext.Provider value={{ formData, setFormData, farmId, animalId, recordEvents }}>
       <div className={containerClass}>
         <div className={backgroundClass}>
           <section className="space-y-6">
@@ -339,6 +342,14 @@ export default function AnimalDetailPage() {
               <div className={cardBodyClass}>
                 <h2 className={titleClass}>General Traits</h2>
                 <GeneralTraitsInputs />
+              </div>
+            </div>
+            
+            {/* Record Events */}
+            <div className={cardClass}>
+              <div className={cardBodyClass}>
+                <h2 className={titleClass}>Record Events</h2>
+                <AnimalRecordEvents />
               </div>
             </div>
             
