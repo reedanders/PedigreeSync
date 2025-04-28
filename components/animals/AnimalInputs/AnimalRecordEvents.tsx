@@ -19,34 +19,36 @@ export function AnimalRecordEvents() {
     );
   }
 
-  // Group records by event type
-  const eventsByType: Record<string, RecordEvent[]> = {};
-  recordEvents.forEach(event => {
-    if (!eventsByType[event.event_type]) {
-      eventsByType[event.event_type] = [];
-    }
-    eventsByType[event.event_type].push(event);
-  });
+  const measurementTypesSet = new Set<string>();
+  const eventsByType: Record<string, RecordEvent[]> = recordEvents.reduce((acc, event) => {
+    if (!acc[event.event_type]) {
+        acc[event.event_type] = [];
+    } 
+    measurementTypesSet.add(event.measurement_type);
+    acc[event.event_type].push(event);
+    return acc;
+  }, {} as Record<string, RecordEvent[]>);
 
   // Get unique measurement types across all events
-  const measurementTypes = Array.from(
-    new Set(recordEvents.map(event => event.measurement_type))
-  ).sort();
+  const measurementTypes = Array.from(measurementTypesSet).sort();
 
   // For each event type, organize by date
-  const organizedEvents: Record<string, Record<string, Record<string, any>>> = {};
-  
-  Object.keys(eventsByType).forEach(eventType => {
-    organizedEvents[eventType] = {};
-    
-    eventsByType[eventType].forEach(event => {
-      if (!organizedEvents[eventType][event.event_date]) {
-        organizedEvents[eventType][event.event_date] = {};
+  const organizedEvents = Object.entries(eventsByType).reduce((eventTypeAcc, [eventType, events]) => {
+    // For each event type, reduce its events by date
+    eventTypeAcc[eventType] = events.reduce((dateAcc, event) => {
+      // Create date entry if it doesn't exist
+      if (!dateAcc[event.event_date]) {
+        dateAcc[event.event_date] = {};
       }
       
-      organizedEvents[eventType][event.event_date][event.measurement_type] = event.value;
-    });
-  });
+      // Add the measurement value
+      dateAcc[event.event_date][event.measurement_type] = event.value;
+      
+      return dateAcc;
+    }, {} as Record<string, Record<string, any>>);
+    
+    return eventTypeAcc;
+  }, {} as Record<string, Record<string, Record<string, any>>>);
 
   return (
     <div>
