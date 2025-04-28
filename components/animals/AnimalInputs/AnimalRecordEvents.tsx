@@ -51,43 +51,61 @@ export function AnimalRecordEvents() {
   }, {} as Record<string, Record<string, Record<string, any>>>);
 
   return (
-    <div>
+    <div className="space-y-8">
       {Object.keys(eventsByType).map(eventType => {
         const dates = Object.keys(organizedEvents[eventType]).sort();
         
         return (
-          <div key={eventType} className="mb-8">
-            <h3 className="font-medium text-gray-900 dark:text-base-content mb-4">{eventType}</h3>
+          <div key={eventType} className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg">
+            {/* Event Type Header */}
+            <div className="px-4 py-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+              <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 uppercase tracking-wider">
+                {eventType}
+              </h3>
+            </div>
             
-            <table className="table w-full border-separate border-spacing-0">
-              <thead>
-                <tr className="bg-gray-50 dark:bg-base-300">
-                  <th className="text-gray-900 dark:text-base-content border-b border-gray-200 dark:border-gray-700">Date</th>
-                  {measurementTypes.map(type => (
-                    <th key={type} className="text-gray-900 dark:text-base-content border-b border-gray-200 dark:border-gray-700">
-                      {type}
+            {/* Table */}
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead className="bg-gray-50 dark:bg-gray-800">
+                  <tr>
+                    <th scope="col" className="py-3 px-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      Date
                     </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                {dates.map(date => (
-                  <tr key={date} className="hover:bg-gray-100 dark:hover:bg-gray-600">
-                    <td className="font-medium text-gray-900 dark:text-base-content">
-                      {date}
-                    </td>
                     {measurementTypes.map(type => (
-                      <td key={type}>
-                        {organizedEvents[eventType][date][type] !== undefined ? 
-                          organizedEvents[eventType][date][type] : 
-                          <div className="h-8" />
-                        }
-                      </td>
+                      <th 
+                        key={type} 
+                        scope="col" 
+                        className="py-3 px-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                      >
+                        {type}
+                      </th>
                     ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
+                  {dates.map((date, idx) => (
+                    <tr 
+                      key={date} 
+                      className={`hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors`}
+                    >
+                      <td className="py-2 px-4 text-sm font-medium text-gray-900 dark:text-gray-200 whitespace-nowrap">
+                        {date}
+                      </td>
+                      {measurementTypes.map(type => (
+                        <td key={type} className="py-2 px-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                          {organizedEvents[eventType][date][type] !== undefined ? (
+                            <span className="font-mono">{organizedEvents[eventType][date][type]}</span>
+                          ) : (
+                            <span className="text-gray-300 dark:text-gray-600">—</span>
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         );
       })}
