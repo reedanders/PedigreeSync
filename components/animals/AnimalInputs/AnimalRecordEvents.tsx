@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { FormContext } from '@/lib/contexts/FormContext';
 import { RecordEvent } from '@/lib/types/form';
 
@@ -9,8 +9,18 @@ export function AnimalRecordEvents() {
     throw new Error('AnimalRecordEvents must be used within a FormProvider');
   }
 
-  const { recordEvents = [] } = context;
-  
+  const { recordEvents = [], setFormData } = context;
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleInputChange = (eventId: string, field: string, value: string | number | null) => {
+    setFormData(prev => ({
+      ...prev,
+      recordEvents: prev.recordEvents?.map(event =>
+        event.id === eventId ? { ...event, [field]: value } : event
+      ),
+    }));
+  };
+
   if (recordEvents.length === 0) {
     return (
       <div className="text-center p-4 text-gray-500 dark:text-gray-400">
@@ -43,6 +53,14 @@ export function AnimalRecordEvents() {
 
   return (
     <div className="overflow-x-auto shadow ring-1 ring-black ring-opacity-5 rounded-lg">
+      <div className="flex justify-end p-4">
+        <button
+          onClick={() => setIsEditing(!isEditing)}
+          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md"
+        >
+          {isEditing ? 'Save' : 'Edit'}
+        </button>
+      </div>
       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
         <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
           {rows.map((row, idx) => (
@@ -60,15 +78,31 @@ export function AnimalRecordEvents() {
             ) : (
               <tr key={`row-${row.date}-${idx}`} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                 <td className="py-2 px-4 text-sm text-gray-900 dark:text-gray-200 whitespace-nowrap">
-                  {row.date}
+                  <input
+                    type="date"
+                    value={row.date || ''}
+                    readOnly={!isEditing}
+                    onChange={e => handleInputChange(row.date || '', 'event_date', e.target.value)}
+                    className={`w-full bg-transparent border rounded-md px-2 py-1 focus:outline-none ${
+                      isEditing
+                        ? 'border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500'
+                        : 'border-transparent text-gray-900 dark:text-gray-200 cursor-default'
+                    }`}
+                  />
                 </td>
                 {measurementTypes.map(type => (
                   <td key={type} className="py-2 px-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                    {row.measurements?.[type] !== undefined ? (
-                      <span className="font-mono">{row.measurements[type]}</span>
-                    ) : (
-                      <span className="text-gray-300 dark:text-gray-600">—</span>
-                    )}
+                    <input
+                      type="text"
+                      value={row.measurements?.[type] || ''}
+                      readOnly={!isEditing}
+                      onChange={e => handleInputChange(row.date || '', type, e.target.value)}
+                      className={`w-full bg-transparent border rounded-md px-2 py-1 focus:outline-none ${
+                        isEditing
+                          ? 'border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500'
+                          : 'border-transparent text-gray-500 dark:text-gray-300 cursor-default'
+                      }`}
+                    />
                   </td>
                 ))}
               </tr>
