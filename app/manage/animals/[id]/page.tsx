@@ -5,7 +5,6 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FormContext } from '@/lib/contexts/FormContext';
 import type { FormDataType } from '@/lib/types/form';
-import { AnimalMetadataInputs } from '@/components/animals/AnimalInputs/AnimalMetadataInputs';
 import { AnimalIdInputs } from '@/components/animals/AnimalInputs/AnimalIdInputs';
 import { AnimalConceptionInputs } from '@/components/animals/AnimalInputs/AnimalConceptionInputs';
 import { AnimalNotesInputs } from '@/components/animals/AnimalInputs/AnimalNotesInputs';
@@ -71,6 +70,7 @@ export default function AnimalDetailPage() {
   const [animalId, setAnimalId] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [recordEvents, setRecordEvents] = useState<any[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -193,6 +193,10 @@ export default function AnimalDetailPage() {
   // Container with rounded background
   const containerClass = "min-h-screen flex items-start justify-center";
   const backgroundClass = "w-full max-w-7xl";
+
+  const toggleIsEditing = () => {
+    setIsEditing(prev => !prev);
+  };
 
   if (isLoading) {
     return (
@@ -347,9 +351,17 @@ export default function AnimalDetailPage() {
             
             {/* Record Events */}
             <div className={cardClass}>
-              <div className={cardBodyClass}>
+              <div className={`${cardBodyClass} flex justify-between items-center`}>
                 <h2 className={titleClass}>Record Events</h2>
-                <AnimalRecordEvents />
+                <button
+                  onClick={toggleIsEditing}
+                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md"
+                >
+                  {isEditing ? 'Save' : 'Edit'}
+                </button>
+              </div>
+              <div className={cardBodyClass}>
+                <AnimalRecordEvents isEditing={isEditing} />
               </div>
             </div>
             

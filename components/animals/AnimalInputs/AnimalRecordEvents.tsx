@@ -1,8 +1,11 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { FormContext } from '@/lib/contexts/FormContext';
-import { RecordEvent } from '@/lib/types/form';
 
-export function AnimalRecordEvents() {
+interface AnimalRecordEventsProps {
+  isEditing: boolean;
+}
+
+export function AnimalRecordEvents({ isEditing }: AnimalRecordEventsProps) {
   const context = useContext(FormContext);
   
   if (!context) {
@@ -10,7 +13,6 @@ export function AnimalRecordEvents() {
   }
 
   const { recordEvents = [], setFormData } = context;
-  const [isEditing, setIsEditing] = useState(false);
 
   const handleInputChange = (eventId: string, field: string, value: string | number | null) => {
     setFormData(prev => ({
@@ -53,14 +55,6 @@ export function AnimalRecordEvents() {
 
   return (
     <div className="overflow-x-auto shadow ring-1 ring-black ring-opacity-5 rounded-lg">
-      <div className="flex justify-end p-4">
-        <button
-          onClick={() => setIsEditing(!isEditing)}
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md"
-        >
-          {isEditing ? 'Save' : 'Edit'}
-        </button>
-      </div>
       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
         <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
           {rows.map((row, idx) => (
