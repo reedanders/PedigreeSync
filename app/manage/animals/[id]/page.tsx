@@ -185,7 +185,7 @@ export default function AnimalDetailPage() {
   }, [routeAnimalId]);
 
   const cardClass = "bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700";
-  const cardBodyClass = "p-5";
+  const cardBodyClass = "p-5 grid grid-cols-1 gap-4";
   const titleClass = "text-lg font-medium mb-4 text-gray-800 dark:text-white";
   const buttonPrimaryClass = "px-4 py-2.5 text-white bg-primary-600 hover:bg-primary-700 rounded-md font-medium transition-colors";
   const buttonSecondaryClass = "px-4 py-2.5 text-gray-700 bg-gray-100 hover:bg-gray-200 dark:text-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-md font-medium transition-colors";
@@ -351,18 +351,16 @@ export default function AnimalDetailPage() {
             
             {/* Record Events */}
             <div className={cardClass}>
-              <div className={`${cardBodyClass} flex justify-between items-center`}>
-                <h2 className={titleClass}>Record Events</h2>
-                <button
-                  onClick={toggleIsEditing}
-                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md"
-                >
-                  {isEditing ? 'Save' : 'Edit'}
-                </button>
-              </div>
-              <div className={cardBodyClass}>
-                <AnimalRecordEvents isEditing={isEditing} />
-              </div>
+                <div className={cardBodyClass}>
+                  <h2 className={titleClass}>Records</h2>
+                  <AnimalRecordEvents isEditing={isEditing} />
+                  <button
+                    onClick={toggleIsEditing}
+                    className={`${buttonPrimaryClass}`}
+                  >
+                    {isEditing ? 'Save Records' : 'Edit Records'}
+                  </button>
+                </div>
             </div>
             
             {/* Only show delete section for existing animals */}
