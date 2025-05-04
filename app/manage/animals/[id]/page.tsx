@@ -5,11 +5,11 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FormContext } from '@/lib/contexts/FormContext';
 import type { FormDataType } from '@/lib/types/form';
-import { AnimalMetadataInputs } from '@/components/animals/AnimalInputs/AnimalMetadataInputs';
 import { AnimalIdInputs } from '@/components/animals/AnimalInputs/AnimalIdInputs';
 import { AnimalConceptionInputs } from '@/components/animals/AnimalInputs/AnimalConceptionInputs';
 import { AnimalNotesInputs } from '@/components/animals/AnimalInputs/AnimalNotesInputs';
 import { GeneralTraitsInputs } from '@/components/animals/AnimalInputs/GeneralTraitsInputs';
+import { AnimalRecordEvents } from '@/components/animals/AnimalInputs/AnimalRecordEvents';
 import { submitFormData, loadFormData, deleteAnimal } from '@/lib/actions/animals';
 import { AnimalInputsSkeleton } from '@/components/ui/Skeleton/AnimalInputsSkeleton';
 
@@ -69,6 +69,8 @@ export default function AnimalDetailPage() {
   const [farmId, setFarmId] = useState<string>('');
   const [animalId, setAnimalId] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const [recordEvents, setRecordEvents] = useState<any[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -127,6 +129,7 @@ export default function AnimalDetailPage() {
         if (data) {
           setFarmId(data.farmId);
           setAnimalId(data.animalId);
+          setRecordEvents(data.recordEvents || []);
           setFormData(prev => ({
             ...prev,
             animalMetadata: {
@@ -182,7 +185,7 @@ export default function AnimalDetailPage() {
   }, [routeAnimalId]);
 
   const cardClass = "bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700";
-  const cardBodyClass = "p-5";
+  const cardBodyClass = "p-5 grid grid-cols-1 gap-4";
   const titleClass = "text-lg font-medium mb-4 text-gray-800 dark:text-white";
   const buttonPrimaryClass = "px-4 py-2.5 text-white bg-primary-600 hover:bg-primary-700 rounded-md font-medium transition-colors";
   const buttonSecondaryClass = "px-4 py-2.5 text-gray-700 bg-gray-100 hover:bg-gray-200 dark:text-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-md font-medium transition-colors";
@@ -190,6 +193,10 @@ export default function AnimalDetailPage() {
   // Container with rounded background
   const containerClass = "min-h-screen flex items-start justify-center";
   const backgroundClass = "w-full max-w-7xl";
+
+  const toggleIsEditing = () => {
+    setIsEditing(prev => !prev);
+  };
 
   if (isLoading) {
     return (
@@ -265,7 +272,7 @@ export default function AnimalDetailPage() {
   };
 
   return (
-    <FormContext.Provider value={{ formData, setFormData, farmId, animalId }}>
+    <FormContext.Provider value={{ formData, setFormData, farmId, animalId, recordEvents }}>
       <div className={containerClass}>
         <div className={backgroundClass}>
           <section className="space-y-6">
@@ -340,6 +347,20 @@ export default function AnimalDetailPage() {
                 <h2 className={titleClass}>General Traits</h2>
                 <GeneralTraitsInputs />
               </div>
+            </div>
+            
+            {/* Record Events */}
+            <div className={cardClass}>
+                <div className={cardBodyClass}>
+                  <h2 className={titleClass}>Records</h2>
+                  <AnimalRecordEvents isEditing={isEditing} />
+                  <button
+                    onClick={toggleIsEditing}
+                    className={`${buttonPrimaryClass}`}
+                  >
+                    {isEditing ? 'Save Records' : 'Edit Records'}
+                  </button>
+                </div>
             </div>
             
             {/* Only show delete section for existing animals */}

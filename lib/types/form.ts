@@ -202,7 +202,21 @@ export interface GeneralTraitsDbRecord {
   adult5_group?: number | null;
 }
 
-// Update FormDataType to include farmId and animalId
+// Record events types
+export type MeasurementType = string;
+export type EventType = string;
+
+export interface RecordEvent {
+  id: string;
+  animal_id: string;
+  event_type: EventType;
+  event_date: string;
+  measurement_type: MeasurementType; 
+  value: number | string | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface FormDataType {
   animalMetadata: AnimalMetadata;
   animalIdentification: AnimalIdentification;
@@ -216,4 +230,5 @@ export interface FormContextType {
   setFormData: Dispatch<SetStateAction<FormDataType>>;
   farmId?: string;
   animalId?: string;
+  recordEvents?: RecordEvent[]; 
 }

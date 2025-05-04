@@ -207,7 +207,8 @@ export async function loadFormData(animalId?: string) {
             nickname: '',
             group: 0
           },
-          generalTraits: {}
+          generalTraits: {},
+          recordEvents: []
         }
       };
     }
@@ -272,6 +273,17 @@ export async function loadFormData(animalId?: string) {
       return { error: animalError.message || `Animal with ID ${animalId} not found` };
     }
 
+    // Query for record_events data
+    const { data: recordEvents, error: recordEventsError } = await supabase
+      .from('record_events')
+      .select('*')
+      .eq('animal_id', animalId)
+      .order('event_date', { ascending: true });
+      
+    if (recordEventsError) {
+      console.error('Error fetching record events:', recordEventsError);
+    }
+
     // Transform general_traits data into a better nested structure
     const traits = animalData.general_traits as GeneralTraitsDbRecord;
     const generalTraits = transformDbToFormTraits(traits);
@@ -283,7 +295,8 @@ export async function loadFormData(animalId?: string) {
         animalMetadata: animalData.animal_metadata[0],
         animalIdentification: animalData.animal_identification[0],
         animalConception: animalData.animal_conception[0],
-        generalTraits
+        generalTraits,
+        recordEvents// Add record events to the response
       }
     };
   } catch (error) {
