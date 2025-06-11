@@ -3,8 +3,12 @@
 import Link from 'next/link'
 import { login } from '@/lib/actions/login'
 import { Container } from '@/components/layout/Container'
+import { useState, useTransition } from 'react'
 
 export default function LoginPage() {
+  const [isPending, startTransition] = useTransition()
+  const [isLoading, setIsLoading] = useState(false)
+
   return (
     <Container>
       <div className="py-12 px-4 max-w-lg mx-auto">
@@ -13,7 +17,17 @@ export default function LoginPage() {
         </h1>
         
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mb-6">
-          <form className="flex flex-col gap-4">
+          <form
+            className="flex flex-col gap-4"
+            action={async (formData) => {
+              setIsLoading(true)
+              try {
+                await login(formData)
+              } finally {
+                setIsLoading(false)
+              }
+            }}
+          >
             <div className="flex flex-col gap-2">
               <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Email Address
@@ -47,10 +61,11 @@ export default function LoginPage() {
 
             <div className="flex flex-wrap gap-4 mt-6">
               <button
-                formAction={login}
-                className="px-6 py-3 text-lg font-medium text-center text-white bg-primary-600 rounded-md hover:bg-primary-700 transition-colors"
+                type="submit"
+                disabled={isLoading || isPending}
+                className="px-6 py-3 text-lg font-medium text-center text-white bg-primary-600 rounded-md hover:bg-primary-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Log In
+                {isLoading || isPending ? 'Logging in...' : 'Log In'}
               </button>
               <Link
                 href="/signup"
