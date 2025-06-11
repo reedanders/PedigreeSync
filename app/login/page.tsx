@@ -21,7 +21,11 @@ export default function LoginPage() {
             className="flex flex-col gap-4"
             action={async (formData) => {
               setIsLoading(true)
-              startTransition(() => login(formData))
+              try {
+                await login(formData)
+              } finally {
+                setIsLoading(false)
+              }
             }}
           >
             <div className="flex flex-col gap-2">
