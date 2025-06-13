@@ -8,7 +8,6 @@ import type { FormDataType } from '@/lib/types/form';
 import { AnimalIdInputs } from '@/components/animals/AnimalInputs/AnimalIdInputs';
 import { AnimalConceptionInputs } from '@/components/animals/AnimalInputs/AnimalConceptionInputs';
 import { AnimalNotesInputs } from '@/components/animals/AnimalInputs/AnimalNotesInputs';
-import { GeneralTraitsInputs } from '@/components/animals/AnimalInputs/GeneralTraitsInputs';
 import { AnimalRecordEvents } from '@/components/animals/AnimalInputs/AnimalRecordEvents';
 import { submitFormData, loadFormData, deleteAnimal } from '@/lib/actions/animals';
 import { AnimalInputsSkeleton } from '@/components/ui/Skeleton/AnimalInputsSkeleton';
@@ -21,14 +20,6 @@ export default function AnimalDetailPage() {
   const isNewAnimal = routeAnimalId === 'new';
   
   const [formData, setFormData] = useState<FormDataType>({
-    animalMetadata: {
-      autoBuildText: '',
-      editDate1: '',
-      editDate2: '',
-      limitInputs: 'None',
-      carcassScannerNo: '',
-      showWoolFleece: false,
-    },
     animalIdentification: {
       animalIdent: '',
       sire: '',
@@ -48,19 +39,6 @@ export default function AnimalDetailPage() {
       comment: '',
       status: 0
     },
-    generalTraits: {
-      birth: {},
-      weaning: {},
-      epWeaning: {},
-      pWeaning: {},
-      yearling: {},
-      hogget: {},
-      adult: {},
-      adult2: {},
-      adult3: {},
-      adult4: {},
-      adult5: {}
-    }
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -132,14 +110,6 @@ export default function AnimalDetailPage() {
           setRecordEvents(data.recordEvents || []);
           setFormData(prev => ({
             ...prev,
-            animalMetadata: {
-              autoBuildText: data.animalMetadata?.auto_build_text || '',
-              editDate1: data.animalMetadata?.edit_date1 || '',
-              editDate2: data.animalMetadata?.edit_date2 || '',
-              limitInputs: data.animalMetadata?.limit_inputs || 'None',
-              carcassScannerNo: data.animalMetadata?.carcass_scanner_no || '',
-              showWoolFleece: data.animalMetadata?.show_wool_fleece || false,
-            },
             animalIdentification: {
               animalIdent: data.animalIdentification?.animal_ident || '',
               sire: data.animalIdentification?.sire || '',
@@ -158,19 +128,6 @@ export default function AnimalDetailPage() {
               group: data.animalConception?.group || 0,
               comment: data.animalIdentification?.comment || '',
               status: data.animalIdentification?.status || 0
-            },
-            generalTraits: data.generalTraits || {
-              birth: {},
-              weaning: {},
-              epWeaning: {},
-              pWeaning: {},
-              yearling: {},
-              hogget: {},
-              adult: {},
-              adult2: {},
-              adult3: {},
-              adult4: {},
-              adult5: {}
             }
           }));
         }
@@ -341,14 +298,6 @@ export default function AnimalDetailPage() {
               </div>
             </div>
 
-            {/* Animal Traits */}
-            <div className={cardClass}>
-              <div className={cardBodyClass}>
-                <h2 className={titleClass}>General Traits</h2>
-                <GeneralTraitsInputs />
-              </div>
-            </div>
-            
             {/* Record Events */}
             <div className={cardClass}>
                 <div className={cardBodyClass}>
