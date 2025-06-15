@@ -10,7 +10,7 @@ import {
 // Modified to handle both creating new animals and updating existing ones
 export async function submitFormData({ 
   formData, 
-  animalId 
+  animalId
 }: { 
   formData: FormDataType; 
   animalId: string; 
@@ -103,6 +103,38 @@ export async function submitFormData({
     
     const { error: conceptionError } = await conceptionOperation;
     if (conceptionError) return handleError(conceptionError, 'animal conception data');
+
+    // Handle animal_events upsert (editable grid) using formData.recordEvents
+    if (formData.recordEvents && Array.isArray(formData.recordEvents)) {
+      for (const event of formData.recordEvents) {
+        if (event.id) {
+          // Update existing event
+          const { error: updateError } = await supabase
+            .from('record_events')
+            .update({
+              event_type: event.event_type,
+              event_date: event.event_date,
+              measurement_type: event.measurement_type,
+              value: event.value
+            })
+            .eq('id', event.id)
+            .eq('animal_id', animalId);
+          if (updateError) return { error: `Failed to update event: ${updateError.message}` };
+        } else {
+          // Insert new event
+          const { error: insertError } = await supabase
+            .from('record_events')
+            .insert({
+              animal_id: animalId,
+              event_type: event.event_type,
+              event_date: event.event_date,
+              measurement_type: event.measurement_type,
+              value: event.value
+            });
+          if (insertError) return { error: `Failed to add event: ${insertError.message}` };
+        }
+      }
+    }
 
     // Revalidate the relevant paths
     revalidatePath('/dashboard');
@@ -221,7 +253,7 @@ export async function loadFormData(animalId?: string) {
         animalId: animalData.id,
         animalIdentification: animalData.animal_identification[0],
         animalConception: animalData.animal_conception[0],
-        recordEvents // Add record events to the response
+        recordEvents 
       }
     };
   } catch (error) {

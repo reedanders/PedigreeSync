@@ -14,11 +14,20 @@ export function AnimalRecordEvents({ isEditing }: AnimalRecordEventsProps) {
 
   const { recordEvents = [], setFormData } = context;
 
-  const handleInputChange = (eventId: string, field: string, value: string | number | null) => {
+  const handleInputChange = (
+    eventType: string,
+    eventDate: string,
+    measurementType: string,
+    value: string | number | null
+  ) => {
     setFormData(prev => ({
       ...prev,
       recordEvents: prev.recordEvents?.map(event =>
-        event.id === eventId ? { ...event, [field]: value } : event
+        event.event_type === eventType &&
+        event.event_date === eventDate &&
+        event.measurement_type === measurementType
+          ? { ...event, value }
+          : event
       ),
     }));
   };
@@ -76,7 +85,6 @@ export function AnimalRecordEvents({ isEditing }: AnimalRecordEventsProps) {
                     type="date"
                     value={row.date || ''}
                     readOnly={!isEditing}
-                    onChange={e => handleInputChange(row.date || '', 'event_date', e.target.value)}
                     className={`w-full bg-transparent border rounded-md px-2 py-1 focus:outline-none ${
                       isEditing
                         ? 'border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500'
@@ -90,7 +98,14 @@ export function AnimalRecordEvents({ isEditing }: AnimalRecordEventsProps) {
                       type="text"
                       value={row.measurements?.[type] || ''}
                       readOnly={!isEditing}
-                      onChange={e => handleInputChange(row.date || '', type, e.target.value)}
+                      onChange={e =>
+                        handleInputChange(
+                          row.eventType as string,
+                          row.date || '',
+                          type,
+                          e.target.value
+                        )
+                      }
                       className={`w-full bg-transparent border rounded-md px-2 py-1 focus:outline-none ${
                         isEditing
                           ? 'border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500'

@@ -91,16 +91,12 @@ export interface AnimalNotes {
   status: AnimalStatusType | string;
 }
 
-// Record events types
-export type MeasurementType = string;
-export type EventType = string;
-
 export interface RecordEvent {
-  id: string;
-  animal_id: string;
-  event_type: EventType;
+  id?: string;
+  animal_id?: string;
+  event_type: string;
   event_date: string;
-  measurement_type: MeasurementType; 
+  measurement_type: string;
   value: number | string | null;
   created_at?: string;
   updated_at?: string;
@@ -110,6 +106,7 @@ export interface FormDataType {
   animalIdentification: AnimalIdentification;
   animalConception: AnimalConception;
   animalNotes: AnimalNotes;
+  recordEvents?: RecordEvent[]; // <-- ensure this is present for state
 }
 
 export interface FormContextType {
