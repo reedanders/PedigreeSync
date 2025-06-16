@@ -3,17 +3,14 @@
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/utils/supabase/server'
 import type { FormDataType } from '@/lib/types/form'
-import { GeneralTraitsDbRecord } from '@/lib/types/form'
 import { 
-  transformFormToDbTraits, 
-  transformDbToFormTraits,
   getUserFarm 
 } from './animals.helpers'
 
 // Modified to handle both creating new animals and updating existing ones
 export async function submitFormData({ 
   formData, 
-  animalId 
+  animalId
 }: { 
   formData: FormDataType; 
   animalId: string; 
@@ -59,29 +56,6 @@ export async function submitFormData({
       return { error: `Failed to ${isNewAnimal ? 'create' : 'update'} ${operation}` };
     };
     
-    // Update or create animal_metadata
-    const metadataOperation = isNewAnimal 
-      ? supabase.from('animal_metadata').insert({
-          animal_id: animalId,
-          auto_build_text: formData.animalMetadata.autoBuildText || '',
-          edit_date1: formData.animalMetadata.editDate1 || null,
-          edit_date2: formData.animalMetadata.editDate2 || null,
-          limit_inputs: formData.animalMetadata.limitInputs || 'None',
-          carcass_scanner_no: formData.animalMetadata.carcassScannerNo || '',
-          show_wool_fleece: formData.animalMetadata.showWoolFleece ?? false
-        })
-      : supabase.from('animal_metadata').update({
-          auto_build_text: formData.animalMetadata.autoBuildText || '',
-          edit_date1: formData.animalMetadata.editDate1 || null,
-          edit_date2: formData.animalMetadata.editDate2 || null,
-          limit_inputs: formData.animalMetadata.limitInputs || 'None',
-          carcass_scanner_no: formData.animalMetadata.carcassScannerNo || '',
-          show_wool_fleece: formData.animalMetadata.showWoolFleece ?? false
-        }).eq('animal_id', animalId);
-
-    const { error: metadataError } = await metadataOperation;
-    if (metadataError) return handleError(metadataError, 'animal metadata');
-
     // Update or create animal_identification
     const identificationOperation = isNewAnimal
       ? supabase.from('animal_identification').insert({
@@ -130,18 +104,37 @@ export async function submitFormData({
     const { error: conceptionError } = await conceptionOperation;
     if (conceptionError) return handleError(conceptionError, 'animal conception data');
 
-    // Transform generalTraits from nested format to flat database format
-    const generalTraitsDbFormat = transformFormToDbTraits(formData.generalTraits, animalId);
-    
-    // Always use upsert for general_traits for consistency
-    const { error: traitsError } = await supabase
-      .from('general_traits')
-      .upsert(generalTraitsDbFormat, {
-        onConflict: 'animal_id',
-        ignoreDuplicates: false
-      });
-    
-    if (traitsError) return handleError(traitsError, 'animal traits');
+    // Handle animal_events upsert (editable grid) using formData.recordEvents
+    if (formData.recordEvents && Array.isArray(formData.recordEvents)) {
+      for (const event of formData.recordEvents) {
+        if (event.id) {
+          // Update existing event
+          const { error: updateError } = await supabase
+            .from('record_events')
+            .update({
+              event_type: event.event_type,
+              event_date: event.event_date,
+              measurement_type: event.measurement_type,
+              value: event.value
+            })
+            .eq('id', event.id)
+            .eq('animal_id', animalId);
+          if (updateError) return { error: `Failed to update event: ${updateError.message}` };
+        } else {
+          // Insert new event
+          const { error: insertError } = await supabase
+            .from('record_events')
+            .insert({
+              animal_id: animalId,
+              event_type: event.event_type,
+              event_date: event.event_date,
+              measurement_type: event.measurement_type,
+              value: event.value
+            });
+          if (insertError) return { error: `Failed to add event: ${insertError.message}` };
+        }
+      }
+    }
 
     // Revalidate the relevant paths
     revalidatePath('/dashboard');
@@ -182,14 +175,6 @@ export async function loadFormData(animalId?: string) {
         data: {
           farmId: farmUser.farm_id,
           animalId: 'new',
-          animalMetadata: {
-            auto_build_text: '',
-            edit_date1: null,
-            edit_date2: null,
-            limit_inputs: 'None',
-            carcass_scanner_no: '',
-            show_wool_fleece: false
-          },
           animalIdentification: {
             animal_ident: '',
             sire: '',
@@ -207,7 +192,7 @@ export async function loadFormData(animalId?: string) {
             nickname: '',
             group: 0
           },
-          generalTraits: {}
+          recordEvents: []
         }
       };
     }
@@ -224,14 +209,6 @@ export async function loadFormData(animalId?: string) {
         id,
         farm_id,
         created_at,
-        animal_metadata (
-          auto_build_text,
-          edit_date1,
-          edit_date2,
-          limit_inputs,
-          carcass_scanner_no,
-          show_wool_fleece
-        ),
         animal_identification (
           animal_ident,
           sire,
@@ -248,19 +225,6 @@ export async function loadFormData(animalId?: string) {
           lamb_ease,
           nickname,
           group
-        ),
-        general_traits (
-          birth_date, birth_weight, birth_c_fat, birth_emd, birth_sc, birth_wec, birth_group,
-          weaning_date, weaning_weight, weaning_c_fat, weaning_emd, weaning_sc, weaning_wec, weaning_group,
-          ep_weaning_date, ep_weaning_weight, ep_weaning_c_fat, ep_weaning_emd, ep_weaning_sc, ep_weaning_wec, ep_weaning_group,
-          p_weaning_date, p_weaning_weight, p_weaning_c_fat, p_weaning_emd, p_weaning_sc, p_weaning_wec, p_weaning_group,
-          yearling_date, yearling_weight, yearling_c_fat, yearling_emd, yearling_sc, yearling_wec, yearling_group,
-          hogget_date, hogget_weight, hogget_c_fat, hogget_emd, hogget_sc, hogget_wec, hogget_group,
-          adult_date, adult_weight, adult_c_fat, adult_emd, adult_sc, adult_wec, adult_group,
-          adult2_date, adult2_weight, adult2_c_fat, adult2_emd, adult2_sc, adult2_wec, adult2_group,
-          adult3_date, adult3_weight, adult3_c_fat, adult3_emd, adult3_sc, adult3_wec, adult3_group,
-          adult4_date, adult4_weight, adult4_c_fat, adult4_emd, adult4_sc, adult4_wec, adult4_group,
-          adult5_date, adult5_weight, adult5_c_fat, adult5_emd, adult5_sc, adult5_wec, adult5_group
         )
       `)
       .eq('farm_id', farmUser.farm_id)
@@ -272,18 +236,24 @@ export async function loadFormData(animalId?: string) {
       return { error: animalError.message || `Animal with ID ${animalId} not found` };
     }
 
-    // Transform general_traits data into a better nested structure
-    const traits = animalData.general_traits as GeneralTraitsDbRecord;
-    const generalTraits = transformDbToFormTraits(traits);
+    // Query for record_events data
+    const { data: recordEvents, error: recordEventsError } = await supabase
+      .from('record_events')
+      .select('*')
+      .eq('animal_id', animalId)
+      .order('event_date', { ascending: true });
+      
+    if (recordEventsError) {
+      console.error('Error fetching record events:', recordEventsError);
+    }
 
     return {
       data: {
         farmId: animalData.farm_id,
         animalId: animalData.id,
-        animalMetadata: animalData.animal_metadata[0],
         animalIdentification: animalData.animal_identification[0],
         animalConception: animalData.animal_conception[0],
-        generalTraits
+        recordEvents 
       }
     };
   } catch (error) {

@@ -1,5 +1,10 @@
 import { FieldConfig } from '@/lib/types/fields';
 
+// This file contains the configuration for the traits of the animals.
+// It defines the stages of the animals and the fields that are available for each stage.
+// Each stage has a label and a set of fields that can be displayed.
+// The fields have properties such as visibility, type, label, and whether they are required or not.
+// The configuration is used to dynamically generate forms for entering and displaying animal traits.
 export const TRAITS_CONFIG = {
   stages: {
     birth: {
