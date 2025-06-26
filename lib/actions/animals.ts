@@ -150,7 +150,7 @@ export async function getAnimalsByFarm() {
       .from('animal_records')
       .select(`
         id,
-        created_at,
+        created_at
       `)
       .eq('farm_id', farmUser.farm_id)
       .order('created_at', { ascending: false });
