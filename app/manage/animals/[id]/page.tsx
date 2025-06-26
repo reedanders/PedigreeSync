@@ -5,11 +5,6 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { FormContext } from '@/lib/contexts/FormContext';
 import type { FormDataType } from '@/lib/types/form';
-import { AnimalMetadataInputs } from '@/components/animals/AnimalInputs/AnimalMetadataInputs';
-import { AnimalIdInputs } from '@/components/animals/AnimalInputs/AnimalIdInputs';
-import { AnimalConceptionInputs } from '@/components/animals/AnimalInputs/AnimalConceptionInputs';
-import { AnimalNotesInputs } from '@/components/animals/AnimalInputs/AnimalNotesInputs';
-import { GeneralTraitsInputs } from '@/components/animals/AnimalInputs/GeneralTraitsInputs';
 import { submitFormData, loadFormData, deleteAnimal } from '@/lib/actions/animals';
 import { AnimalInputsSkeleton } from '@/components/ui/Skeleton/AnimalInputsSkeleton';
 
@@ -20,48 +15,7 @@ export default function AnimalDetailPage() {
   const routeAnimalId = params.id as string;
   const isNewAnimal = routeAnimalId === 'new';
   
-  const [formData, setFormData] = useState<FormDataType>({
-    animalMetadata: {
-      autoBuildText: '',
-      editDate1: '',
-      editDate2: '',
-      limitInputs: 'None',
-      carcassScannerNo: '',
-      showWoolFleece: false,
-    },
-    animalIdentification: {
-      animalIdent: '',
-      sire: '',
-      dam: '',
-      sex: 0,
-      bt: 0,
-      rt: 0
-    },
-    animalConception: {
-      method: 0,
-      date: '',
-      lambEase: 0,
-      nickname: ''
-    },
-    animalNotes: {
-      group: 0,
-      comment: '',
-      status: 0
-    },
-    generalTraits: {
-      birth: {},
-      weaning: {},
-      epWeaning: {},
-      pWeaning: {},
-      yearling: {},
-      hogget: {},
-      adult: {},
-      adult2: {},
-      adult3: {},
-      adult4: {},
-      adult5: {}
-    }
-  });
+  const [formData, setFormData] = useState<FormDataType>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -129,46 +83,6 @@ export default function AnimalDetailPage() {
           setAnimalId(data.animalId);
           setFormData(prev => ({
             ...prev,
-            animalMetadata: {
-              autoBuildText: data.animalMetadata?.auto_build_text || '',
-              editDate1: data.animalMetadata?.edit_date1 || '',
-              editDate2: data.animalMetadata?.edit_date2 || '',
-              limitInputs: data.animalMetadata?.limit_inputs || 'None',
-              carcassScannerNo: data.animalMetadata?.carcass_scanner_no || '',
-              showWoolFleece: data.animalMetadata?.show_wool_fleece || false,
-            },
-            animalIdentification: {
-              animalIdent: data.animalIdentification?.animal_ident || '',
-              sire: data.animalIdentification?.sire || '',
-              dam: data.animalIdentification?.dam || '',
-              sex: data.animalIdentification?.sex || 0,
-              bt: data.animalIdentification?.bt || 0,
-              rt: data.animalIdentification?.rt || 0
-            },
-            animalConception: {
-              method: data.animalConception?.method || 0,
-              date: data.animalConception?.date || '',
-              lambEase: data.animalConception?.lamb_ease || 0,
-              nickname: data.animalConception?.nickname || ''
-            },
-            animalNotes: {
-              group: data.animalConception?.group || 0,
-              comment: data.animalIdentification?.comment || '',
-              status: data.animalIdentification?.status || 0
-            },
-            generalTraits: data.generalTraits || {
-              birth: {},
-              weaning: {},
-              epWeaning: {},
-              pWeaning: {},
-              yearling: {},
-              hogget: {},
-              adult: {},
-              adult2: {},
-              adult3: {},
-              adult4: {},
-              adult5: {}
-            }
           }));
         }
       } catch (error) {
@@ -240,7 +154,7 @@ export default function AnimalDetailPage() {
               Delete Animal
             </h3>
             <p className="mb-6 text-gray-600 dark:text-gray-300">
-              Are you sure you want to delete {formData.animalIdentification.animalIdent || 'this animal'}? This action cannot be undone.
+              Are you sure you want to delete {'this animal'}? This action cannot be undone.
             </p>
             <div className="flex justify-end gap-3">
               <button
@@ -276,7 +190,7 @@ export default function AnimalDetailPage() {
                   <h1 className="text-2xl font-bold mb-1 text-gray-800 dark:text-white">
                     {isNewAnimal 
                       ? 'Add New Animal' 
-                      : `Animal: ${formData.animalIdentification.animalIdent || 'Unknown'}`}
+                      : `Animal: ${animalId || 'Unknown'}`}
                   </h1>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     {isNewAnimal 
@@ -304,41 +218,6 @@ export default function AnimalDetailPage() {
                         : 'Save Changes'}
                   </button>
                 </div>
-              </div>
-            </div>
-        
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-              {/* Animal Identification */}
-              <div className={`lg:col-span-2 ${cardClass}`}>
-                <div className={cardBodyClass}>
-                  <h2 className={titleClass}>Animal Identification</h2>
-                  <AnimalIdInputs />
-                </div>
-              </div>
-
-              {/* Conception */}
-              <div className={cardClass}>
-                <div className={cardBodyClass}>
-                  <h2 className={titleClass}>Conception</h2>
-                  <AnimalConceptionInputs />
-                </div>
-              </div>
-            </div>
-
-            {/* Group Comments */}
-            <div className={cardClass}>
-              <div className={cardBodyClass}>
-                <h2 className={titleClass}>Group & Comments</h2>
-                <AnimalNotesInputs />
-              </div>
-            </div>
-
-            {/* Animal Traits */}
-            <div className={cardClass}>
-              <div className={cardBodyClass}>
-                <h2 className={titleClass}>General Traits</h2>
-                <GeneralTraitsInputs />
               </div>
             </div>
             
