@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getAnimalsByFarm } from '@/lib/actions/animals';
-import { SexType, BirthRearType } from '@/lib/types/form';
 import TableSkeleton from '@/components/ui/Skeleton/TableSkeleton';
 
 // Add typescript pass-through for the response
@@ -50,109 +49,27 @@ const ErrorDisplay = ({ message }: { message: string }) => (
   </div>
 );
 
-const StatusBadge = ({ status }: { status: any }) => {
-  const getStatusText = (status: any) => {
-    if (typeof status === 'string') return status;
-    
-    switch (status) {
-      case 0: return 'Current';
-      case 1: return 'Culled';
-      case 2: return 'Dead';
-      case 3: return 'Missing';
-      case 4: return 'Reference';
-      case 5: return 'Sold';
-      default: return 'Unknown';
-    }
-  };
-
-  const getStatusColor = (status: any) => {
-    const statusValue = typeof status === 'string' 
-      ? status.toLowerCase() 
-      : getStatusText(status).toLowerCase();
-    
-    switch (statusValue) {
-      case 'current':
-        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
-      case 'culled':
-      case 'sold':
-        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
-      case 'dead':
-      case 'missing':
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
-      case 'reference':
-        return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300';
-      default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
-    }
-  };
-
-  return (
-    <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(status)}`}>
-      {getStatusText(status || 0)}
-    </span>
-  );
-};
-
 // Animal table component
 const AnimalsTable = ({ animals }: { animals: any[] }) => {
-  // Helper function to convert sex number to text
-  const getSexText = (sex: SexType) => {
-    switch (sex) {
-      case 1: return 'Male';
-      case 2: return 'Female';
-      default: return 'Unknown';
-    }
-  };
-  
-  // Helper function for birth type
-  const getBirthTypeText = (bt: BirthRearType) => {
-    switch (bt) {
-      case 1: return 'Single';
-      case 2: return 'Twin';
-      case 3: return 'Triplet';
-      default: return 'Unknown';
-    }
-  };
-
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
         <thead className="bg-gray-50 dark:bg-gray-700">
           <tr>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ID</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Sire</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Dam</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Sex</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Birth Type</th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
-            <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+            <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">ID</th>
+            <th className="px-4 py-3 text-right text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
           {animals.map(animal => (
             <tr 
               key={animal.id} 
-              className="hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+              className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
-              <td className="px-4 py-3 whitespace-nowrap font-medium text-gray-900 dark:text-gray-100">
-                {animal.animal_identification[0]?.animal_ident || 'Unknown'}
+              <td className="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">
+                {animal.id || 'Unknown'}
               </td>
-              <td className="px-4 py-3 whitespace-nowrap text-gray-600 dark:text-gray-300">
-                {animal.animal_identification[0]?.sire || '-'}
-              </td>
-              <td className="px-4 py-3 whitespace-nowrap text-gray-600 dark:text-gray-300">
-                {animal.animal_identification[0]?.dam || '-'}
-              </td>
-              <td className="px-4 py-3 whitespace-nowrap text-gray-600 dark:text-gray-300">
-                {getSexText(animal.animal_identification[0]?.sex)}
-              </td>
-              <td className="px-4 py-3 whitespace-nowrap text-gray-600 dark:text-gray-300">
-                {getBirthTypeText(animal.animal_identification[0]?.bt)}
-              </td>
-              <td className="px-4 py-3 whitespace-nowrap">
-                <StatusBadge status={animal.animal_identification[0]?.status} />
-              </td>
-              <td className="px-4 py-3 whitespace-nowrap text-right font-medium">
+              <td className="px-4 py-3 text-right font-medium">
                 <Link
                   href={`/manage/animals/${animal.id}`}
                   className="text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300"

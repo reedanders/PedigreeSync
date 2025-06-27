@@ -1,65 +1,54 @@
-# PedigreeSync: Unofficial PedigreeMaster Web App
+# PedigreeSync: NFC Livestock Tag System
 
-This project is an **unofficial implementation of PedigreeMaster**, a widely used Windows-based software in the National Sheep Improvement Program (NSIP). This application aims to modernize and simplify data recording and analysis for livestock breeders by offering a phased implementation of core functionalities.
+This project is an **open-source mobile and web application** for managing livestock records using **NFC-enabled ear tags**. Designed with small livestock producers, the system allows producers to scan tags with an iPhone, view or update health records offline, and sync them to a centralized cloud database when connectivity is available.
+
+This application was developed as a farmer-led research initiative supporting **animal welfare, decentralized data ownership, and the right to repair**.
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/85e6a9e0-d2e6-41a8-8864-3b21de7249e5/deploy-status)](https://app.netlify.com/sites/reedbuilt/deploys)
 
 ![Screenshot 2025-03-26 at 1 03 09 PM](https://github.com/user-attachments/assets/1c9fea4e-4afb-4104-8815-b7652256f542)
 
-## Vision
+---
 
-The goal of this project is to provide a web-based alternative to the Windows-based PedigreeMaster with enhanced usability and accessibility. The application will eventually incorporate all functionalities of PedigreeMaster, with additional modern features to streamline data management for livestock improvement programs. Initially, the app with address the primary painpoint of converting farm records to a format acceptable by PedigreeMaster. 
+## 🚜 Purpose
+
+Most livestock management tools are either expensive, proprietary, or require specialized RFID hardware. This project provides an alternative: a **low-cost, open-source platform** built around NFC tags readable by consumer smartphones. It is ideal for producers without dedicated IT infrastructure, and those who prioritize animal handling efficiency, welfare monitoring, and data transparency.
 
 ---
 
-## Key Features (Planned Development Phases)
+## 🔑 Features
 
-1. **Flock Data Recording**:
-   - Users can upload any farm record, format it into PedigreeMaster xsl format using ChatGPT, and save the record to the PedigreeSync database.
-   - Users can view their uploaded record. 
+### Phase 1 – Web Admin Dashboard (WIP)
+- View and edit synced records in a React web interface
+- Add flock metadata and batch operations
+- Secure authentication and multi-device access
 
-2. **Edit and Export Records**:
-   - Users can edit flock data in the PedigreeSync database.
-   - Users can export data for submittion to NSIP.
+### Phase 2 – Mobile Scan Integration (WIP)
+- Scan NFC ear tags using iPhone (React Native + iOS Core NFC)
+- Store and view records locally
+- Sync records to Supabase when online
+- Manage livestock profiles and events (health, weight, lambing)
 
-3. **Data Analysis and Display** (Future Phase):
-   - Users can import analyzed data received from NSIP (e.g., Estimated Breeding Values (EBVs)).
-   - Users can view data visualizations and detailed reports.
+### Phase 3 – Field Validation & Community Tools (Planned)
+- Usability testing across 3+ ranches
+- Environmental durability logging
+- Data export for NSIP/EBV pipelines
+- Community support for forking/customization
 
 ---
 
-## Getting Started
+## 🧪 Getting Started
 
 ### Prerequisites
 
-Ensure you have the following installed on your system:
-- Node.js (v16 or higher)
-- A compatible web browser
-- Access to an NSIP-compliant flock dataset (optional for testing)
+To run the app locally, ensure you have:
+- Node.js (v18+ recommended)
+- Xcode or iOS device with NFC capability (for mobile scanning)
+- Supabase account for backend setup
 
----
+### Setup Instructions
 
-## Contributing
-
-We welcome contributions from the community to help build and refine this tool. To contribute:
-1. Fork the repository.
-2. Create a feature branch: `git checkout -b feature-name`.
-3. Commit your changes: `git commit -m "Add feature-name"`.
-4. Push to the branch: `git push origin feature-name`.
-5. Open a pull request.
-
----
-
-## References
-
-- [National Sheep Improvement Program (NSIP)](https://nsip.org/)
-
----
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-Let me know if you'd like to refine any sections or add specific content based on your goals!
+```bash
+git clone https://github.com/your-username/nfc-livestock-tags.git
+cd nfc-livestock-tags
+npm install
