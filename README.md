@@ -16,9 +16,9 @@ Most livestock management tools are either expensive, proprietary, or require sp
 
 ---
 
-## 🔑 Features
+## Features
 
-### Phase 1 – Web Admin Dashboard (WIP)
+### Phase 1 – Web Admin Dashboard (Testing)
 - View and edit synced records in a React web interface
 - Add flock metadata and batch operations
 - Secure authentication and multi-device access
@@ -37,7 +37,7 @@ Most livestock management tools are either expensive, proprietary, or require sp
 
 ---
 
-## 🧪 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -49,6 +49,6 @@ To run the app locally, ensure you have:
 ### Setup Instructions
 
 ```bash
-git clone https://github.com/your-username/nfc-livestock-tags.git
-cd nfc-livestock-tags
+git clone [https://github.com/your-username/nfc-livestock-tags](https://github.com/reedanders/PedigreeSync).git
+cd PedigreeSync
 npm install
