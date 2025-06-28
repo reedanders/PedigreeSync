@@ -11,9 +11,7 @@ const githubLink = "https://github.com/reedanders/PedigreeSync";
 export function Footer() {
   // Updated navigation links to match site architecture
   const navigation = [
-    { label: "About EBVs", href: "/about-ebvs" },
-    { label: "Roadmap", href: "/roadmap" },
-    { label: "Getting Started", href: "/import" },
+    { label: "Roadmap", href: "/roadmap" }
   ];
   
   // Legal pages (could be implemented later)
@@ -38,8 +36,7 @@ export function Footer() {
             </div>
 
             <div className="max-w-md mt-4 text-gray-500 dark:text-gray-400">
-              An unofficial web implementation of PedigreeMaster, designed to modernize 
-              and simplify data recording for the National Sheep Improvement Program (NSIP).
+              An open-source, right-to-repair application for managing livestock records using NFC-enabled ear tags and mobile phones.
             </div>
             
           </div>
