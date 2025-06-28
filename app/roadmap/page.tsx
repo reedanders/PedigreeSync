@@ -24,7 +24,7 @@ export default function RoadmapPage() {
           <div>
             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">About the project</h3>
             <p className="text-gray-700 dark:text-gray-300 mb-4">
-              <strong>PedigreeSync</strong> is a farmer-led, open-source initiative to make livestock recordkeeping radically more accessible, affordable, and resilient. Our near-term goal is to test the viability of using NFC enabled eartags scanned by iPhones as an alternative to proprietary NFID readers. In collaboration with sheep producers and extension advisors, we're seeking a USDA WSARE grant for field testing ear tags starting in Spring 2026.</p>
+              <strong>PedigreeSync</strong> is a farmer-led, open-source initiative to make livestock recordkeeping radically more accessible, affordable, and resilient. Our near-term goal is to test the viability of using NFC enabled eartags scanned by iPhones as an alternative to proprietary RFID readers. In collaboration with sheep producers and extension advisors, we're seeking a USDA WSARE grant for field testing ear tags starting in Spring 2026.</p>
           </div>
           <div>
             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">Why It Matters</h3>
