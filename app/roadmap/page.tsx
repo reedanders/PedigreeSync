@@ -1,40 +1,103 @@
 import { Container } from "@/components/layout/Container";
 
 export const metadata = {
-  title: 'PedigreeSync - Development Roadmap',
-  description: 'Future development plans for the PedigreeSync sheep pedigree management platform',
+  title: 'NFC Livestock Tags - Project Roadmap',
+  description: 'Development roadmap for the open-source NFC livestock recordkeeping system supporting sustainable animal welfare.',
 };
 
 export default function RoadmapPage() {
   return (
     <Container>
-      <div className="py-12 px-4 max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-gray-800 dark:text-white">PedigreeSync Development Roadmap</h1>
-        
-        <p className="text-lg mb-10 text-gray-600 dark:text-gray-300">
-          PedigreeSync is an unofficial web implementation of the Windows-based PedigreeMaster software. 
-          Our mission is to modernize livestock data recording and provide a more accessible platform for 
-          sheep breeders participating in the National Sheep Improvement Program (NSIP).
-        </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Hero */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h1 className="text-5xl font-bold text-gray-900 dark:text-white leading-tight">
+            Empowering Producers, Advancing Animal Welfare
+          </h1>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+            An open-source, right-to-repair application for managing livestock records using NFC-enabled ear tags and mobile phones.
+          </p>
+        </div>
 
-        <div className="space-y-16">
-          {/* Current Phase */}
+        {/* Introduction */}
+        <div className="grid lg:grid-cols-2 gap-16 mb-24">
+          <div>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">About the project</h3>
+            <p className="text-gray-700 dark:text-gray-300 mb-4">
+              <strong>PedigreeSync</strong> is a farmer-led, open-source initiative to make livestock recordkeeping radically more accessible, affordable, and resilient. Our near-term goal is to test the viability of using NFC enabled eartags scanned by iPhones as an alternative to proprietary NFID readers. In collaboration with sheep producers and extension advisors, we're seeking a USDA WSARE grant for field testing ear tags starting in Spring 2026.</p>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">Why It Matters</h3>
+            <p className="text-gray-700 dark:text-gray-300 mb-3">
+              Small-scale producers face real barriers: limited infrastructure, time pressure, and rough terrain. Our system reduces handling stress, saves labor, and ensures compliance—without needing expensive readers or desktop tools.
+            </p>
+          </div>
+        </div>
+
+        {/* Key Principles */}
+        <div className="mb-24">
+          <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-6">Key Principles</h3>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow">
+              <h4 className="text-lg font-semibold text-primary-600 mb-2">Open-source hardware & software</h4>
+              <p className="text-gray-700 dark:text-gray-300">All designs and code are freely available, supporting right-to-repair and local innovation.</p>
+            </div>
+            <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow">
+              <h4 className="text-lg font-semibold text-primary-600 mb-2">Offline-first, cloud-connected</h4>
+              <p className="text-gray-700 dark:text-gray-300">Scan and update records in the field; sync automatically when connectivity returns.</p>
+            </div>
+            <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow">
+              <h4 className="text-lg font-semibold text-primary-600 mb-2">Built for real-world conditions</h4>
+              <p className="text-gray-700 dark:text-gray-300">Co-designed with producers and validated by UC ANR and SARE partners.</p>
+            </div>
+            <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow">
+              <h4 className="text-lg font-semibold text-primary-600 mb-2">Inclusive outreach</h4>
+              <p className="text-gray-700 dark:text-gray-300">Hands-on demos, video tutorials, and documentation tailored for underserved farmers.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* SMART Objectives */}
+        <div className="mb-24">
+          <h2 className="text-2xl font-semibold text-center text-gray-800 dark:text-white mb-12">🎯 SMART Project Objectives</h2>
+          <div className="grid md:grid-cols-2 gap-10">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+              <h3 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-4">Research Objectives</h3>
+              <ul className="list-disc pl-6 space-y-4 text-gray-600 dark:text-gray-300">
+                <li><strong>Field-test</strong> the durability and scanability of NFC ear tags across diverse ranch environments.<br /><span className="text-xs text-gray-500">Timeline: Months 1–6</span></li>
+                <li><strong>Quantify labor savings and handling impact</strong> by comparing time and contact events before/after adoption.<br /><span className="text-xs text-gray-500">Timeline: Months 3–12</span></li>
+                <li><strong>Assess compatibility and usability</strong> across devices and user contexts using surveys and feedback loops.<br /><span className="text-xs text-gray-500">Timeline: Months 6–18</span></li>
+                <li><strong>Analyze cost-efficiency and replicability</strong> versus commercial RFID systems.<br /><span className="text-xs text-gray-500">Timeline: Year 2–3</span></li>
+              </ul>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+              <h3 className="text-xl font-bold text-center text-gray-700 dark:text-gray-200 mb-4">Education Objectives</h3>
+              <ul className="list-disc pl-6 space-y-4 text-gray-600 dark:text-gray-300">
+                <li><strong>Publish documentation, schematics, and code</strong> under a permissive open-source license.<br /><span className="text-xs text-gray-500">Timeline: Months 6–12</span></li>
+                <li><strong>Conduct two outreach events</strong> including a field demo and an online webinar.<br /><span className="text-xs text-gray-500">Timeline: Year 2–3</span></li>
+                <li><strong>Release tutorial content</strong> including videos, guides, and NFC templates via farm networks.<br /><span className="text-xs text-gray-500">Timeline: Year 2</span></li>
+                <li><strong>Collect and analyze feedback</strong> using surveys and interviews to inform future iterations.<br /><span className="text-xs text-gray-500">Timeline: Years 2–3</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Roadmap Phases */}
+        <section className="space-y-16">
+          {/* Phase 1 */}
           <div className="relative">
             <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary-500 rounded"></div>
             <div className="ml-8 relative">
               <div className="absolute -left-10 top-2 w-4 h-4 rounded-full bg-primary-500 border-4 border-white dark:border-gray-900"></div>
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
-                Phase 1: Flock Data Recording <span className="text-primary-500 text-sm font-normal">(Current)</span>
+                Phase 1: NFC App & Cloud Infrastructure <span className="text-primary-500 text-sm font-normal">(Current)</span>
               </h2>
-              <div className="prose dark:prose-invert">
-                <ul className="space-y-3 text-gray-600 dark:text-gray-300">
-                  <li>Upload farm records in any format</li>
-                  <li>Automatic conversion to PedigreeMaster XLS format using AI assistance</li>
-                  <li>Save and manage flock data in the PedigreeSync database</li>
-                  <li>View and browse uploaded records in a user-friendly interface</li>
-                  <li>Basic user authentication and farm profile management</li>
-                </ul>
-              </div>
+              <ul className="space-y-3 text-gray-600 dark:text-gray-300">
+                <li>React Native iOS app with NFC scanning and local record caching</li>
+                <li>Supabase backend for secure storage and multi-device syncing</li>
+                <li>Offline-first architecture with background sync</li>
+                <li>Basic user account and flock management system</li>
+              </ul>
             </div>
           </div>
 
@@ -44,17 +107,14 @@ export default function RoadmapPage() {
             <div className="ml-8 relative">
               <div className="absolute -left-10 top-2 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-700 border-4 border-white dark:border-gray-900"></div>
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
-                Phase 2: Edit and Export Records <span className="text-gray-500 text-sm font-normal">(Coming Q2 2025)</span>
+                Phase 2: Field Validation & Iteration <span className="text-gray-500 text-sm font-normal">(Fall 2025)</span>
               </h2>
-              <div className="prose dark:prose-invert">
-                <ul className="space-y-3 text-gray-600 dark:text-gray-300">
-                  <li>In-app editing of animal records and flock data</li>
-                  <li>Batch operations for multiple records</li>
-                  <li>Export data in NSIP-compatible format</li>
-                  <li>Data validation to ensure NSIP compliance</li>
-                  <li>Record submission tracking</li>
-                </ul>
-              </div>
+              <ul className="space-y-3 text-gray-600 dark:text-gray-300">
+                <li>Deploy on multiple flocks (100+ animals)</li>
+                <li>Evaluate scan reliability and tag durability in real-world use</li>
+                <li>Incorporate producer feedback into app improvements</li>
+                <li>Launch public issue tracker and changelog</li>
+              </ul>
             </div>
           </div>
 
@@ -64,72 +124,17 @@ export default function RoadmapPage() {
             <div className="ml-8 relative">
               <div className="absolute -left-10 top-2 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-700 border-4 border-white dark:border-gray-900"></div>
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
-                Phase 3: Data Analysis and Visualization <span className="text-gray-500 text-sm font-normal">(Coming Q4 2025)</span>
+                Phase 3: Outreach & Ecosystem Building <span className="text-gray-500 text-sm font-normal">(2026+)</span>
               </h2>
-              <div className="prose dark:prose-invert">
-                <ul className="space-y-3 text-gray-600 dark:text-gray-300">
-                  <li>Import analyzed data received from NSIP (Estimated Breeding Values)</li>
-                  <li>Interactive data visualizations and charts</li>
-                  <li>Breeding recommendation engine</li>
-                  <li>Performance tracking over time</li>
-                  <li>Custom report generation</li>
-                </ul>
-              </div>
+              <ul className="space-y-3 text-gray-600 dark:text-gray-300">
+                <li>Field demo days and regional webinars</li>
+                <li>Media kits with instructional content</li>
+                <li>Documentation for third-party integration</li>
+                <li>Contributor guides for open collaboration</li>
+              </ul>
             </div>
           </div>
-
-          {/* Future Vision */}
-          <div className="relative">
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gray-300 dark:bg-gray-700 rounded"></div>
-            <div className="ml-8 relative">
-              <div className="absolute -left-10 top-2 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-700 border-4 border-white dark:border-gray-900"></div>
-              <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
-                Future Vision <span className="text-gray-500 text-sm font-normal">(2026 and beyond)</span>
-              </h2>
-              <div className="prose dark:prose-invert">
-                <ul className="space-y-3 text-gray-600 dark:text-gray-300">
-                  <li>Mobile application for field data collection</li>
-                  <li>Integration with electronic ID systems and scales</li>
-                  <li>Advanced genetic analysis tools</li>
-                  <li>Flock management beyond genetic data (health records, lambing data, etc.)</li>
-                  <li>Community features for comparing data across flocks (with privacy controls)</li>
-                  <li>Direct NSIP submission integration</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Call to action */}
-        <div className="mt-16 p-6 bg-primary-50 dark:bg-primary-900/20 rounded-lg">
-          <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-3">Help Shape Our Roadmap</h3>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
-            PedigreeSync is being built for the sheep breeding community. We welcome your input on features
-            that would make the platform more valuable to your operation.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <a 
-              href="https://github.com/reedanders/PedigreeSync/issues" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 text-primary-600 border border-primary-600 rounded-md hover:bg-primary-50 dark:hover:bg-gray-700"
-            >
-              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-              </svg>
-              Submit Feature Ideas
-            </a>
-            <a 
-              href="mailto:contact@pedigreesync.com" 
-              className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              Contact Us
-            </a>
-          </div>
-        </div>
+        </section>
       </div>
     </Container>
   );

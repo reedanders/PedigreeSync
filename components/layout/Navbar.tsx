@@ -32,7 +32,6 @@ export const Navbar = () => {
   }, [pathname]);
   
   const navigation = [
-    { label: "About EBVs", href: "/about-ebvs" },
     { label: "Roadmap", href: "/roadmap" }
   ];
 
