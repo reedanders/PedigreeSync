@@ -11,10 +11,10 @@ export default function SignupPage() {
   // Form submission handler using server action
   async function handleSignup(formData: FormData) {
     setError('') // Clear previous errors
-    
+
     // Call the server action
     const result = await signup(formData)
-    
+
     // If there's an error, display it
     if (result?.error) {
       setError(result.error)
@@ -61,6 +61,28 @@ export default function SignupPage() {
                 required
                 className="px-4 py-2 bg-white dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500"
               />
+            </div>
+
+            <hr className="my-2 border-gray-200 dark:border-gray-700" />
+
+            <div className="flex flex-col gap-2">
+              <label htmlFor="invite" className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center">
+                Invite Code
+                <span className="ml-2 px-2 py-0.5 rounded bg-yellow-100 dark:bg-yellow-900/40 text-yellow-800 dark:text-yellow-200 text-xs font-semibold tracking-wide">
+                  Early Access
+                </span>
+              </label>
+              <input
+                id="invite"
+                name="invite"
+                type="text"
+                required
+                className="px-4 py-2 bg-white dark:bg-gray-700 rounded-md border border-gray-400 dark:border-yellow-600 text-gray-900 dark:text-yellow-100 focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                autoComplete="off"
+              />
+              <span className="text-xs mt-1 text-yellow-700 dark:text-yellow-300">
+                Contact the project team for your invite code to sign up.
+              </span>
             </div>
 
             <div className="flex flex-wrap gap-4 mt-6">
