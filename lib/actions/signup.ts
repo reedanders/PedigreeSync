@@ -14,7 +14,7 @@ export async function signup(formData: FormData) {
 
   // Invite code validation
   const invite = formData.get('invite') as string
-  const INVITE_CODE = process.env.NEXT_PUBLIC_INVITE_CODE
+  const INVITE_CODE = process.env.INVITE_CODE
   if (!invite || invite !== INVITE_CODE) {
     return { error: 'Invalid invite code. Please contact the project team for access.' }
   }
