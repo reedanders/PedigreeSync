@@ -10,7 +10,7 @@ import {
   AnimalsIcon, 
   RecordsIcon, 
   ImportExportIcon, 
-  AnalysisIcon,
+  AnalysisIcon, 
   SettingsIcon
 } from '@/components/ui/Icon';
 

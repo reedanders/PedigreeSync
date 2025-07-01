@@ -36,9 +36,6 @@ export async function updateSession(request: NextRequest) {
   const publicRoutes = [
     '/login',
     '/signup',
-    '/about-ebvs',
-    '/roadmap',
-    '/import',
     '/verification-required',
     '/forgot-password',
     '/reset-password',
