@@ -5,17 +5,17 @@ export const metadata = {
   description: 'Development roadmap for the open-source NFC livestock recordkeeping system supporting sustainable animal welfare.',
 };
 
-export default function RoadmapPage() {
+export const Roadmap = () => {
   return (
     <Container>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h1 className="text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
-            Empowering Producers, Advancing Animal Welfare
+            Project Roadmap & Impact
           </h1>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-            An open-source, right-to-repair application for managing livestock records using NFC-enabled ear tags and mobile phones.
+            Technical milestones, research and education objectives, to validate NFC ear tags.
           </p>
         </div>
 
@@ -49,7 +49,7 @@ export default function RoadmapPage() {
           <div className="lg:col-span-1">
             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">Why It Matters</h3>
             <p className="text-gray-700 dark:text-gray-300 mb-3">
-              Small-scale producers face real barriers: limited infrastructure, time pressure, and remote terrain. Our system reduces handling stress, saves labor, and ensures compliance—without needing expensive readers or desktop tools.
+              Small-scale producers face real barriers: limited infrastructure, time pressure, and remote terrain. We're researching a tool to reduce labor costs and improve welfare.
             </p>
           </div>
         </div>
@@ -139,4 +139,4 @@ export default function RoadmapPage() {
       </div>
     </Container>
   );
-}
+};

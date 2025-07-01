@@ -31,8 +31,9 @@ export const Navbar = () => {
     setMobileMenuOpen(false);
   }, [pathname]);
   
-  const navigation = [
-    { label: "Roadmap", href: "/roadmap" }
+  const navigation: {label: string, href: string}[] = [
+    // Links removed for now
+    // { label: "Roadmap", href: "/roadmap" }
   ];
 
   return (
