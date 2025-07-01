@@ -45,7 +45,7 @@ export function Footer() {
           <div>
             <h3 className="text-gray-700 dark:text-gray-200 font-medium mb-2">Navigation</h3>
             <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
-              {navigation?.map((item, index) => (
+              {navigation.map((item, index) => (
                 <Link
                   key={index}
                   href={item.href}
