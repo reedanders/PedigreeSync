@@ -12,10 +12,10 @@ export const Roadmap = () => {
         {/* Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h1 className="text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
-            Project Roadmap: Phases, Milestones & Impact
+            Project Roadmap & Impact
           </h1>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-            Explore the phased development plan for PedigreeSync, including technical milestones, research and education objectives, and our vision for open-source livestock management.
+            Technical milestones, research and education objectives, to validate NFC ear tags.
           </p>
         </div>
 
