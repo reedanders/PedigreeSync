@@ -1,6 +1,11 @@
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export function AnimalsTable({ animals }: { animals: any[] }) {
+  const pathname = usePathname();
+  const node = pathname.split('/')[1] || 'manage';
+  const animalsHref = `/${node}/animals`;
+
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -21,7 +26,7 @@ export function AnimalsTable({ animals }: { animals: any[] }) {
               </td>
               <td className="px-4 py-3 text-right font-medium">
                 <Link
-                  href={`/manage/animals/${animal.id}`}
+                  href={`${animalsHref}/${animal.id}`}
                   className="text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300"
                 >
                   View
