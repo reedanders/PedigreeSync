@@ -1,27 +1,22 @@
 import React from 'react';
 
-type DeleteConfirmationDialogProps = {
-  open: boolean;
-  onCancel: () => void;
-  onConfirm: () => void;
-  isDeleting: boolean;
-  cardClass: string;
-  cardBodyClass: string;
-};
-
 export function DeleteConfirmationDialog({
   open,
   onCancel,
   onConfirm,
   isDeleting,
-  cardClass,
-  cardBodyClass
-}: DeleteConfirmationDialogProps) {
+}: {
+  open: boolean;
+  onCancel: () => void;
+  onConfirm: () => void;
+  isDeleting: boolean;
+}) {
+  const cardClass = "bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700";
+  const cardBodyClass = "p-5";
   if (!open) return null;
-
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className={`${cardClass} w-full max-w-md mx-4`}>
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40">
+      <div className={cardClass}>
         <div className={cardBodyClass}>
           <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-white">
             Delete Animal

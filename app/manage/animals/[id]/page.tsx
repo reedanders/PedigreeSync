@@ -2,14 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { FormContext } from '@/lib/contexts/FormContext';
 import type { FormDataType } from '@/lib/types/form';
 import { submitFormData, loadFormData, deleteAnimal } from '@/lib/actions/animals';
 import { AnimalInputsSkeleton } from '@/components/ui/Skeleton/AnimalInputsSkeleton';
-import { AnimalHeader } from '@/components/animals/animalDetail/AnimalHeader';
-import { DeleteSection } from '@/components/animals/animalDetail/DeleteSection';
-import { DeleteConfirmationDialog } from '@/components/animals/animalDetail/DeleteConfirmationDialog';
 import { ErrorCard } from '@/components/animals/animalDetail/ErrorCard';
+import { AnimalDetailView } from '@/components/animals/animalDetail/AnimalDetailView';
 
 export default function AnimalDetailPage() {
   // Get the animal ID from the URL parameter
@@ -98,11 +95,6 @@ export default function AnimalDetailPage() {
     init();
   }, [routeAnimalId]);
 
-  const cardClass = "bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700";
-  const cardBodyClass = "p-5";
-  const buttonPrimaryClass = "px-4 py-2.5 text-white bg-primary-600 hover:bg-primary-700 rounded-md font-medium transition-colors";
-  const buttonSecondaryClass = "px-4 py-2.5 text-gray-700 bg-gray-100 hover:bg-gray-200 dark:text-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-md font-medium transition-colors";
-
   // Container with rounded background
   const containerClass = "min-h-screen flex items-start justify-center";
   const backgroundClass = "w-full max-w-7xl";
@@ -111,10 +103,7 @@ export default function AnimalDetailPage() {
     return (
       <div className={containerClass}>
         <div className={backgroundClass}>
-          <AnimalInputsSkeleton 
-            cardClass={cardClass} 
-            cardBodyClass={cardBodyClass} 
-          />
+          <AnimalInputsSkeleton />
         </div>
       </div>
     );
@@ -124,39 +113,25 @@ export default function AnimalDetailPage() {
     return (
       <div className={containerClass}>
         <div className={backgroundClass}>
-          <ErrorCard error={error} cardClass={cardClass} cardBodyClass={cardBodyClass} />
+          <ErrorCard error={error} />
         </div>
       </div>
     );
   }
 
   return (
-    <FormContext.Provider value={{ formData, setFormData, farmId, animalId }}>
-      <div className={containerClass}>
-        <div className={backgroundClass}>
-          <section className="space-y-6">
-            <AnimalHeader
-              isNewAnimal={isNewAnimal}
-              animalId={animalId}
-              isSubmitting={isSubmitting}
-              onSubmit={handleSubmit}
-              buttonPrimaryClass={buttonPrimaryClass}
-              buttonSecondaryClass={buttonSecondaryClass}
-            />
-            {!isNewAnimal && (
-              <DeleteSection onDeleteClick={handleDeleteClick} />
-            )}
-          </section>
-        </div>
-      </div>
-      <DeleteConfirmationDialog
-        open={showDeleteConfirm}
-        onCancel={handleCancelDelete}
-        onConfirm={handleConfirmDelete}
+      <AnimalDetailView
+        containerClass={containerClass}
+        backgroundClass={backgroundClass}
+        isNewAnimal={isNewAnimal}
+        animalId={animalId}
+        isSubmitting={isSubmitting}
+        handleSubmit={handleSubmit}
+        handleDeleteClick={handleDeleteClick}
+        showDeleteConfirm={showDeleteConfirm}
+        handleCancelDelete={handleCancelDelete}
+        handleConfirmDelete={handleConfirmDelete}
         isDeleting={isDeleting}
-        cardClass={cardClass}
-        cardBodyClass={cardBodyClass}
       />
-    </FormContext.Provider>
   );
 }

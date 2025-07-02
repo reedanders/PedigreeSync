@@ -1,12 +1,9 @@
 import Link from 'next/link';
 
-type ErrorCardProps = {
-  error: string;
-  cardClass: string;
-  cardBodyClass: string;
-};
-
-export function ErrorCard({ error, cardClass, cardBodyClass }: ErrorCardProps) {
+export function ErrorCard({ error }: { error: string }) {
+  const cardClass =
+    'bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700';
+  const cardBodyClass = 'p-5';
   return (
     <div className={cardClass}>
       <div className={cardBodyClass}>
@@ -14,7 +11,7 @@ export function ErrorCard({ error, cardClass, cardBodyClass }: ErrorCardProps) {
           {error}
         </div>
         <div className="mt-6">
-          <Link 
+          <Link
             href="/manage/animals"
             className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 inline-flex items-center gap-2"
           >

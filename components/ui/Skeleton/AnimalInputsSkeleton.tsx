@@ -1,9 +1,6 @@
-interface AnimalInputsSkeletonProps {
-  cardClass: string;
-  cardBodyClass: string;
-}
-
-export function AnimalInputsSkeleton({ cardClass, cardBodyClass }: AnimalInputsSkeletonProps) {
+export function AnimalInputsSkeleton() {
+  const cardClass = "bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700";
+  const cardBodyClass = "p-5";
   const skeletonClass = "skeleton bg-gray-200 dark:bg-gray-700 animate-pulse";
 
   return (
