@@ -40,6 +40,7 @@ export default function AnimalDetailPage() {
         handleCancelDelete={handleCancelDelete}
         handleConfirmDelete={handleConfirmDelete}
         isDeleting={isDeleting}
+        isDisabled={true} // Disable actions in demo mode
       />
   );
 }

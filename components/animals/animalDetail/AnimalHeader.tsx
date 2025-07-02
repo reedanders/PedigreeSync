@@ -6,13 +6,15 @@ type AnimalHeaderProps = {
   animalId: string;
   isSubmitting: boolean;
   onSubmit: () => void;
+  disabled?: boolean; 
 };
 
 export function AnimalHeader({
   isNewAnimal,
   animalId,
   isSubmitting,
-  onSubmit
+  onSubmit,
+  disabled, 
 }: AnimalHeaderProps) {
   const pathname = usePathname();
   const node = pathname.split('/')[1] || 'manage';
@@ -45,8 +47,8 @@ export function AnimalHeader({
           </Link>
           <button
             onClick={onSubmit}
-            disabled={isSubmitting}
-            className={`${buttonPrimaryClass} ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+            disabled={isSubmitting || disabled}
+            className={`${buttonPrimaryClass} ${(isSubmitting || disabled) ? 'opacity-70 cursor-not-allowed' : ''}`}
           >
             {isSubmitting 
               ? 'Saving...' 

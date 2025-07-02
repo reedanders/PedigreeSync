@@ -12,7 +12,7 @@ const DEMO_ANIMALS = [
 ];
 
 export default function AnimalsPage() {
-  const [animals, setAnimals] = useState<any[]>(DEMO_ANIMALS);
+  const [animals, _] = useState<any[]>(DEMO_ANIMALS);
 
   const renderContent = () => {
     return <AnimalsTable animals={animals} />;

@@ -2,9 +2,10 @@ import React from 'react';
 
 type DeleteSectionProps = {
   onDeleteClick: () => void;
+  disabled?: boolean; 
 };
 
-export function DeleteSection({ onDeleteClick }: DeleteSectionProps) {
+export function DeleteSection({ onDeleteClick, disabled }: DeleteSectionProps) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
       <div className="p-5 border-t border-gray-200 dark:border-gray-700">
@@ -19,7 +20,10 @@ export function DeleteSection({ onDeleteClick }: DeleteSectionProps) {
             </div>
             <button
               onClick={onDeleteClick}
-              className="mt-4 sm:mt-0 px-4 py-2.5 text-white bg-red-600 hover:bg-red-700 rounded-md font-medium transition-colors"
+              disabled={disabled}
+              className={`mt-4 sm:mt-0 px-4 py-2.5 text-white bg-red-600 hover:bg-red-700 rounded-md font-medium transition-colors${
+                disabled ? ' opacity-70 cursor-not-allowed' : ''
+              }`}
             >
               Delete Animal
             </button>
