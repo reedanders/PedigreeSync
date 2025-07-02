@@ -2,20 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import type { FormDataType } from '@/lib/types/form';
 import { submitFormData, loadFormData, deleteAnimal } from '@/lib/actions/animals';
 import { AnimalInputsSkeleton } from '@/components/ui/Skeleton/AnimalInputsSkeleton';
 import { ErrorCard } from '@/components/animals/animalDetail/ErrorCard';
 import { AnimalDetailView } from '@/components/animals/animalDetail/AnimalDetailView';
 
 export default function AnimalDetailPage() {
-  // Get the animal ID from the URL parameter
+  
   const params = useParams();
   const router = useRouter();
   const routeAnimalId = params.id as string;
   const isNewAnimal = routeAnimalId === 'new';
   
-  const [formData, setFormData] = useState<FormDataType>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -27,7 +25,7 @@ export default function AnimalDetailPage() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
-      const result = await submitFormData({ formData, animalId });
+      const result = await submitFormData({ animalId });
       
       if (result.error) {
         setError(result.error);
@@ -81,9 +79,6 @@ export default function AnimalDetailPage() {
         if (data) {
           setFarmId(data.farmId);
           setAnimalId(data.animalId);
-          setFormData(prev => ({
-            ...prev,
-          }));
         }
       } catch (error) {
         console.error('Failed to load animal:', error);

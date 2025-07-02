@@ -2,17 +2,14 @@
 
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/utils/supabase/server'
-import type { FormDataType } from '@/lib/types/form'
 import { 
   getUserFarm 
 } from './animals.helpers'
 
 // Modified to handle both creating new animals and updating existing ones
-export async function submitFormData({ 
-  formData, 
+export async function submitFormData({
   animalId 
 }: { 
-  formData: FormDataType; 
   animalId: string; 
 }) {
   try {
