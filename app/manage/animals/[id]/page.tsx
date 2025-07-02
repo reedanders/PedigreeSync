@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { FormContext } from '@/lib/contexts/FormContext';
 import type { FormDataType } from '@/lib/types/form';
 import { submitFormData, loadFormData, deleteAnimal } from '@/lib/actions/animals';
 import { AnimalInputsSkeleton } from '@/components/ui/Skeleton/AnimalInputsSkeleton';
+import { AnimalHeader } from '@/components/animals/animalDetail/AnimalHeader';
+import { DeleteSection } from '@/components/animals/animalDetail/DeleteSection';
+import { DeleteConfirmationDialog } from '@/components/animals/animalDetail/DeleteConfirmationDialog';
+import { ErrorCard } from '@/components/animals/animalDetail/ErrorCard';
 
 export default function AnimalDetailPage() {
   // Get the animal ID from the URL parameter
@@ -97,7 +100,6 @@ export default function AnimalDetailPage() {
 
   const cardClass = "bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700";
   const cardBodyClass = "p-5";
-  const titleClass = "text-lg font-medium mb-4 text-gray-800 dark:text-white";
   const buttonPrimaryClass = "px-4 py-2.5 text-white bg-primary-600 hover:bg-primary-700 rounded-md font-medium transition-colors";
   const buttonSecondaryClass = "px-4 py-2.5 text-gray-700 bg-gray-100 hover:bg-gray-200 dark:text-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-md font-medium transition-colors";
 
@@ -122,135 +124,39 @@ export default function AnimalDetailPage() {
     return (
       <div className={containerClass}>
         <div className={backgroundClass}>
-          <div className={cardClass}>
-            <div className={cardBodyClass}>
-              <div className="p-5 mb-4 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300">
-                {error}
-              </div>
-              <div className="mt-6">
-                <Link 
-                  href="/manage/animals"
-                  className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 inline-flex items-center gap-2"
-                >
-                  <span>←</span> Back to animals
-                </Link>
-              </div>
-            </div>
-          </div>
+          <ErrorCard error={error} cardClass={cardClass} cardBodyClass={cardBodyClass} />
         </div>
       </div>
     );
   }
-
-  // Delete confirmation modal
-  const DeleteConfirmationDialog = () => {
-    if (!showDeleteConfirm) return null;
-    
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className={`${cardClass} w-full max-w-md mx-4`}>
-          <div className={cardBodyClass}>
-            <h3 className="text-lg font-medium mb-2 text-gray-800 dark:text-white">
-              Delete Animal
-            </h3>
-            <p className="mb-6 text-gray-600 dark:text-gray-300">
-              Are you sure you want to delete {'this animal'}? This action cannot be undone.
-            </p>
-            <div className="flex justify-end gap-3">
-              <button
-                onClick={handleCancelDelete}
-                disabled={isDeleting}
-                className={buttonSecondaryClass}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleConfirmDelete}
-                disabled={isDeleting}
-                className="px-4 py-2.5 text-white bg-red-600 hover:bg-red-700 rounded-md font-medium transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
-              >
-                {isDeleting ? 'Deleting...' : 'Delete'}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   return (
     <FormContext.Provider value={{ formData, setFormData, farmId, animalId }}>
       <div className={containerClass}>
         <div className={backgroundClass}>
           <section className="space-y-6">
-            {/* Header with back button */}
-            <div className={cardClass}>
-              <div className={`${cardBodyClass} flex justify-between items-center`}>
-                <div>
-                  <h1 className="text-2xl font-bold mb-1 text-gray-800 dark:text-white">
-                    {isNewAnimal 
-                      ? 'Add New Animal' 
-                      : `Animal: ${animalId || 'Unknown'}`}
-                  </h1>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {isNewAnimal 
-                      ? 'Create a new animal record' 
-                      : `Edit animal details and traits`}
-                  </p>
-                </div>
-                <div className="flex gap-3">
-                  <Link
-                    href="/manage/animals"
-                    className={buttonSecondaryClass}
-                  >
-                    Back to List
-                  </Link>
-                  
-                  <button
-                    onClick={handleSubmit}
-                    disabled={isSubmitting}
-                    className={`${buttonPrimaryClass} ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
-                  >
-                    {isSubmitting 
-                      ? 'Saving...' 
-                      : isNewAnimal 
-                        ? 'Create Animal' 
-                        : 'Save Changes'}
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            {/* Only show delete section for existing animals */}
+            <AnimalHeader
+              isNewAnimal={isNewAnimal}
+              animalId={animalId}
+              isSubmitting={isSubmitting}
+              onSubmit={handleSubmit}
+              buttonPrimaryClass={buttonPrimaryClass}
+              buttonSecondaryClass={buttonSecondaryClass}
+            />
             {!isNewAnimal && (
-              <div className={cardClass}>
-                <div className={`${cardBodyClass} border-t border-gray-200 dark:border-gray-700`}>
-                  <div className="pt-2">
-                    <h2 className="text-lg font-medium text-red-600 dark:text-red-400 mb-4">Danger Zone</h2>
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
-                      <div>
-                        <p className="text-gray-700 dark:text-gray-300 mb-1">Delete this animal record</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          Once deleted, this record cannot be recovered
-                        </p>
-                      </div>
-                      <button
-                        onClick={handleDeleteClick}
-                        className="mt-4 sm:mt-0 px-4 py-2.5 text-white bg-red-600 hover:bg-red-700 rounded-md font-medium transition-colors"
-                      >
-                        Delete Animal
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <DeleteSection onDeleteClick={handleDeleteClick} />
             )}
           </section>
         </div>
       </div>
-      
-      {/* Render the delete confirmation dialog */}
-      <DeleteConfirmationDialog />
+      <DeleteConfirmationDialog
+        open={showDeleteConfirm}
+        onCancel={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        isDeleting={isDeleting}
+        cardClass={cardClass}
+        cardBodyClass={cardBodyClass}
+      />
     </FormContext.Provider>
   );
 }
