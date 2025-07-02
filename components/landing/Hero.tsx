@@ -16,7 +16,7 @@ export const Hero = () => {
 
           <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
             <a
-              href="/app"
+              href="/demo"
               className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-lg font-medium text-center text-white bg-primary-600 rounded-md hover:bg-primary-700 transition-all">
               Launch Demo
             </a>
