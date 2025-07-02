@@ -11,7 +11,7 @@ const DEMO_ANIMALS = [
   { id: "840003555555555" },
 ];
 
-export default function AnimalsPage() {
+export default function AnimalsPage({ isDisabled = true }: { isDisabled?: boolean } = {}) {
   const [animals, _] = useState<any[]>(DEMO_ANIMALS);
 
   const renderContent = () => {
@@ -20,7 +20,7 @@ export default function AnimalsPage() {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-full">
-      <PageHeader />
+      <PageHeader isDisabled={isDisabled} />
       {renderContent()}
     </div>
   );
