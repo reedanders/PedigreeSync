@@ -11,7 +11,7 @@ const DEMO_ANIMALS = [
   { id: "840003555555555" },
 ];
 
-export default function AnimalsPage({ isDisabled = true }: { isDisabled?: boolean } = {}) {
+export default function AnimalsPage({ isDisabled = true }: { isDisabled?: any } = {}) {
   const [animals, _] = useState<any[]>(DEMO_ANIMALS);
 
   const renderContent = () => {
