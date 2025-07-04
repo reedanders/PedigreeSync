@@ -5,7 +5,7 @@ import { AnimalsTable } from "@/components/animals/animalsList/AnimalsTable";
 import { PageHeader } from "@/components/animals/animalsList/PageHeader";
 import { bcsMeasurements } from "@/components/demo/data/BodyConditionData";
 
-// Dynamically extract unique animal IDs from demo BCS data (excluding "Target Range")
+// Extract unique animal IDs (excluding "Target Range")
 const DEMO_ANIMALS = Array.from(
   new Set(
     bcsMeasurements
@@ -14,17 +14,22 @@ const DEMO_ANIMALS = Array.from(
   )
 ).map((id) => ({ id }));
 
-export default function AnimalsPage() {
-  const [animals, _] = useState<any[]>(DEMO_ANIMALS);
+// Extract unique dates from the BCS data (excluding "Target Range")
+const DATES = Array.from(
+  new Set(
+    bcsMeasurements
+      .filter((m) => m.seriesName !== "Target Range")
+      .map((m) => m.date)
+  )
+).sort();
 
-  const renderContent = () => {
-    return <AnimalsTable animals={animals} />;
-  };
+export default function AnimalsPage() {
+  const [animals] = useState<any[]>(DEMO_ANIMALS);
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-full">
       <PageHeader isDisabled={true} />
-      {renderContent()}
+      <AnimalsTable animals={animals} bcsMeasurements={bcsMeasurements} dates={DATES} />
     </div>
   );
 }
