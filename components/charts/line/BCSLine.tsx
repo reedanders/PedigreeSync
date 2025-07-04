@@ -82,8 +82,8 @@ export default function BCSLineChart({ seriesData = defaultSeries }: { seriesDat
     },
     yAxis: {
       type: "value",
-      min: 1.5,
-      max: 4.5,
+      min: 0,
+      max: 5,
       name: "Condition Score",
       nameLocation: "middle",
       nameGap: 40,

@@ -9,12 +9,12 @@ type BCSMeasurement = {
 
 export function AnimalsTable({
   animals,
-  bcsMeasurements,
-  dates,
+  bcsMeasurements = [],
+  dates = [],
 }: {
   animals: any[];
-  bcsMeasurements: BCSMeasurement[];
-  dates: string[];
+  bcsMeasurements?: BCSMeasurement[];
+  dates?: string[];
 }) {
   const pathname = usePathname();
   const node = pathname.split('/')[1] || 'manage';
