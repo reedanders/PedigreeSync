@@ -2,57 +2,12 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 import { usePathname } from "next/navigation";
-
-
-type SeriesInput = { name: string; data: number[] };
-
-type BCSMeasurement = {
-  seriesName: string;
-  date: string;
-  value: number;
-};
-
-const bcsMeasurements: BCSMeasurement[] = [
-  // Target Range
-  { seriesName: "Target Range", date: "2024-06-01", value: 2.25 },
-  { seriesName: "Target Range", date: "2024-10-02", value: 3.25 },
-  { seriesName: "Target Range", date: "2024-11-18", value: 2.5 },
-  { seriesName: "Target Range", date: "2025-02-28", value: 3 },
-  { seriesName: "Target Range", date: "2025-06-02", value: 2.25 },
-  { seriesName: "Target Range", date: "2025-10-06", value: 3.25 },
-  // Sheep A
-  { seriesName: "Sheep A", date: "2024-06-01", value: 2.4 },
-  { seriesName: "Sheep A", date: "2024-10-02", value: 3.6 },
-  { seriesName: "Sheep A", date: "2024-11-18", value: 3.1 },
-  { seriesName: "Sheep A", date: "2025-02-28", value: 4.1 },
-  { seriesName: "Sheep A", date: "2025-06-02", value: 2.4 },
-  // Sheep B
-  { seriesName: "Sheep B", date: "2024-06-01", value: 3.1 },
-  { seriesName: "Sheep B", date: "2024-10-02", value: 3.9 },
-  { seriesName: "Sheep B", date: "2024-11-18", value: 2.4 },
-  { seriesName: "Sheep B", date: "2025-02-28", value: 3.6 },
-  { seriesName: "Sheep B", date: "2025-06-02", value: 2.4 },
-];
-
-// Derive xDates from bcsMeasurements
-const xDates = Array.from(
-  new Set(bcsMeasurements.map(m => m.date))
-).sort();
-
-// Helper to convert long table to chart series
-function toSeriesInput(
-  measurements: BCSMeasurement[],
-  xDates: string[]
-): SeriesInput[] {
-  const seriesNames = Array.from(new Set(measurements.map(m => m.seriesName)));
-  return seriesNames.map(name => {
-    const data = xDates.map(date => {
-      const found = measurements.find(m => m.seriesName === name && m.date === date);
-      return found ? found.value : NaN;
-    });
-    return { name, data };
-  });
-}
+import {
+  bcsMeasurements,
+  xDates,
+  toSeriesInput,
+  SeriesInput,
+} from "../../demo/data/BodyConditionHelpers";
 
 const defaultSeries: SeriesInput[] = toSeriesInput(bcsMeasurements, xDates);
 
