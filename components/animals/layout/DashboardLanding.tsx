@@ -6,7 +6,7 @@ type DashboardLandingProps = {
 
 export function DashboardLanding({ farmName }: DashboardLandingProps) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-full">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-full mb-4">
       <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Dashboard</h1>
       <p className="text-gray-600 dark:text-gray-300">Welcome to your dashboard overview.</p>
       
