@@ -15,6 +15,16 @@ const xDates = [
 
 export default function BCSLineChart() {
   const option = {
+    tooltip: {
+      show: true,
+      formatter: function (params: any) {
+        // params is an array of series at the hovered point
+        if (Array.isArray(params)) {
+          return params.map((p: any) => p.seriesName).join('<br/>');
+        }
+        return params.seriesName;
+      },
+    },
     xAxis: {
       type: "category",
       data: xDates,
@@ -83,7 +93,7 @@ export default function BCSLineChart() {
         type: "line",
         smooth: 0.3,
         tooltip: {
-          show: false,
+          show: true,
         },
       },
       {
@@ -98,7 +108,7 @@ export default function BCSLineChart() {
         type: "line",
         smooth: 0.3,
         tooltip: {
-          show: false,
+          show: true,
         },
       },
       // ...add more series as needed
