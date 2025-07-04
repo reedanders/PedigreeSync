@@ -76,7 +76,13 @@ export default function BCSLineChart() {
         ],
         type: "line",
         lineStyle: { opacity: 0 },
-        symbol: "none",
+        symbol: (value: any, params: any) => {
+          return params.dataIndex === 5 ? "circle" : "none";
+        },
+        symbolSize: 7,
+        itemStyle: {
+          color: (params: { dataIndex: number; }) => params.dataIndex === 5 ? "#6B7280" : "rgba(0,0,0,0)", 
+        },
         areaStyle: {
           color: "rgba(0, 0, 0, 0.1)",
         },
