@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import ReactECharts from "echarts-for-react";
+import { usePathname } from "next/navigation";
 
 // Dates for x-axis
 // June 1, 2024; October 2, 2024; November 18, 2024; Feb 28, 2025; June 2, 2025; October 6, 2025
@@ -14,6 +15,9 @@ const xDates = [
 ];
 
 export default function BCSLineChart() {
+  const pathname = usePathname();
+  const node = pathname.split('/')[1] || 'manage';
+
   const option = {
     tooltip: {
       show: true,
@@ -115,6 +119,21 @@ export default function BCSLineChart() {
     ]
   };
 
+  // Navigate to /demo/animals/[seriesName] on data point click, but only for actual sheep series
+  const onEvents = {
+    click: (params: any) => {
+      if (
+        params &&
+        params.seriesName &&
+        params.seriesName !== "Target Range"
+      ) {
+        if (typeof window !== "undefined") {
+          window.open(`/${node}/animals/${encodeURIComponent(params.seriesName)}`, "_blank");
+        }
+      }
+    },
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 w-full mb-4">
       <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">
@@ -125,6 +144,7 @@ export default function BCSLineChart() {
         style={{ height: 400, width: "100%" }}
         notMerge={true}
         lazyUpdate={true}
+        onEvents={onEvents}
       />
     </div>
   );
