@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { AnimalDetailView } from '@/components/animals/animalDetail/AnimalDetailView';
 import { bcsMeasurements } from '@/components/demo/data/BodyConditionData';
 
 export default function AnimalDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const routeAnimalId = params.id as string;
   const isNewAnimal = routeAnimalId === 'new';
 
@@ -24,6 +25,13 @@ export default function AnimalDetailPage() {
   const filteredBCS = bcsMeasurements.filter(
     m => m.seriesName === routeAnimalId
   );
+
+  // Redirect if no BCS data for this animal and not a new animal
+  useEffect(() => {
+    if (!isNewAnimal && filteredBCS.length === 0) {
+      router.replace('/demo/animals');
+    }
+  }, [isNewAnimal, filteredBCS.length, router]);
 
   // Container with rounded background
   const containerClass = "min-h-screen flex items-start justify-center";
