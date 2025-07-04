@@ -14,15 +14,51 @@ const xDates = [
   "2025-10-06",
 ];
 
-export default function BCSLineChart() {
+type SeriesInput = { name: string; data: number[] };
+
+const defaultSeries: SeriesInput[] = [
+  { name: "Target Range", data: [2.25, 3.25, 2.5, 3, 2.25, 3.25] },
+  { name: "Sheep A", data: [2.4, 3.6, 3.1, 4.1, 2.4] },
+  { name: "Sheep B", data: [3.1, 3.9, 2.4, 3.6, 2.4] },
+];
+
+export default function BCSLineChart({ seriesData = defaultSeries }: { seriesData?: SeriesInput[] } = {}) {
   const pathname = usePathname();
   const node = pathname.split('/')[1] || 'manage';
+
+  const series = seriesData.map((s, idx) => {
+    if (s.name === "Target Range") {
+      return {
+        name: s.name,
+        data: s.data,
+        type: "line",
+        lineStyle: { opacity: 0 },
+        symbol: (value: any, params: any) => (params.dataIndex === s.data.length - 1 ? "circle" : "none"),
+        symbolSize: 7,
+        itemStyle: {
+          color: (params: { dataIndex: number }) =>
+            params.dataIndex === s.data.length - 1 ? "#6B7280" : "rgba(0,0,0,0)",
+        },
+        areaStyle: {
+          color: "rgba(0, 0, 0, 0.1)",
+        },
+        smooth: 0.5,
+        tooltip: { show: true },
+      };
+    }
+    return {
+      name: s.name,
+      data: s.data,
+      type: "line",
+      smooth: 0.3,
+      tooltip: { show: true },
+    };
+  });
 
   const option = {
     tooltip: {
       show: true,
       formatter: function (params: any) {
-        // params is an array of series at the hovered point
         if (Array.isArray(params)) {
           return params.map((p: any) => p.seriesName).join('<br/>');
         }
@@ -63,66 +99,7 @@ export default function BCSLineChart() {
       nameLocation: "middle",
       nameGap: 40,
     },
-    series: [
-      {
-        name: "Target Range",
-        data: [
-          2.25, // Weaning 2024-06-01
-          3.25, // Breeding 2024-10-02
-          2.5,  // Midgestation 2024-11-18
-          3,    // Lambing 2025-02-28
-          2.25, // Weaning 2025-06-02
-          3.25, // Breeding 2025-10-06
-        ],
-        type: "line",
-        lineStyle: { opacity: 0 },
-        symbol: (value: any, params: any) => {
-          return params.dataIndex === 5 ? "circle" : "none";
-        },
-        symbolSize: 7,
-        itemStyle: {
-          color: (params: { dataIndex: number; }) => params.dataIndex === 5 ? "#6B7280" : "rgba(0,0,0,0)", 
-        },
-        areaStyle: {
-          color: "rgba(0, 0, 0, 0.1)",
-        },
-        smooth: 0.5,
-        tooltip: {
-          show: true,
-        },
-      },
-      {
-        name: "Sheep A",
-        data: [
-          2.4,
-          3.6,
-          3.1,
-          4.1,
-          2.4,
-        ],
-        type: "line",
-        smooth: 0.3,
-        tooltip: {
-          show: true,
-        },
-      },
-      {
-        name: "Sheep B",
-        data: [
-          3.1,
-          3.9,
-          2.4,
-          3.6,
-          2.4,
-        ],
-        type: "line",
-        smooth: 0.3,
-        tooltip: {
-          show: true,
-        },
-      },
-      // ...add more series as needed
-    ]
+    series,
   };
 
   // Navigate to /demo/animals/[seriesName] on data point click, but only for actual sheep series
