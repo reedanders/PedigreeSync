@@ -1,116 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { getAnimalsByFarm } from '@/lib/actions/animals';
 import TableSkeleton from '@/components/ui/Skeleton/TableSkeleton';
+import { EmptyState } from '@/components/animals/animalsList/EmptyState';
+import { ErrorDisplay } from '@/components/animals/animalsList/ErrorDisplay';
+import { AnimalsTable } from '@/components/animals/animalsList/AnimalsTable';
+import { PageHeader } from '@/components/animals/animalsList/PageHeader';
 
-// Add typescript pass-through for the response
-interface AnimalResponse {
-  data?: any[];
-  error?: string;
-}
-
-// Helper components for cleaner main component
-const EmptyState = () => (
-  <div className="mt-6 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-    <div className="text-center py-8">
-      <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        className="h-12 w-12 mx-auto text-gray-400 dark:text-gray-600 mb-4" 
-        fill="none" 
-        viewBox="0 0 24 24" 
-        stroke="currentColor"
-      >
-        <path 
-          strokeLinecap="round" 
-          strokeLinejoin="round" 
-          strokeWidth={2} 
-          d="M12 6v6m0 0v6m0-6h6m-6 0H6" 
-        />
-      </svg>
-      <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">No animals yet</h3>
-      <p className="mt-2 text-gray-500 dark:text-gray-400">
-        Get started by adding animals to your flock
-      </p>
-      <Link 
-        href="/manage/animals/new"
-        className="mt-4 inline-block px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-md text-sm font-medium transition-colors"
-      >
-        Add Animal
-      </Link>
-    </div>
-  </div>
-);
-
-const ErrorDisplay = ({ message }: { message: string }) => (
-  <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300">
-    {message}
-  </div>
-);
-
-// Animal table component
-const AnimalsTable = ({ animals }: { animals: any[] }) => {
-  return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-        <thead className="bg-gray-50 dark:bg-gray-700">
-          <tr>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">ID</th>
-            <th className="px-4 py-3 text-right text-xs font-medium text-gray-600 dark:text-gray-300 uppercase tracking-wider">Actions</th>
-          </tr>
-        </thead>
-        <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-          {animals.map(animal => (
-            <tr 
-              key={animal.id} 
-              className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-            >
-              <td className="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">
-                {animal.id || 'Unknown'}
-              </td>
-              <td className="px-4 py-3 text-right font-medium">
-                <Link
-                  href={`/manage/animals/${animal.id}`}
-                  className="text-primary-600 hover:text-primary-900 dark:text-primary-400 dark:hover:text-primary-300"
-                >
-                  View
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
-
-// Page header component
-const PageHeader = () => (
-  <div className="flex justify-between items-center mb-6">
-    <div>
-      <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Animals</h1>
-      <p className="text-gray-600 dark:text-gray-300">Manage your flock and animal records.</p>
-    </div>
-    <Link 
-      href="/manage/animals/new"
-      className="px-4 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-md font-medium transition-colors flex items-center"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-      </svg>
-      Add New Animal
-    </Link>
-  </div>
-);
-
-// Main page component
 export default function AnimalsPage() {
   const [animals, setAnimals] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
-  // Table columns definition for the skeleton loader
+
   const tableColumns = [
     { header: 'ID', width: 'w-20' },
     { header: 'Sire', width: 'w-16' },
@@ -120,13 +22,12 @@ export default function AnimalsPage() {
     { header: 'Status', width: 'w-16' },
     { header: 'Actions', width: 'w-10', align: 'right' as const }
   ];
-  
+
   useEffect(() => {
     async function loadAnimals() {
       try {
         setIsLoading(true);
-        const result: AnimalResponse | null = await getAnimalsByFarm();
-        
+        const result = await getAnimalsByFarm();
         if (result.error) {
           setError(result.error);
         } else {
@@ -139,11 +40,9 @@ export default function AnimalsPage() {
         setIsLoading(false);
       }
     }
-    
     loadAnimals();
   }, []);
 
-  // Render content based on state
   const renderContent = () => {
     if (isLoading) return <TableSkeleton columns={tableColumns} rowCount={5} />;
     if (error) return <ErrorDisplay message={error} />;
