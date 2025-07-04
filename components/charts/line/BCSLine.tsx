@@ -2,31 +2,39 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 
+// Dates for x-axis
+// June 1, 2024; October 2, 2024; November 18, 2024; Feb 28, 2025; June 2, 2025; October 6, 2025
+const xDates = [
+  "2024-06-01",
+  "2024-10-02",
+  "2024-11-18",
+  "2025-02-28",
+  "2025-06-02",
+  "2025-10-06",
+];
+
 export default function BCSLineChart() {
   const option = {
     xAxis: {
-      type: "value",
-      min: 0,
-      max: 40,
-      interval: 5,
-      name: "Ewe Reproduction Cycle",
-      nameLocation: "middle",
-      nameGap: 30,
+      type: "category",
+      data: xDates,
       axisLabel: {
-        formatter: function (value: number) {
+        formatter: function (value: string) {
           switch (value) {
-            case 0:
-              return "Weaning";
-            case 5:
-              return "Breeding";
-            case 15:
-              return "Mid-Gestation";
-            case 25:
-              return "Lambing";
-            case 40:
-              return "Weaning";
+            case "2024-06-01":
+              return "Weaning\nJun 1, 2024";
+            case "2024-10-02":
+              return "Breeding\nOct 2, 2024";
+            case "2024-11-18":
+              return "Mid-Gestation\nNov 18, 2024";
+            case "2025-02-28":
+              return "Lambing\nFeb 28, 2025";
+            case "2025-06-02":
+              return "Weaning\nJun 2, 2025";
+            case "2025-10-06":
+              return "Breeding\nOct 6, 2025";
             default:
-              return "";
+              return value;
           }
         },
       },
@@ -44,11 +52,12 @@ export default function BCSLineChart() {
       {
         name: "Target Range",
         data: [
-          [0, 2.25],
-          [5, 3.25],
-          [15, 2.5],
-          [25, 3],
-          [40, 2.25],
+          2.25, // Weaning 2024-06-01
+          3.25, // Breeding 2024-10-02
+          2.5,  // Midgestation 2024-11-18
+          3,    // Lambing 2025-02-28
+          2.25, // Weaning 2025-06-02
+          3.25, // Breeding 2025-10-06
         ],
         type: "line",
         lineStyle: { opacity: 0 },
@@ -56,7 +65,7 @@ export default function BCSLineChart() {
         areaStyle: {
           color: "rgba(0, 0, 0, 0.1)",
         },
-        smooth: true,
+        smooth: 0.5,
         tooltip: {
           show: true,
         },
@@ -64,14 +73,14 @@ export default function BCSLineChart() {
       {
         name: "Flock A",
         data: [
-          [0, 2.4],
-          [5, 3.6],
-          [15, 3.1],
-          [25, 4.1],
-          [40, 2.4],
+          2.4,
+          3.6,
+          3.1,
+          4.1,
+          2.4,
         ],
         type: "line",
-        smooth: true,
+        smooth: 0.3,
         tooltip: {
           show: false,
         },
@@ -79,14 +88,14 @@ export default function BCSLineChart() {
       {
         name: "Flock B",
         data: [
-          [0, 3.1],
-          [5, 3.9],
-          [15, 2.4],
-          [25, 3.6],
-          [40, 2.4],
+          3.1,
+          3.9,
+          2.4,
+          3.6,
+          2.4,
         ],
         type: "line",
-        smooth: true,
+        smooth: 0.3,
         tooltip: {
           show: false,
         },
@@ -94,33 +103,20 @@ export default function BCSLineChart() {
       // ...add more series as needed
     ],
     tooltip: {
-      trigger: "axis",
+      trigger: "item",
       show: true,
-      axisPointer: {
-        type: "line",
-      },
-      valueFormatter: (value: number) => value.toFixed(2),
       showContent: true,
       formatter: function (params: any) {
-        // Only show series name and value, not x axis value
-        return params
-          .filter((p: any) => p.seriesName)
-          .map(
-            (p: any) =>
-              `<span style="color:grey;">${p.seriesName}</span>: ${p.data[1].toFixed(2)}`
-          )
-          .join("<br/>");
+        // Always show the series name and value for the hovered dot
+        return `<span style="color:grey;">${params.seriesName}</span>`;
       },
-    },
-    legend: {
-      show: false,
-    },
+    }
   };
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 w-full mb-4">
       <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">
-        Flock Body Condition Score (BCS) 
+        Flock Body Condition Score (BCS)
       </h2>
       <ReactECharts
         option={option}
