@@ -18,6 +18,7 @@ export default function BCSLineChart() {
     xAxis: {
       type: "category",
       data: xDates,
+      boundaryGap: false,
       axisLabel: {
         formatter: function (value: string) {
           switch (value) {
@@ -71,7 +72,7 @@ export default function BCSLineChart() {
         },
       },
       {
-        name: "Flock A",
+        name: "Sheep A",
         data: [
           2.4,
           3.6,
@@ -86,7 +87,7 @@ export default function BCSLineChart() {
         },
       },
       {
-        name: "Flock B",
+        name: "Sheep B",
         data: [
           3.1,
           3.9,
@@ -101,16 +102,7 @@ export default function BCSLineChart() {
         },
       },
       // ...add more series as needed
-    ],
-    tooltip: {
-      trigger: "item",
-      show: true,
-      showContent: true,
-      formatter: function (params: any) {
-        // Always show the series name and value for the hovered dot
-        return `<span style="color:grey;">${params.seriesName}</span>`;
-      },
-    }
+    ]
   };
 
   return (
