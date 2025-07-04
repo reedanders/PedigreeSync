@@ -3,13 +3,16 @@
 import { useState } from "react";
 import { AnimalsTable } from "@/components/animals/animalsList/AnimalsTable";
 import { PageHeader } from "@/components/animals/animalsList/PageHeader";
+import { bcsMeasurements } from "@/components/demo/data/BodyConditionData";
 
-// Only include fields used by AnimalsTable (id)
-const DEMO_ANIMALS = [
-  { id: "840003123456789" },
-  { id: "840003987654321" },
-  { id: "840003555555555" },
-];
+// Dynamically extract unique animal IDs from demo BCS data (excluding "Target Range")
+const DEMO_ANIMALS = Array.from(
+  new Set(
+    bcsMeasurements
+      .filter((m) => m.seriesName !== "Target Range")
+      .map((m) => m.seriesName)
+  )
+).map((id) => ({ id }));
 
 export default function AnimalsPage() {
   const [animals, _] = useState<any[]>(DEMO_ANIMALS);
