@@ -2,9 +2,6 @@
 
 
 export default function ImportExportPage() {
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-  }
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-full">
