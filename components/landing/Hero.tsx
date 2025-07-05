@@ -25,7 +25,7 @@ export const Hero = () => {
             <a
               href="https://github.com/reedanders/pedigreesync"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-primary-600 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 transition-colors"
               tabIndex={0}
             >
