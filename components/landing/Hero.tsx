@@ -7,7 +7,7 @@ export const Hero = () => {
     <Container className="flex flex-wrap px-0 sm:px-4 md:px-6 py-16">
       <div className="flex items-center w-full lg:w-1/2 p-2 sm:p-4 lg:p-6">
         <div className="w-full mb-6 space-y-6">
-          <h1 className="text-5xl font-bold leading-tight tracking-tight text-gray-900 lg:text-6xl xl:text-7xl dark:text-white">
+          <h1 className="text-4xl sm:text-5xl font-bold leading-tight tracking-tight text-gray-900 lg:text-6xl xl:text-7xl dark:text-white">
             Scan Ear Tags with Just Your iPhone
           </h1>
           <p className="text-xl leading-relaxed text-gray-600 lg:text-2xl dark:text-gray-300">

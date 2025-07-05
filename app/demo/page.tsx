@@ -16,7 +16,7 @@ export default function DashboardLandingPage() {
   return (
     <div className="space-y-6">
       <DashboardLanding farmName={farm?.name} />
-      <div className="flex flex-row gap-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
         <BCSMetricsCard
           title="Critically Low Condition"
           subtitle="Ewes unlikely to regain body condition before breeding"

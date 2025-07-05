@@ -7,7 +7,7 @@ export function PageHeader({ isDisabled = false }: { isDisabled?: boolean }) {
   const addHref = `/${node}/animals/new`;
 
   return (
-    <div className="flex justify-between items-center mb-6">
+    <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center mb-6">
       <div>
         <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Animals</h1>
         <p className="text-gray-600 dark:text-gray-300">Manage your flock body condition records.</p>
