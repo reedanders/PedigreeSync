@@ -25,7 +25,7 @@ export function AnimalHeader({
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-      <div className="p-5 flex justify-between items-center">
+      <div className="p-5 flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
         <div>
           <h1 className="text-2xl font-bold mb-1 text-gray-800 dark:text-white">
             {isNewAnimal 
@@ -38,7 +38,7 @@ export function AnimalHeader({
               : `Edit animal details and traits`}
           </p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-col sm:flex-row">
           <Link
             href={animalsHref}
             className={buttonSecondaryClass}
