@@ -32,8 +32,9 @@ export const Navbar = () => {
   }, [pathname]);
   
   const navigation: {label: string, href: string}[] = [
-    // Links removed for now
-    // { label: "Roadmap", href: "/roadmap" }
+    { label: "Try Demo", href: "/demo" },
+    { label: "Partners", href: "/#partners" },
+    { label: "Roadmap", href: "/#roadmap" }
   ];
 
   return (

@@ -7,8 +7,12 @@ export default function Home() {
   return (
     <Container className="py-0 md:py-4">
       <Hero />
-      <HeroBlurb />
-      <Roadmap />
+      <div id="partners">
+        <HeroBlurb />
+      </div>
+      <div id="roadmap">
+        <Roadmap />
+      </div>
     </Container>
   );
 }
