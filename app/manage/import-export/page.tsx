@@ -1,6 +1,6 @@
 "use client";
 
-import { UploadRecordsForm } from "@/components/animals/import/UploadRecordsForm";
+import { UploadRecordsForm } from "@/components/animals/importForm/UploadRecordsForm";
 
 export default function ImportExportPage() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
