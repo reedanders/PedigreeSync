@@ -1,6 +1,8 @@
 import { AnimalHeader } from './AnimalHeader';
+import { AnimalBCSCard } from './AnimalBCSCard';
 import { DeleteSection } from './DeleteSection';
 import { DeleteConfirmationDialog } from './DeleteConfirmationDialog';
+import type { BCSMeasurement } from '@/components/demo/data/BodyConditionData';
 
 type AnimalDetailViewProps = {
   containerClass: string;
@@ -14,7 +16,8 @@ type AnimalDetailViewProps = {
   handleCancelDelete: () => void;
   handleConfirmDelete: () => void;
   isDeleting: boolean;
-  isDisabled?: boolean; // optional prop for demo
+  isDisabled?: boolean;
+  bcsMeasurements?: BCSMeasurement[];
 };
 
 export function AnimalDetailView({
@@ -29,7 +32,8 @@ export function AnimalDetailView({
   handleCancelDelete,
   handleConfirmDelete,
   isDeleting,
-  isDisabled = false, // default to false
+  isDisabled = false,
+  bcsMeasurements,
 }: AnimalDetailViewProps) {
   return (
     <div className={containerClass}>
@@ -42,6 +46,13 @@ export function AnimalDetailView({
             onSubmit={handleSubmit}
             disabled={isDisabled}
           />
+          {bcsMeasurements && (
+            <AnimalBCSCard
+              isNewAnimal={isNewAnimal}
+              animalId={animalId}
+              bcsMeasurements={bcsMeasurements}
+            />
+          )}
           {!isNewAnimal && (
             <DeleteSection
               onDeleteClick={handleDeleteClick}

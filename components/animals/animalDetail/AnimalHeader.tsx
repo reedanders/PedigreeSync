@@ -6,7 +6,7 @@ type AnimalHeaderProps = {
   animalId: string;
   isSubmitting: boolean;
   onSubmit: () => void;
-  disabled?: boolean; 
+  disabled?: boolean;
 };
 
 export function AnimalHeader({
@@ -14,7 +14,7 @@ export function AnimalHeader({
   animalId,
   isSubmitting,
   onSubmit,
-  disabled, 
+  disabled,
 }: AnimalHeaderProps) {
   const pathname = usePathname();
   const node = pathname.split('/')[1] || 'manage';

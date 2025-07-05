@@ -64,29 +64,6 @@ export function Footer() {
               </a>
             </div>
           </div>
-          <div>
-            <h3 className="text-gray-700 dark:text-gray-200 font-medium mb-2">Legal</h3>
-            <div className="flex flex-wrap w-full -mt-2 -ml-3 lg:ml-0">
-              {legal.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href}
-                  className="w-full px-4 py-2 text-gray-500 rounded-md dark:text-gray-300 hover:text-primary-500 focus:text-primary-500 focus:bg-primary-50 focus:outline-none dark:focus:bg-trueGray-700"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-          <div className="">
-            <h3 className="text-gray-700 dark:text-gray-200 font-medium mb-2">Connect</h3>
-            <div className="flex mt-5 space-x-5 text-gray-400 dark:text-gray-500">
-              <a href={githubLink} rel="noopener noreferrer" target="_blank">
-                <span className="sr-only">GitHub</span>
-                <GitHub />
-              </a>
-            </div>
-          </div>
         </div>
 
         <div className="my-10 text-sm text-center text-gray-600 dark:text-gray-400">
