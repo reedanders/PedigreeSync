@@ -17,14 +17,18 @@ export const Hero = () => {
           <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
             <a
               href="/demo"
-              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-lg font-medium text-center text-white bg-primary-600 rounded-md hover:bg-primary-700 transition-all">
+              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-lg font-medium text-center text-white bg-primary-600 rounded-md hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-800 transition-all outline-none shadow-md"
+              tabIndex={0}
+            >
               Launch Demo
             </a>
             <a
               href="https://github.com/reedanders/pedigreesync"
               target="_blank"
-              rel="noopener"
-              className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-primary-600 transition-colors">
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-primary-600 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 transition-colors"
+              tabIndex={0}
+            >
               View Source on GitHub
               <svg
                 className="w-5 h-5"

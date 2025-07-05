@@ -16,28 +16,32 @@ export const viewport = {
   };
 
 export const metadata = {
-  title: 'PedigreeSync - Sheep Pedigree Management',
-  description: 'Unofficial web implementation of PedigreeMaster (NSIP) for efficient sheep pedigree data management and breeding decisions.',
-  keywords: ['sheep', 'pedigree', 'NSIP', 'breeding', 'livestock', 'agriculture', 'PedigreeMaster'],
-  authors: [{ name: 'PedigreeSync Team' }],
+  title: "PedigreeSync – Open-Source NFC Livestock Recordkeeping",
+  description:
+    "Scan livestock ear tags with your iPhone. PedigreeSync is a farmer-led, open-source tool for accessible, affordable, and resilient animal welfare recordkeeping.",
   openGraph: {
-    title: 'PedigreeSync - Sheep Pedigree Management',
-    description: 'Unofficial modern web implementation of PedigreeMaster (NSIP) for efficient sheep pedigree data management and breeding decisions.',
-    type: 'website',
-    locale: 'en_US',
-    siteName: 'PedigreeSync'
+    title: "PedigreeSync – Open-Source NFC Livestock Recordkeeping",
+    description:
+      "Scan livestock ear tags with your iPhone. PedigreeSync is a farmer-led, open-source tool for accessible, affordable, and resilient animal welfare recordkeeping.",
+    url: "https://pedigreesync.com",
+    images: [
+      {
+        url: "/images/sheep_ear_tag_tiny.png",
+        width: 1200,
+        height: 630,
+        alt: "Sheep in a pasture with NFC tag",
+      },
+    ],
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'PedigreeSync',
-    description: 'Sheep pedigree management platform',
+    card: "summary_large_image",
+    title: "PedigreeSync – Open-Source NFC Livestock Recordkeeping",
+    description:
+      "Scan livestock ear tags with your iPhone. PedigreeSync is a farmer-led, open-source tool for accessible, affordable, and resilient animal welfare recordkeeping.",
+    images: ["/images/sheep_ear_tag_tiny.png"],
   },
-  other: {
-    'application-name': 'PedigreeSync',
-    'robots': 'index, follow',
-  }
 };
-
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }: { children: ReactNode }) {
