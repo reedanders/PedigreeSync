@@ -49,7 +49,7 @@ export const Roadmap = () => {
           <div className="lg:col-span-1">
             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">Why It Matters</h3>
             <p className="text-gray-700 dark:text-gray-300 mb-3">
-              Small-scale producers face real barriers: limited infrastructure, time pressure, and remote terrain. We're researching a tool to reduce labor costs and improve welfare.
+              Small-scale producers face real barriers: limited infrastructure, time pressure, and fragmented worksites. We're researching a tool to reduce labor costs and improve welfare.
             </p>
           </div>
         </div>
