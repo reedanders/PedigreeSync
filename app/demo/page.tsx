@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { DashboardLanding } from '@/components/animals/layout/DashboardLanding';
 import BCSLineChart from '@/components/charts/line/BCSLine';
 import BCSMetricsCard from '@/components/charts/metrics/BCSMetricsCard';
+import BCSHeatmap from '@/components/charts/metrics/BCSHeatmap';
 import { bcsMeasurements, xDates, toSeriesInput } from '@/components/demo/data/BodyConditionHelpers';
 
 export default function DashboardLandingPage() {
@@ -30,6 +31,7 @@ export default function DashboardLandingPage() {
         />
       </div>
       <BCSLineChart seriesData={seriesData} />
+      <BCSHeatmap seriesData={seriesData} />
     </div>
   );
 }

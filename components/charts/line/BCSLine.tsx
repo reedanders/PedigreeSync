@@ -106,7 +106,7 @@ export default function BCSLineChart({ seriesData }: { seriesData: SeriesInput[]
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 w-full mb-4">
       <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">
-        Flock Body Condition Score (BCS)
+        Flock Body Condition  
       </h2>
       <ReactECharts
         option={option}
