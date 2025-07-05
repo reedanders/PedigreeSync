@@ -2,16 +2,13 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 import { usePathname } from "next/navigation";
+//TODO: Remove during manage/ implementation
 import {
-  bcsMeasurements,
   xDates,
-  toSeriesInput,
   SeriesInput,
 } from "../../demo/data/BodyConditionHelpers";
 
-const defaultSeries: SeriesInput[] = toSeriesInput(bcsMeasurements, xDates);
-
-export default function BCSLineChart({ seriesData = defaultSeries }: { seriesData?: SeriesInput[] } = {}) {
+export default function BCSLineChart({ seriesData }: { seriesData: SeriesInput[] }) {
   const pathname = usePathname();
   const node = pathname.split('/')[1] || 'manage';
 
