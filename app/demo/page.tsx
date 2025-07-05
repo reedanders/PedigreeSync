@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { DashboardLanding } from '@/components/animals/layout/DashboardLanding';
 import BCSLineChart from '@/components/charts/line/BCSLine';
+import BCSMetricsCard from '@/components/charts/metrics/BCSMetricsCard';
 import { bcsMeasurements, xDates, toSeriesInput } from '@/components/demo/data/BodyConditionHelpers';
 
 export default function DashboardLandingPage() {
@@ -10,15 +11,24 @@ export default function DashboardLandingPage() {
 
   // Prepare the seriesData for the chart
   const seriesData = toSeriesInput(bcsMeasurements, xDates);
-  
-  const targetRangeLastDate = xDates[xDates.length - 1];
-  const seriesNameLastDate = xDates[xDates.length - 2];
-
-  
 
   return (
-    <div>
+    <div className="space-y-6">
       <DashboardLanding farmName={farm?.name} />
+      <div className="flex flex-row gap-6">
+        <BCSMetricsCard
+          title="Critically Low Condition"
+          subtitle="Ewes unlikely to regain body condition before breeding"
+          value={2}
+          color="red"
+        />
+        <BCSMetricsCard 
+          title="Moderately High Condition" 
+          subtitle="Ewes slighly above body condition before breeding"
+          value={8} 
+          color="green" 
+        />
+      </div>
       <BCSLineChart seriesData={seriesData} />
     </div>
   );
