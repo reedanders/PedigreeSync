@@ -42,13 +42,13 @@ export default function BCSHeatmap({ seriesData }: { seriesData: SeriesInput[] }
         <table className="min-w-full border-collapse font-sans text-sm">
           <thead>
             <tr>
-              <th className="p-3 border bg-gray-50 dark:bg-gray-900 text-left font-semibold text-gray-700 dark:text-gray-200 font-sans">
+              <th className="p-3 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-left font-semibold text-gray-700 dark:text-gray-200 font-sans">
                 Sheep
               </th>
               {xDates.map(date => (
                 <th
                   key={date}
-                  className="p-3 border bg-gray-50 dark:bg-gray-900 text-center font-semibold text-gray-700 dark:text-gray-200 font-sans"
+                  className="p-3 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-center font-semibold text-gray-700 dark:text-gray-200 font-sans"
                 >
                   {date}
                 </th>
@@ -59,7 +59,7 @@ export default function BCSHeatmap({ seriesData }: { seriesData: SeriesInput[] }
             {sheepSeries.map(sheep => (
               <tr key={sheep.name} className="hover:bg-gray-100 dark:hover:bg-gray-700 transition">
                 <td
-                  className="p-3 border font-mono hover:underline cursor-pointer font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
+                  className="p-3 border border-gray-200 dark:border-gray-700 font-mono hover:underline cursor-pointer font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800"
                   onClick={() => {
                     if (typeof window !== "undefined") {
                       window.open(`/${node}/animals/${encodeURIComponent(sheep.name)}`, "_blank");
@@ -69,20 +69,20 @@ export default function BCSHeatmap({ seriesData }: { seriesData: SeriesInput[] }
                   role="button"
                   title={`View ${sheep.name}`}
                 >
-                  {sheep.name}
+                  <span className="text-gray-900 dark:text-gray-100 font-mono">{sheep.name}</span>
                 </td>
                 {sheep.data.map((value, idx) => {
                   const target = getTargetForDate(seriesData, idx);
                   return (
                     <td
                       key={xDates[idx]}
-                      className="p-3 border text-center font-sans"
+                      className="p-3 border border-gray-200 dark:border-gray-700 text-center font-sans"
                       style={{ background: getColor(value, target, isDark) }}
                     >
                       {isNaN(value) ? (
                         <span className="text-gray-400 dark:text-gray-500">-</span>
                       ) : (
-                        <span className="font-semibold text-gray-800 dark:text-gray-100">{value.toFixed(2)}</span>
+                        <span className="text-gray-800 dark:text-gray-100">{value.toFixed(2)}</span>
                       )}
                     </td>
                   );
