@@ -9,7 +9,7 @@ export default function SettingsPage() {
       {/* Reset Password */}
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">Change Password</h2>
-        <PasswordResetForm />
+        <PasswordResetForm disabled={true} />
       </div>
     </div>
   );

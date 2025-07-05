@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { resetPassword } from '@/lib/actions/password'
 
-export function PasswordResetForm() {
+export function PasswordResetForm({ disabled = false }: { disabled?: boolean } = {}) {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -81,7 +81,8 @@ export function PasswordResetForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="px-4 py-2 bg-white dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-primary-500" 
+              className="px-4 py-2 bg-white dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              disabled={disabled || isSubmitting}
             />
           </div>
 
@@ -96,14 +97,15 @@ export function PasswordResetForm() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              className="px-4 py-2 bg-white dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-primary-500" 
+              className="px-4 py-2 bg-white dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              disabled={disabled || isSubmitting}
             />
           </div>
 
           <div className="flex flex-wrap gap-4 mt-2">
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={disabled || isSubmitting}
               className="px-4 py-2 text-white bg-primary-600 rounded-md hover:bg-primary-700 transition-colors disabled:bg-primary-400 disabled:cursor-not-allowed"
             >
               {isSubmitting ? 'Updating...' : 'Change Password'}
