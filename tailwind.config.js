@@ -6,6 +6,13 @@ module.exports = {
     darkMode: "class",
     theme: {
         extend: {
+          animation: {
+            'fade-in': 'fade-in 0.5s linear forwards',
+            marquee: 'marquee var(--marquee-duration) linear infinite',
+            'pulse-left-to-right': 'pulse-left-to-right 4s linear infinite',
+            'pulse-right-to-left': 'pulse-right-to-left 6s linear infinite',
+            'pulse-left-to-right-slow': 'pulse-left-to-right 5s linear infinite',
+          },
           colors: {
             trueGray: colors.neutral,
             primary: {
@@ -33,6 +40,37 @@ module.exports = {
               800: '#3f6212',
               900: '#365314',
               950: '#1a2e05',
+            },
+          },
+          keyframes: {
+            'fade-in': {
+              from: {
+                opacity: 0,
+              },
+              to: {
+                opacity: 1,
+              },
+            },
+            marquee: {
+              '100%': {
+                transform: 'translateY(-50%)',
+              },
+            },
+            'pulse-left-to-right': {
+              '0%': {
+                transform: 'translateX(-100%)',
+              },
+              '100%': {
+                transform: 'translateX(100%)',
+              },
+            },
+            'pulse-right-to-left': {
+              '0%': {
+                transform: 'translateX(100%)',
+              },
+              '100%': {
+                transform: 'translateX(-100%)',
+              },
             },
           },
         },

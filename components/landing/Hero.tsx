@@ -1,10 +1,14 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
+import { BackgroundIllustration } from "./BackgroundIllustration";
+import { AppStoreButton } from "@/components/ui/Button/AppStoreButton";
+import { Button } from "@/components/ui/Button/Button";
 import heroImg from "@/public/images/sheep_ear_tag_tiny.png";
 
 export const Hero = () => {
   return (
-    <Container className="flex flex-wrap px-0 sm:px-4 md:px-6 py-16">
+    <Container className="flex flex-wrap px-0 sm:px-4 md:px-6 py-16 relative">
+      <BackgroundIllustration className="absolute inset-0 -z-10" />
       <div className="flex items-center w-full lg:w-1/2 p-2 sm:p-4 lg:p-6">
         <div className="w-full mb-6 space-y-6">
           <h1 className="text-4xl sm:text-5xl font-bold leading-tight tracking-tight text-gray-900 lg:text-6xl xl:text-7xl dark:text-white">
@@ -15,34 +19,14 @@ export const Hero = () => {
           </p>
 
           <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
-            <a
+            <AppStoreButton />
+            <Button
               href="/demo"
-              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-lg font-medium text-center text-white bg-primary-600 rounded-md hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-800 transition-all outline-none shadow-md"
-              tabIndex={0}
+              variant="outline"
+              color="gray"
             >
               Launch Demo
-            </a>
-            <a
-              href="https://github.com/reedanders/pedigreesync"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 hover:text-primary-600 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 transition-colors"
-              tabIndex={0}
-            >
-              View Source on GitHub
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </a>
+            </Button>
           </div>
         </div>
       </div>
