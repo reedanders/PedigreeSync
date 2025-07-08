@@ -7,7 +7,7 @@ import heroImg from "@/public/images/sheep_ear_tag_tiny.png";
 
 export const Hero = () => {
   return (
-    <Container className="flex flex-wrap px-0 sm:px-4 md:px-6 py-16 relative">
+    <Container className="flex flex-wrap px-0 sm:px-4 md:px-6 py-4 relative">
       <BackgroundIllustration className="absolute inset-0 -z-10" />
       <div className="flex items-center w-full lg:w-1/2 p-2 sm:p-4 lg:p-6">
         <div className="w-full mb-6 space-y-6">
@@ -18,12 +18,13 @@ export const Hero = () => {
             Built for everyone in the field. An open-source animal welfare tool that empowers digital recordkeeping.
           </p>
 
-          <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
+          <div className="flex items-center space-x-4 md:space-x-6">
             <AppStoreButton />
             <Button
               href="/demo"
               variant="outline"
               color="gray"
+              className="w-full sm:w-auto"
             >
               Launch Demo
             </Button>
