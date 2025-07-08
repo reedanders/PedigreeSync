@@ -14,7 +14,7 @@ export default function BCSMetricsCard({ title, value, subtitle, color = "green"
       : "text-red-600 dark:text-red-400";
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-1/2 max-w-2xl">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 w-full sm:w-1/2 max-w-2xl">
       <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-1">
         {title}
       </h3>
