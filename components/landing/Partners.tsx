@@ -3,11 +3,11 @@ import React from "react";
 
 export const Partners = () => (
   <div className="w-full mt-12">
-    <div className="max-w-6xl mx-auto px-2 sm:px-6 py-4">
-      <h3 className="text-lg md:text-xl text-gray-700 dark:text-gray-200 font-semibold mb-6 text-center">
+    <div className="px-2 sm:px-6 py-4">
+      <h3 className="text-lg md:text-xl text-gray-700 dark:text-gray-200 font-semibold mb-6">
         In Collaboration With
       </h3>
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-12">
+      <div className="flex flex-col sm:flex-row items-start justify-start gap-12">
         <div className="flex flex-col items-center">
           <a
             href="https://www.instagram.com/rainbow_family_ranching/"

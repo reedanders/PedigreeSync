@@ -3,7 +3,7 @@ import { Partners } from "@/components/landing/Partners";
 
 export const HeroBlurb = () => (
   <div className="w-full mt-12">
-    <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg px-6 py-8 shadow-lg text-center max-w-3xl mx-auto">
+    <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg px-6 py-8 shadow-lg">
       <p className="text-lg md:text-xl text-gray-700 dark:text-gray-200 font-medium mb-4">
         PedigreeSync is a farmer-led, open-source initiative to make livestock
         recordkeeping radically more accessible, affordable, and resilient.
