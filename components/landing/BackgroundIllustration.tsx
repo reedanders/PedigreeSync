@@ -4,7 +4,7 @@ export function BackgroundIllustration(props: React.ComponentPropsWithoutRef<'di
   let id = useId()
 
   return (
-    <div {...props}>
+    <div {...props} aria-hidden="true">
       <svg
         viewBox="0 0 1026 1026"
         fill="none"
