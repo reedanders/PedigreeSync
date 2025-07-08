@@ -1,27 +1,23 @@
 import { forwardRef } from 'react'
 import Link from 'next/link'
 
-// Simple className utility to replace clsx
-function cn(...classes: (string | undefined | false | null)[]): string {
-  return classes.filter(Boolean).join(' ')
-}
-
 const baseStyles = {
   solid:
-    'inline-flex justify-center rounded-lg py-2 px-3 text-sm font-semibold outline-2 outline-offset-2 transition-colors',
+    'inline-flex justify-center rounded-lg py-2 px-3 text-sm font-semibold outline-2 outline-offset-2 transition-all duration-200',
   outline:
-    'inline-flex justify-center rounded-lg border py-[calc(theme(spacing.2)-1px)] px-[calc(theme(spacing.3)-1px)] text-sm outline-2 outline-offset-2 transition-colors',
+    'inline-flex justify-center rounded-lg border py-[calc(theme(spacing.2)-1px)] px-[calc(theme(spacing.3)-1px)] text-sm outline-2 outline-offset-2 transition-all duration-200',
 }
 
 const variantStyles = {
   solid: {
-    cyan: 'relative overflow-hidden bg-cyan-500 text-white before:absolute before:inset-0 active:before:bg-transparent hover:before:bg-white/10 active:bg-cyan-600 active:text-white/80 before:transition-colors',
+    primary: 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800',
     white:
-      'bg-white text-cyan-900 hover:bg-white/90 active:bg-white/90 active:text-cyan-900/70',
-    gray: 'bg-gray-800 text-white hover:bg-gray-900 active:bg-gray-800 active:text-white/80',
+      'bg-white text-primary-900 hover:bg-gray-50 active:bg-gray-100 border border-gray-200',
+    gray: 'bg-gray-800 text-white hover:bg-gray-900 active:bg-gray-700',
   },
   outline: {
-    gray: 'border-gray-300 text-gray-700 hover:border-gray-400 active:bg-gray-100 active:text-gray-700/80',
+    primary: 'border-primary-600 text-primary-600 hover:bg-primary-50 active:bg-primary-100 dark:border-primary-400 dark:text-primary-400 dark:hover:bg-primary-900/20',
+    gray: 'border-gray-300 text-gray-700 hover:bg-gray-50 active:bg-gray-100 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800',
   },
 } as const
 
@@ -41,14 +37,14 @@ export const Button = forwardRef<
   ButtonProps & 
     (React.ButtonHTMLAttributes<HTMLButtonElement> | React.AnchorHTMLAttributes<HTMLAnchorElement>)
 >(function Button(
-  { variant = 'solid', color = 'gray', className, href, ...props },
+  { variant = 'solid', color = 'primary', className, href, ...props },
   ref
 ) {
-  const combinedClassName = cn(
+  const combinedClassName = [
     baseStyles[variant],
     variantStyles[variant][color as keyof typeof variantStyles[typeof variant]],
     className
-  )
+  ].filter(Boolean).join(' ')
 
   return href ? (
     <Link 

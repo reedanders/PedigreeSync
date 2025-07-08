@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useAuth } from '@/lib/contexts/AuthContext';
 import ThemeChanger from "@/components/ui/Button/DarkSwitch";
 import { LambIcon } from "@/components/ui/Icon/LambIcon";
+import { Button } from "@/components/ui/Button/Button";
 
 export const Navbar = () => {
   const { user, isLoading, signOut, refreshSession } = useAuth();
@@ -89,29 +90,32 @@ export const Navbar = () => {
               >
                 Dashboard
               </Link>
-              <button
+              <Button
                 onClick={signOut}
-                className="px-4 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-md"
+                variant="solid"
+                color="primary"
               >
                 Log Out
-              </button>
+              </Button>
             </>
           )}
           
           {mounted && !isLoading && !isLoggedIn && (
             <>
-              <Link 
+              <Button 
                 href="/login" 
-                className="px-4 py-2 text-gray-800 dark:text-gray-200 hover:text-primary-600 dark:hover:text-primary-400"
+                variant="outline"
+                color="gray"
               >
                 Log In
-              </Link>
-              <Link 
+              </Button>
+              <Button 
                 href="/signup" 
-                className="px-4 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-md"
+                variant="solid"
+                color="primary"
               >
                 Sign Up
-              </Link>
+              </Button>
             </>
           )}
           
@@ -147,12 +151,14 @@ export const Navbar = () => {
                 >
                   Dashboard
                 </Link>
-                <button
+                <Button
                   onClick={signOut}
-                  className="block w-full text-center px-4 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-md"
+                  variant="solid"
+                  color="primary"
+                  className="w-full"
                 >
                   Log Out
-                </button>
+                </Button>
               </div>
             )}
             
@@ -164,12 +170,14 @@ export const Navbar = () => {
                 >
                   Log In
                 </Link>
-                <Link 
+                <Button 
                   href="/signup" 
-                  className="block w-full text-center px-4 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-md"
+                  variant="solid"
+                  color="primary"
+                  className="w-full"
                 >
                   Sign Up
-                </Link>
+                </Button>
               </div>
             )}
           </div>
