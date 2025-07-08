@@ -7,7 +7,7 @@ interface AppStoreButtonProps {
 export function AppStoreButton({ color = 'black' }: AppStoreButtonProps) {
   return (
     <Link
-      href="#"
+      href="#roadmap"
       aria-label="Download on the App Store"
       className={`rounded-lg transition-colors ${
         color === 'black'
