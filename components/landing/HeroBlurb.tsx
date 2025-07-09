@@ -2,8 +2,8 @@ import React from "react";
 import { Partners } from "@/components/landing/Partners";
 
 export const HeroBlurb = () => (
-  <div className="w-full mt-12">
-    <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg px-8 py-10 md:px-12 md:py-12 shadow-lg">
+  <div className="w-full mt-12 px-4 sm:px-6 lg:px-0">
+    <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg px-6 py-8 md:px-10 md:py-10 shadow-lg">
       <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
         {/* Partners on the left */}
         <div className="w-full lg:w-1/3 flex-shrink-0">
