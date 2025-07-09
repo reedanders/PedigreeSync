@@ -54,7 +54,7 @@ export const Roadmap = () => {
       </div>
 
       {/* Roadmap Phases Section */}
-      <section className="space-y-16">
+      <section className="space-y-12">
         {/* Phase 1 */}
         <div id="phase-1" className="p-6 sm:p-8 bg-primary-50 dark:bg-primary-900/20 rounded-lg shadow">
           <h2 className="text-2xl font-semibold text-primary-600 dark:text-primary-400 mb-4">
