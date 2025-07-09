@@ -11,7 +11,7 @@ export const HeroBlurb = () => (
         </div>
         
         {/* Content on the right */}
-        <div className="w-full lg:w-2/3">
+        <div className="w-full lg:w-2/3 text-center lg:text-left">
           <p className="text-lg md:text-xl text-gray-700 dark:text-gray-200 font-medium mb-4">
             PedigreeSync is a farmer-led, open-source initiative to make livestock
             recordkeeping radically more accessible, affordable, and resilient.
