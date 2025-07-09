@@ -7,7 +7,7 @@ export const metadata = {
 
 export const Roadmap = () => {
   return (
-    <div className="py-10 sm:py-16 px-4 sm:px-6 lg:px-0">
+    <div className="py-14 sm:py-16 px-4 sm:px-6 lg:px-0">
       {/* Hero Section */}
       <div className="text-center mb-10 sm:mb-16">
         <h1 className="text-3xl sm:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight">
@@ -21,7 +21,7 @@ export const Roadmap = () => {
       {/* Introduction Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-16">
         {/* Stage Navigation Table */}
-        <div className="lg:col-span-2 mb-16 sm:mb-32">
+        <div className="lg:col-span-2 mb-8 sm:mb-16 lg:mb-32">
           <div className="grid grid-cols-1 sm:grid-cols-12 text-sm bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
             <a href="#phase-1" className="col-span-1 sm:col-span-12 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-start sm:items-center py-3 sm:py-4 px-4 sm:px-6 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
               <div className="hidden sm:block w-1/6 text-primary-500 font-mono">Now</div>
@@ -45,7 +45,7 @@ export const Roadmap = () => {
         </div>
 
         {/* Why It Matters Section */}
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 mb-16 lg:mb-0">
           <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white mb-3 sm:mb-4">Why It Matters</h3>
           <p className="text-gray-700 dark:text-gray-300 mb-2 sm:mb-3">
             Small-scale producers face real barriers: limited infrastructure, time pressure, and fragmented worksites. We're researching a tool to reduce labor costs and improve welfare.
