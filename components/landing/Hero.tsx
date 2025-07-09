@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Container } from "@/components/layout/Container";
 import { BackgroundIllustration } from "./BackgroundIllustration";
 import { AppStoreButton } from "@/components/ui/Button/AppStoreButton";
 import { Button } from "@/components/ui/Button/Button";
@@ -7,9 +6,9 @@ import heroImg from "@/public/images/sheep_ear_tag_tiny.png";
 
 export const Hero = () => {
   return (
-    <Container className="flex flex-wrap px-0 sm:px-4 md:px-6 py-4 relative">
+    <div className="flex flex-wrap py-4 px-4 sm:px-6 lg:px-0 relative">
       <BackgroundIllustration className="absolute inset-0 -z-10" />
-      <div className="flex items-center w-full lg:w-1/2 p-2 sm:p-4 lg:p-6">
+      <div className="flex items-center w-full lg:w-1/2 pr-0 lg:pr-6">
         <div className="w-full mb-6 space-y-6">
           <h1 className="text-4xl sm:text-5xl font-bold leading-tight tracking-tight text-gray-900 lg:text-6xl xl:text-7xl dark:text-white">
             Scan Ear Tags with Just Your iPhone
@@ -32,7 +31,7 @@ export const Hero = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center w-full lg:w-1/2 px-2 sm:px-0">
+      <div className="flex items-center justify-center w-full lg:w-1/2 px-0 lg:px-2">
         <div className="relative w-full max-w-xl">
           <Image
             src={heroImg}
@@ -45,6 +44,6 @@ export const Hero = () => {
         </div>
       </div>
 
-    </Container>
+    </div>
   );
 };
