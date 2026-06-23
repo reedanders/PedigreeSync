@@ -67,15 +67,7 @@ export function Footer() {
         </div>
 
         <div className="my-10 text-sm text-center text-gray-600 dark:text-gray-400">
-          Copyright © {new Date().getFullYear()}. Made with ♥ by{" "}
-          <a
-            href="https://github.com/reedanders"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-primary-500"
-          >
-            Reed Anders
-          </a>
+          Copyright © {new Date().getFullYear()}. Anderson Falk LLC
         </div>
       </Container>
     </div>
